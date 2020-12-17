@@ -15,7 +15,7 @@
 #include "util/optional.h"
 #include <xdrpp/marshal.h>
 
-using namespace stellar;
+using namespace payshares;
 
 struct LedgerUpgradeableData
 {
@@ -482,7 +482,7 @@ TEST_CASE("Ledger Manager applies upgrades properly", "[upgrades]")
             LedgerManager::GENESIS_LEDGER_BASE_RESERVE);
 
     auto executeUpgrades = [&](xdr::xvector<UpgradeType, 6> const& upgrades) {
-        StellarValue sv{txSet->getContentsHash(), 2, upgrades, 0};
+        PaysharesValue sv{txSet->getContentsHash(), 2, upgrades, 0};
         LedgerCloseData ledgerData(lcl.header.ledgerSeq + 1, txSet, sv);
         app->getLedgerManager().closeLedger(ledgerData);
         return app->getLedgerManager().getLastClosedLedgerHeader();

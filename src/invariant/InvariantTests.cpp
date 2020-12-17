@@ -17,7 +17,7 @@
 #include "test/TestUtils.h"
 #include "test/test.h"
 
-using namespace stellar;
+using namespace payshares;
 
 namespace InvariantTests
 {

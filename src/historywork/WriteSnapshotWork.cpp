@@ -10,7 +10,7 @@
 #include "main/Application.h"
 #include "util/XDRStream.h"
 
-namespace stellar
+namespace payshares
 {
 
 WriteSnapshotWork::WriteSnapshotWork(Application& app, WorkParent& parent,

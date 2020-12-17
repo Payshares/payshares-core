@@ -14,7 +14,7 @@
 #include <lib/util/basen.h>
 #include <xdrpp/marshal.h>
 
-namespace stellar
+namespace payshares
 {
 
 std::unique_ptr<HerderPersistence>
@@ -64,7 +64,7 @@ HerderPersistenceImpl::saveSCPHistory(uint32_t seq,
         usedQSets.insert(
             std::make_pair(qHash, mApp.getHerder().getQSet(qHash)));
 
-        std::string nodeIDStrKey = KeyUtils::toStrKey(e.statement.nodeID);
+        std::string nodeIDPsrKey = KeyUtils::toPsrKey(e.statement.nodeID);
 
         auto envelopeBytes(xdr::xdr_to_opaque(e));
 
@@ -77,7 +77,7 @@ HerderPersistenceImpl::saveSCPHistory(uint32_t seq,
                                     "(:n, :l, :e)");
 
         auto& st = prepEnv.statement();
-        st.exchange(soci::use(nodeIDStrKey));
+        st.exchange(soci::use(nodeIDPsrKey));
         st.exchange(soci::use(seq));
         st.exchange(soci::use(envelopeEncoded));
         st.define_and_bind();

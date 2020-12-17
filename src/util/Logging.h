@@ -15,7 +15,7 @@
 //  include this file instead
 #include "lib/util/easylogging++.h"
 
-namespace stellar
+namespace payshares
 {
 class Logging
 {

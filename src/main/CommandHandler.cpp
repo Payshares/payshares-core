@@ -29,12 +29,12 @@
 #include "test/TxTests.h"
 #include <regex>
 
-using namespace stellar::txtest;
+using namespace payshares::txtest;
 
 using std::placeholders::_1;
 using std::placeholders::_2;
 
-namespace stellar
+namespace payshares
 {
 CommandHandler::CommandHandler(Application& app) : mApp(app)
 {
@@ -54,13 +54,13 @@ CommandHandler::CommandHandler(Application& app) : mApp(app)
 
         int httpMaxClient = mApp.getConfig().HTTP_MAX_CLIENT;
 
-        mServer = stellar::make_unique<http::server::server>(
+        mServer = payshares::make_unique<http::server::server>(
             app.getClock().getIOService(), ipStr, mApp.getConfig().HTTP_PORT,
             httpMaxClient);
     }
     else
     {
-        mServer = stellar::make_unique<http::server::server>(
+        mServer = payshares::make_unique<http::server::server>(
             app.getClock().getIOService());
     }
 
@@ -175,7 +175,7 @@ CommandHandler::testAcc(std::string const& params, std::string& retStr)
         if (acc)
         {
             root["name"] = accName->second;
-            root["id"] = KeyUtils::toStrKey(acc->getID());
+            root["id"] = KeyUtils::toPsrKey(acc->getID());
             root["balance"] = (Json::Int64)acc->getBalance();
             root["seqnum"] = (Json::UInt64)acc->getSeqNum();
         }
@@ -215,8 +215,8 @@ CommandHandler::testTx(std::string const& params, std::string& retStr)
 
         root["from_name"] = from->second;
         root["to_name"] = to->second;
-        root["from_id"] = KeyUtils::toStrKey(fromAccount.getPublicKey());
-        root["to_id"] = KeyUtils::toStrKey(toAccount.getPublicKey());
+        root["from_id"] = KeyUtils::toPsrKey(fromAccount.getPublicKey());
+        root["to_id"] = KeyUtils::toPsrKey(toAccount.getPublicKey());
         root["amount"] = (Json::UInt64)paymentAmount;
 
         TransactionFramePtr txFrame;
@@ -258,7 +258,7 @@ CommandHandler::testTx(std::string const& params, std::string& retStr)
 void
 CommandHandler::fileNotFound(std::string const& params, std::string& retStr)
 {
-    retStr = "<b>Welcome to stellar-core!</b><p>";
+    retStr = "<b>Welcome to payshares-core!</b><p>";
     retStr += "supported commands:<p/>";
 
     retStr +=
@@ -335,7 +335,7 @@ CommandHandler::fileNotFound(std::string const& params, std::string& retStr)
         "identified by `ID` with value `N`. ID is an uppercase AlphaNum, N is "
         "an uint32 that represents the last ledger sequence number that the "
         "instance ID processed."
-        "Cursors are used by dependent services to tell stellar - core which "
+        "Cursors are used by dependent services to tell payshares - core which "
         "data can be safely deleted by the instance."
         "The data is historical data stored in the SQL tables such as "
         "txhistory or ledgerheaders.When all consumers processed the data for "
@@ -366,7 +366,7 @@ CommandHandler::manualClose(std::string const& params, std::string& retStr)
     else
     {
         retStr =
-            "Set MANUAL_CLOSE=true in the stellar-core.cfg if you want this "
+            "Set MANUAL_CLOSE=true in the payshares-core.cfg if you want this "
             "behavior";
     }
 }
@@ -453,7 +453,7 @@ CommandHandler::generateLoad(std::string const& params, std::string& retStr)
     else
     {
         retStr = "Set ARTIFICIALLY_GENERATE_LOAD_FOR_TESTING=true in "
-                 "the stellar-core.cfg if you want this behavior";
+                 "the payshares-core.cfg if you want this behavior";
     }
 }
 
@@ -485,7 +485,7 @@ CommandHandler::peers(std::string const&, std::string& retStr)
         root["authenticated_peers"][counter]["olver"] =
             (int)peer.second->getRemoteOverlayVersion();
         root["authenticated_peers"][counter]["id"] =
-            mApp.getConfig().toStrKey(peer.first);
+            mApp.getConfig().toPsrKey(peer.first);
 
         counter++;
     }
@@ -737,7 +737,7 @@ CommandHandler::upgrades(std::string const& params, std::string& retStr)
         p.mUpgradeTime = VirtualClock::tmToPoint(tm);
 
         auto addParam = [&](std::string const& name,
-                            stellar::optional<uint32>& f) {
+                            payshares::optional<uint32>& f) {
             uint32 v;
             bool updated;
             if (!parseNumParam(retMap, name, v, retStr,
@@ -751,7 +751,7 @@ CommandHandler::upgrades(std::string const& params, std::string& retStr)
             }
             else if (updated)
             {
-                f = stellar::make_optional<uint32>(v);
+                f = payshares::make_optional<uint32>(v);
             }
             else
             {
@@ -906,7 +906,7 @@ CommandHandler::tx(std::string const& params, std::string& retStr)
 
             if (status == Herder::TX_STATUS_PENDING)
             {
-                StellarMessage msg;
+                PaysharesMessage msg;
                 msg.type(TRANSACTION);
                 msg.transaction() = envelope;
                 mApp.getOverlayManager().broadcastMessage(msg);

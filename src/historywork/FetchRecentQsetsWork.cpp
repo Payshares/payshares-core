@@ -12,7 +12,7 @@
 #include "util/XDRStream.h"
 #include "util/make_unique.h"
 
-namespace stellar
+namespace payshares
 {
 
 FetchRecentQsetsWork::FetchRecentQsetsWork(Application& app, WorkParent& parent,

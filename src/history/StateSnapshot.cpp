@@ -24,7 +24,7 @@
 #include "medida/counter.h"
 #include "medida/metrics_registry.h"
 
-namespace stellar
+namespace payshares
 {
 
 StateSnapshot::StateSnapshot(Application& app, HistoryArchiveState const& state)

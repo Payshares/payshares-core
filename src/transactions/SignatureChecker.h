@@ -4,16 +4,16 @@
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
-#include "xdr/Stellar-ledger-entries.h"
-#include "xdr/Stellar-transaction.h"
-#include "xdr/Stellar-types.h"
+#include "xdr/Payshares-ledger-entries.h"
+#include "xdr/Payshares-transaction.h"
+#include "xdr/Payshares-types.h"
 
 #include <map>
 #include <set>
 #include <stdint.h>
 #include <vector>
 
-namespace stellar
+namespace payshares
 {
 
 using UsedOneTimeSignerKeys = std::map<AccountID, std::set<SignerKey>>;

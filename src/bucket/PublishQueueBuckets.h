@@ -8,7 +8,7 @@
 #include <string>
 #include <vector>
 
-namespace stellar
+namespace payshares
 {
 
 class PublishQueueBuckets

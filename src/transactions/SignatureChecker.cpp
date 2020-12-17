@@ -11,7 +11,7 @@
 #include "transactions/SignatureUtils.h"
 #include "util/Algoritm.h"
 
-namespace stellar
+namespace payshares
 {
 
 using xdr::operator<;

@@ -10,7 +10,7 @@
 #include "util/format.h"
 #include <unordered_map>
 
-namespace stellar
+namespace payshares
 {
 
 AccountSubEntriesCountIsValid::AccountSubEntriesCountIsValid()
@@ -52,7 +52,7 @@ AccountSubEntriesCountIsValid::checkOnOperationApply(
             return fmt::format(
                 "Change in Account {} numSubEntries ({}) does not"
                 " match change in number of subentries ({})",
-                KeyUtils::toStrKey(kv.first), change.numSubEntries,
+                KeyUtils::toPsrKey(kv.first), change.numSubEntries,
                 change.calculatedSubEntries);
         }
     }
@@ -74,7 +74,7 @@ AccountSubEntriesCountIsValid::checkOnOperationApply(
                 return fmt::format(
                     "Deleted Account {} has {} subentries other than"
                     " signers",
-                    KeyUtils::toStrKey(account.accountID), otherSubEntries);
+                    KeyUtils::toPsrKey(account.accountID), otherSubEntries);
             }
         }
     }

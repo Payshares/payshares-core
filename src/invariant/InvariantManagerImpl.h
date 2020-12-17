@@ -14,7 +14,7 @@ namespace medida
 class MetricsRegistry;
 }
 
-namespace stellar
+namespace payshares
 {
 
 class InvariantManagerImpl : public InvariantManager

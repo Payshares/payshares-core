@@ -11,7 +11,7 @@
 #include <limits>
 #include <regex>
 
-namespace stellar
+namespace payshares
 {
 
 using namespace std;

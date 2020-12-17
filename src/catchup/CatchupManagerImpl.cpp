@@ -19,7 +19,7 @@
 #include "util/make_unique.h"
 #include "work/WorkManager.h"
 
-namespace stellar
+namespace payshares
 {
 
 std::unique_ptr<CatchupManager>

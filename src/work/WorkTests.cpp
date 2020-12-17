@@ -16,7 +16,7 @@
 #include <random>
 #include <xdrpp/autocheck.h>
 
-using namespace stellar;
+using namespace payshares;
 
 class CallCmdWork : public Work
 {

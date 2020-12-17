@@ -4,7 +4,7 @@
 
 #include "test/TestExceptions.h"
 
-namespace stellar
+namespace payshares
 {
 
 namespace txtest

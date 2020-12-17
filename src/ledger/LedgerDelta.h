@@ -13,7 +13,7 @@
 #include <memory>
 #include <set>
 
-namespace stellar
+namespace payshares
 {
 class Application;
 class Database;

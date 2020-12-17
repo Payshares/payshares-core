@@ -7,7 +7,7 @@
 #include <map>
 #include <string>
 
-namespace stellar
+namespace payshares
 {
 
 /*

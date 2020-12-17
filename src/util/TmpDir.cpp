@@ -11,7 +11,7 @@
 #include "util/Logging.h"
 #include "util/make_unique.h"
 
-namespace stellar
+namespace payshares
 {
 
 TmpDir::TmpDir(std::string const& prefix)

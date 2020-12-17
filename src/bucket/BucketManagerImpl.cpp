@@ -8,7 +8,7 @@
 #include "history/HistoryManager.h"
 #include "main/Application.h"
 #include "main/Config.h"
-#include "overlay/StellarXDR.h"
+#include "overlay/PaysharesXDR.h"
 #include "util/Fs.h"
 #include "util/Logging.h"
 #include "util/TmpDir.h"
@@ -23,7 +23,7 @@
 #include "medida/metrics_registry.h"
 #include "medida/timer.h"
 
-namespace stellar
+namespace payshares
 {
 
 std::unique_ptr<BucketManager>
@@ -68,7 +68,7 @@ BucketManagerImpl::BucketManagerImpl(Application& app)
 {
 }
 
-const std::string BucketManagerImpl::kLockFilename = "stellar-core.lock";
+const std::string BucketManagerImpl::kLockFilename = "payshares-core.lock";
 
 static std::string
 bucketBasename(std::string const& bucketHexHash)

@@ -9,7 +9,7 @@
 
 #include <iostream>
 
-namespace stellar
+namespace payshares
 {
 
 NtpWork::NtpWork(Application& app, WorkParent& parent, std::string ntpServer,

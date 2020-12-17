@@ -7,7 +7,7 @@
 #include "database/DatabaseConnectionString.h"
 #include "main/Application.h"
 #include "main/Config.h"
-#include "overlay/StellarXDR.h"
+#include "overlay/PaysharesXDR.h"
 #include "util/GlobalChecks.h"
 #include "util/Logging.h"
 #include "util/Timer.h"
@@ -45,7 +45,7 @@ extern "C" void register_factory_postgresql();
 // NOTE: soci will just crash and not throw
 //  if you misname a column in a query. yay!
 
-namespace stellar
+namespace payshares
 {
 
 using namespace soci;

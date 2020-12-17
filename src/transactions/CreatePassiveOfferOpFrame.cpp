@@ -4,7 +4,7 @@
 
 #include "transactions/CreatePassiveOfferOpFrame.h"
 
-namespace stellar
+namespace payshares
 {
 
 // change from CreatePassiveOfferOp to ManageOfferOp

@@ -17,7 +17,7 @@ class Counter;
 class Timer;
 }
 
-namespace stellar
+namespace payshares
 {
 class TmpDirManager;
 class LedgerManager;

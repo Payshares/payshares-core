@@ -22,7 +22,7 @@
 #include <unordered_map>
 #include <utility>
 
-using namespace stellar;
+using namespace payshares;
 
 namespace LedgerEntryTests
 {

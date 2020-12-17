@@ -11,14 +11,14 @@
 #include "overlay/LoadManager.h"
 #include "overlay/OverlayManager.h"
 #include "overlay/PeerRecord.h"
-#include "overlay/StellarXDR.h"
+#include "overlay/PaysharesXDR.h"
 #include "util/GlobalChecks.h"
 #include "util/Logging.h"
 #include "xdrpp/marshal.h"
 
 using namespace soci;
 
-namespace stellar
+namespace payshares
 {
 
 using namespace std;

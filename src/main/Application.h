@@ -5,7 +5,7 @@
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
 #include "main/Config.h"
-#include "xdr/Stellar-types.h"
+#include "xdr/Payshares-types.h"
 #include <lib/json/json.h>
 #include <memory>
 #include <string>
@@ -19,7 +19,7 @@ namespace medida
 class MetricsRegistry;
 }
 
-namespace stellar
+namespace payshares
 {
 
 class VirtualClock;
@@ -45,7 +45,7 @@ class Application;
 void validateNetworkPassphrase(std::shared_ptr<Application> app);
 
 /*
- * State of a single instance of the stellar-core application.
+ * State of a single instance of the payshares-core application.
  *
  * Multiple instances may exist in the same process, eg. for the sake of testing
  * by simulating a network of Applications.

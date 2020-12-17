@@ -4,7 +4,7 @@
 
 #include "InvariantDoesNotHold.h"
 
-namespace stellar
+namespace payshares
 {
 
 InvariantDoesNotHold::InvariantDoesNotHold(std::string const& msg)

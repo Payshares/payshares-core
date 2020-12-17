@@ -13,7 +13,7 @@ namespace soci
 class session;
 }
 
-namespace stellar
+namespace payshares
 {
 class LedgerRange;
 class ManageOfferOpFrame;

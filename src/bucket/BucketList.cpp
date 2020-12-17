@@ -15,7 +15,7 @@
 #include "util/types.h"
 #include <cassert>
 
-namespace stellar
+namespace payshares
 {
 
 BucketLevel::BucketLevel(uint32_t i)

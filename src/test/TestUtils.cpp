@@ -6,7 +6,7 @@
 #include "overlay/LoopbackPeer.h"
 #include "util/make_unique.h"
 
-namespace stellar
+namespace payshares
 {
 
 namespace testutil

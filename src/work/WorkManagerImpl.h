@@ -4,7 +4,7 @@
 
 #include "work/WorkManager.h"
 
-namespace stellar
+namespace payshares
 {
 
 class WorkManagerImpl : public WorkManager

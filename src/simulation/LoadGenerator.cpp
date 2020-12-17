@@ -36,7 +36,7 @@
 #include <iomanip>
 #include <set>
 
-namespace stellar
+namespace payshares
 {
 
 using namespace std;
@@ -56,7 +56,7 @@ const uint32_t LoadGenerator::STEP_MSECS = 100;
 LoadGenerator::LoadGenerator(Hash const& networkID)
     : mMinBalance(0), mLastSecond(0)
 {
-    // Root account gets enough XLM to create 10 million (10^7) accounts, which
+    // Root account gets enough XPS to create 10 million (10^7) accounts, which
     // thereby uses up 7 + 3 + 7 = 17 decimal digits. Luckily we have 2^63 =
     // 9.2*10^18, so there's room even in 62bits to do this.
     auto root = make_shared<AccountInfo>(0, txtest::getRoot(networkID),
@@ -899,7 +899,7 @@ LoadGenerator::TxInfo::execute(Application& app)
     {
         txm.mTxnAttempted.Mark();
         {
-            StellarMessage msg;
+            PaysharesMessage msg;
             msg.type(TRANSACTION);
             msg.transaction() = f->getEnvelope();
             txm.mTxnBytes.Mark(xdr::xdr_argpack_size(msg));

@@ -16,8 +16,8 @@
 #include "util/Timer.h"
 #include "util/make_unique.h"
 
-using namespace stellar;
-using namespace stellar::txtest;
+using namespace payshares;
+using namespace payshares::txtest;
 
 // Merging when you are holding credit
 // Merging when others are holding your credit
@@ -399,12 +399,12 @@ TEST_CASE("merge", "[tx][merge]")
         {
             for_all_versions(*app, [&] {
                 gateway.pay(a1, usd, trustLineBalance);
-                auto xlm = makeNativeAsset();
+                auto xps = makeNativeAsset();
 
                 const Price somePrice(3, 2);
                 for (int i = 0; i < 4; i++)
                 {
-                    a1.manageOffer(0, xlm, usd, somePrice, 100);
+                    a1.manageOffer(0, xps, usd, somePrice, 100);
                 }
                 // empty out balance
                 a1.pay(gateway, usd, trustLineBalance);

@@ -13,7 +13,7 @@
 #include "overlay/Floodgate.h"
 #include "overlay/ItemFetcher.h"
 #include "overlay/OverlayManager.h"
-#include "overlay/StellarXDR.h"
+#include "overlay/PaysharesXDR.h"
 #include "util/Timer.h"
 #include <set>
 #include <vector>
@@ -27,7 +27,7 @@ class Counter;
 /*
 Maintain the set of peers we are connected to
 */
-namespace stellar
+namespace payshares
 {
 
 class OverlayManagerImpl : public OverlayManager
@@ -70,8 +70,8 @@ class OverlayManagerImpl : public OverlayManager
     ~OverlayManagerImpl();
 
     void ledgerClosed(uint32_t lastClosedledgerSeq) override;
-    void recvFloodedMsg(StellarMessage const& msg, Peer::pointer peer) override;
-    void broadcastMessage(StellarMessage const& msg,
+    void recvFloodedMsg(PaysharesMessage const& msg, Peer::pointer peer) override;
+    void broadcastMessage(PaysharesMessage const& msg,
                           bool force = false) override;
     void connectTo(std::string const& addr) override;
     virtual void connectTo(PeerRecord& pr) override;

@@ -16,7 +16,7 @@ Levels:
     INFO
 */
 
-namespace stellar
+namespace payshares
 {
 
 namespace

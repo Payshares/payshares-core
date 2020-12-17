@@ -12,7 +12,7 @@
 #include <string>
 #include <utility>
 
-namespace stellar
+namespace payshares
 {
 class Node;
 class Slot;

@@ -9,7 +9,7 @@
 
 #include <array>
 
-namespace stellar
+namespace payshares
 {
 
 NtpClient::NtpClient(asio::io_service& ioService, std::string server,

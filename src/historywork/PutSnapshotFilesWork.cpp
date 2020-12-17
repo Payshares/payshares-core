@@ -13,7 +13,7 @@
 #include "historywork/PutRemoteFileWork.h"
 #include "main/Application.h"
 
-namespace stellar
+namespace payshares
 {
 
 PutSnapshotFilesWork::PutSnapshotFilesWork(

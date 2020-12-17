@@ -5,7 +5,7 @@
 #include "lib/catch.hpp"
 #include "lib/util/lrucache.hpp"
 
-namespace stellar
+namespace payshares
 {
 
 using IntCache = cache::lru_cache<int, int>;

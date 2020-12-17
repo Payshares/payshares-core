@@ -8,7 +8,7 @@
 #include <utility>
 #include <vector>
 
-namespace stellar
+namespace payshares
 {
 
 class CatchupConfiguration;

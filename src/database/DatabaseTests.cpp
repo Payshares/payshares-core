@@ -15,7 +15,7 @@
 #include "util/TmpDir.h"
 #include <random>
 
-using namespace stellar;
+using namespace payshares;
 
 void
 transactionTest(Application::pointer app)

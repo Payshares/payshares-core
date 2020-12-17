@@ -5,7 +5,7 @@
 #include "crypto/Hex.h"
 #include <sodium.h>
 
-namespace stellar
+namespace payshares
 {
 
 std::string
@@ -21,7 +21,7 @@ binToHex(ByteSlice const& bin)
         hex.data())
     {
         throw std::runtime_error(
-            "error in stellar::binToHex(std::vector<uint8_t>)");
+            "error in payshares::binToHex(std::vector<uint8_t>)");
     }
     return std::string(hex.begin(), hex.end() - 1);
 }
@@ -44,7 +44,7 @@ hexToBin(std::string const& hex)
     if (sodium_hex2bin(bin.data(), bin.size(), hex.data(), hex.size(), NULL,
                        NULL, NULL) != 0)
     {
-        throw std::runtime_error("error in stellar::hexToBin(std::string)");
+        throw std::runtime_error("error in payshares::hexToBin(std::string)");
     }
     return bin;
 }

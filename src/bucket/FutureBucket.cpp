@@ -16,7 +16,7 @@
 
 #include <chrono>
 
-namespace stellar
+namespace payshares
 {
 
 FutureBucket::FutureBucket(Application& app,

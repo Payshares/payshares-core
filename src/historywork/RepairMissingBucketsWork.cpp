@@ -10,7 +10,7 @@
 #include "historywork/VerifyBucketWork.h"
 #include "main/Application.h"
 
-namespace stellar
+namespace payshares
 {
 
 RepairMissingBucketsWork::RepairMissingBucketsWork(

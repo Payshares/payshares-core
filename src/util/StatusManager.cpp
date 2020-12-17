@@ -6,7 +6,7 @@
 
 #include <array>
 
-namespace stellar
+namespace payshares
 {
 
 StatusManager::StatusManager()

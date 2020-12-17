@@ -5,9 +5,9 @@
 #include "test/TestMarket.h"
 #include "test/TestAccount.h"
 #include "test/TxTests.h"
-#include "xdr/Stellar-ledger-entries.h"
+#include "xdr/Payshares-ledger-entries.h"
 
-namespace stellar
+namespace payshares
 {
 
 using namespace txtest;

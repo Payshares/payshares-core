@@ -444,7 +444,7 @@
     <ClCompile Include="..\..\lib\util\crc16.cpp">
       <Filter>util</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\crypto\StrKey.cpp">
+    <ClCompile Include="..\..\src\crypto\PsrKey.cpp">
       <Filter>crypto</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\main\dumpxdr.cpp">
@@ -789,7 +789,7 @@
     <ClCompile Include="..\..\src\invariant\CacheIsConsistentWithDatabase.cpp">
       <Filter>invariant</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\invariant\ConservationOfLumens.cpp">
+    <ClCompile Include="..\..\src\invariant\ConservationOfStakks.cpp">
       <Filter>invariant</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\invariant\InvariantDoesNotHold.cpp">
@@ -819,7 +819,7 @@
     <ClCompile Include="..\..\src\invariant\CacheIsConsistentWithDatabaseTests.cpp">
       <Filter>invariant\tests</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\invariant\ConservationOfLumensTests.cpp">
+    <ClCompile Include="..\..\src\invariant\ConservationOfStakksTests.cpp">
       <Filter>invariant\tests</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\invariant\MinimumAccountBalanceTests.cpp">
@@ -1121,28 +1121,28 @@
     <ClInclude Include="..\..\lib\util\basen.h">
       <Filter>util</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\crypto\StrKey.h">
+    <ClInclude Include="..\..\src\crypto\PsrKey.h">
       <Filter>crypto</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\main\dumpxdr.h">
       <Filter>main</Filter>
     </ClInclude>
-    <ClInclude Include="src\generated\xdr\Stellar-ledger.h">
+    <ClInclude Include="src\generated\xdr\Payshares-ledger.h">
       <Filter>xdr\generated</Filter>
     </ClInclude>
-    <ClInclude Include="src\generated\xdr\Stellar-ledger-entries.h">
+    <ClInclude Include="src\generated\xdr\Payshares-ledger-entries.h">
       <Filter>xdr\generated</Filter>
     </ClInclude>
-    <ClInclude Include="src\generated\xdr\Stellar-overlay.h">
+    <ClInclude Include="src\generated\xdr\Payshares-overlay.h">
       <Filter>xdr\generated</Filter>
     </ClInclude>
-    <ClInclude Include="src\generated\xdr\Stellar-SCP.h">
+    <ClInclude Include="src\generated\xdr\Payshares-SCP.h">
       <Filter>xdr\generated</Filter>
     </ClInclude>
-    <ClInclude Include="src\generated\xdr\Stellar-transaction.h">
+    <ClInclude Include="src\generated\xdr\Payshares-transaction.h">
       <Filter>xdr\generated</Filter>
     </ClInclude>
-    <ClInclude Include="src\generated\xdr\Stellar-types.h">
+    <ClInclude Include="src\generated\xdr\Payshares-types.h">
       <Filter>xdr\generated</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\main\ExternalQueue.h">
@@ -1163,7 +1163,7 @@
     <ClInclude Include="..\..\src\overlay\LoadManager.h">
       <Filter>overlay</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\overlay\StellarXDR.h">
+    <ClInclude Include="..\..\src\overlay\PaysharesXDR.h">
       <Filter>overlay</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\transactions\ManageDataOpFrame.h">
@@ -1406,7 +1406,7 @@
     <ClInclude Include="..\..\src\invariant\CacheIsConsistentWithDatabase.h">
       <Filter>invariant</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\invariant\ConservationOfLumens.h">
+    <ClInclude Include="..\..\src\invariant\ConservationOfStakks.h">
       <Filter>invariant</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\invariant\Invariant.h">
@@ -1489,13 +1489,13 @@
     <None Include="..\..\docs\readme.md">
       <Filter>docs</Filter>
     </None>
-    <None Include="..\..\docs\stellar-core_example.cfg">
+    <None Include="..\..\docs\payshares-core_example.cfg">
       <Filter>docs</Filter>
     </None>
-    <None Include="..\..\docs\stellar-core_standalone.cfg">
+    <None Include="..\..\docs\payshares-core_standalone.cfg">
       <Filter>docs</Filter>
     </None>
-    <None Include="..\..\docs\stellar-core_testnet.cfg">
+    <None Include="..\..\docs\payshares-core_testnet.cfg">
       <Filter>docs</Filter>
     </None>
     <None Include="..\..\docs\transaction.md">
@@ -1523,30 +1523,30 @@
     <None Include="..\..\src\history\readme.md">
       <Filter>history</Filter>
     </None>
-    <None Include="..\..\src\history\serialize-tests\stellar-history.livenet.15686975.json">
+    <None Include="..\..\src\history\serialize-tests\payshares-history.livenet.15686975.json">
       <Filter>history\tests\serialize-tests</Filter>
     </None>
-    <None Include="..\..\src\history\serialize-tests\stellar-history.testnet.6714239.json">
+    <None Include="..\..\src\history\serialize-tests\payshares-history.testnet.6714239.json">
       <Filter>history\tests\serialize-tests</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="..\..\src\xdr\Stellar-ledger.x">
+    <CustomBuild Include="..\..\src\xdr\Payshares-ledger.x">
       <Filter>xdr</Filter>
     </CustomBuild>
-    <CustomBuild Include="..\..\src\xdr\Stellar-transaction.x">
+    <CustomBuild Include="..\..\src\xdr\Payshares-transaction.x">
       <Filter>xdr</Filter>
     </CustomBuild>
-    <CustomBuild Include="..\..\src\xdr\Stellar-types.x">
+    <CustomBuild Include="..\..\src\xdr\Payshares-types.x">
       <Filter>xdr</Filter>
     </CustomBuild>
-    <CustomBuild Include="..\..\src\xdr\Stellar-overlay.x">
+    <CustomBuild Include="..\..\src\xdr\Payshares-overlay.x">
       <Filter>xdr</Filter>
     </CustomBuild>
-    <CustomBuild Include="..\..\src\xdr\Stellar-ledger-entries.x">
+    <CustomBuild Include="..\..\src\xdr\Payshares-ledger-entries.x">
       <Filter>xdr</Filter>
     </CustomBuild>
-    <CustomBuild Include="..\..\src\xdr\Stellar-SCP.x">
+    <CustomBuild Include="..\..\src\xdr\Payshares-SCP.x">
       <Filter>xdr</Filter>
     </CustomBuild>
   </ItemGroup>

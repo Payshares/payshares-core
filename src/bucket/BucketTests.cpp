@@ -33,7 +33,7 @@
 #include <algorithm>
 #include <future>
 
-using namespace stellar;
+using namespace payshares;
 
 namespace BucketTests
 {
@@ -710,8 +710,8 @@ TEST_CASE("single entry bubbling up", "[bucket][bucketbubble]")
     {
         Application::pointer app = createTestApplication(clock, cfg);
         BucketList bl;
-        std::vector<stellar::LedgerKey> emptySet;
-        std::vector<stellar::LedgerEntry> emptySetEntry;
+        std::vector<payshares::LedgerKey> emptySet;
+        std::vector<payshares::LedgerEntry> emptySetEntry;
 
         CLOG(DEBUG, "Bucket") << "Adding single entry in lowest level";
         bl.addBatch(*app, 1, LedgerTestUtils::generateValidLedgerEntries(1),
@@ -771,7 +771,7 @@ closeLedger(Application& app)
         << " with lcl=" << hexAbbrev(lclHash) << ", buckets="
         << hexAbbrev(app.getBucketManager().getBucketList().getHash());
     auto txSet = std::make_shared<TxSetFrame>(lclHash);
-    StellarValue sv(txSet->getContentsHash(), lm.getCloseTime(),
+    PaysharesValue sv(txSet->getContentsHash(), lm.getCloseTime(),
                     emptyUpgradeSteps, 0);
     LedgerCloseData lcd(lm.getLedgerNum(), txSet, sv);
     lm.valueExternalized(lcd);
@@ -780,8 +780,8 @@ closeLedger(Application& app)
 
 TEST_CASE("bucket persistence over app restart", "[bucket][bucketpersist]")
 {
-    std::vector<stellar::LedgerKey> emptySet;
-    std::vector<stellar::LedgerEntry> emptySetEntry;
+    std::vector<payshares::LedgerKey> emptySet;
+    std::vector<payshares::LedgerEntry> emptySetEntry;
 
     VirtualClock clock;
     Config cfg0(getTestConfig(0, Config::TESTDB_ON_DISK_SQLITE));
@@ -1037,7 +1037,7 @@ TEST_CASE("checkdb succeeding", "[bucket][checkdb]")
     Application::pointer app = createTestApplication(clock, cfg);
     app->start();
 
-    std::vector<stellar::LedgerKey> emptySet;
+    std::vector<payshares::LedgerKey> emptySet;
 
     app->generateLoad(1000, 1000, 1000, false);
     auto& m = app->getMetrics();

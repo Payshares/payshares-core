@@ -6,7 +6,7 @@
 
 #include <cstdint>
 
-namespace stellar
+namespace payshares
 {
 
 class LedgerRange final

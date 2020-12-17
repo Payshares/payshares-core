@@ -14,7 +14,7 @@
 #include "util/make_unique.h"
 #include <chrono>
 
-using namespace stellar;
+using namespace payshares;
 
 TEST_CASE("pointToTm tmToPoint stuff", "[timer]")
 {

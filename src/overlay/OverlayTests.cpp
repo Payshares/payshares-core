@@ -22,7 +22,7 @@
 #include "medida/metrics_registry.h"
 #include "medida/timer.h"
 
-using namespace stellar;
+using namespace payshares;
 
 TEST_CASE("loopback peer hello", "[overlay]")
 {
@@ -120,7 +120,7 @@ TEST_CASE("accept preferred peer even when strict", "[overlay]")
 
     cfg2.PREFERRED_PEERS_ONLY = true;
     cfg2.PREFERRED_PEER_KEYS.push_back(
-        KeyUtils::toStrKey(cfg1.NODE_SEED.getPublicKey()));
+        KeyUtils::toPsrKey(cfg1.NODE_SEED.getPublicKey()));
 
     auto app1 = createTestApplication(clock, cfg1);
     auto app2 = createTestApplication(clock, cfg2);

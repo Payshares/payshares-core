@@ -5,7 +5,7 @@
 #include "overlay/PeerRecord.h"
 #include "lib/util/format.h"
 #include "main/Application.h"
-#include "overlay/StellarXDR.h"
+#include "overlay/PaysharesXDR.h"
 #include "util/Logging.h"
 #include "util/SociNoWarnings.h"
 #include "util/must_use.h"
@@ -17,7 +17,7 @@
 #define SECONDS_PER_BACKOFF 10
 #define MAX_BACKOFF_EXPONENT 10
 
-namespace stellar
+namespace payshares
 {
 
 using namespace std;

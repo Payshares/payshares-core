@@ -9,7 +9,7 @@
 #include "ledger/TrustFrame.h"
 #include "util/Logging.h"
 
-namespace stellar
+namespace payshares
 {
 
 namespace

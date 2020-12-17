@@ -5,7 +5,7 @@
 #include "ledger/SyncingLedgerChain.h"
 #include "herder/LedgerCloseData.h"
 
-namespace stellar
+namespace payshares
 {
 
 SyncingLedgerChain::SyncingLedgerChain() = default;

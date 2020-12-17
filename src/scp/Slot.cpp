@@ -16,7 +16,7 @@
 #include <ctime>
 #include <functional>
 
-namespace stellar
+namespace payshares
 {
 using xdr::operator==;
 using xdr::operator<;

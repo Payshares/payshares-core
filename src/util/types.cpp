@@ -7,7 +7,7 @@
 #include <algorithm>
 #include <locale>
 
-namespace stellar
+namespace payshares
 {
 static std::locale cLocale("C");
 

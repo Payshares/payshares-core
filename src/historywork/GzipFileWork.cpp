@@ -5,7 +5,7 @@
 #include "historywork/GzipFileWork.h"
 #include "util/Fs.h"
 
-namespace stellar
+namespace payshares
 {
 
 GzipFileWork::GzipFileWork(Application& app, WorkParent& parent,

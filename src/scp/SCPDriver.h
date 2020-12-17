@@ -10,9 +10,9 @@
 #include <memory>
 #include <set>
 
-#include "xdr/Stellar-SCP.h"
+#include "xdr/Payshares-SCP.h"
 
-namespace stellar
+namespace payshares
 {
 typedef std::shared_ptr<SCPQuorumSet> SCPQuorumSetPtr;
 

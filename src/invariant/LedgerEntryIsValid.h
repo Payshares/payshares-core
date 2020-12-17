@@ -5,10 +5,10 @@
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
 #include "invariant/Invariant.h"
-#include "xdr/Stellar-ledger-entries.h"
+#include "xdr/Payshares-ledger-entries.h"
 #include <memory>
 
-namespace stellar
+namespace payshares
 {
 class Application;
 class LedgerDelta;

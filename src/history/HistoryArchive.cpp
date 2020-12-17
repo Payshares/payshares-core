@@ -7,7 +7,7 @@
 // else.
 #include "util/asio.h"
 #include "history/HistoryArchive.h"
-#include "StellarCoreVersion.h"
+#include "PaysharesCoreVersion.h"
 #include "bucket/Bucket.h"
 #include "bucket/BucketList.h"
 #include "crypto/Hex.h"
@@ -30,7 +30,7 @@
 #include <set>
 #include <sstream>
 
-namespace stellar
+namespace payshares
 {
 
 unsigned const HistoryArchiveState::HISTORY_ARCHIVE_STATE_VERSION = 1;
@@ -135,7 +135,7 @@ HistoryArchiveState::fromString(std::string const& str)
 std::string
 HistoryArchiveState::baseName()
 {
-    return std::string("stellar-history.json");
+    return std::string("payshares-history.json");
 }
 
 std::string
@@ -250,7 +250,7 @@ HistoryArchiveState::allBuckets() const
     return std::vector<std::string>(buckets.begin(), buckets.end());
 }
 
-HistoryArchiveState::HistoryArchiveState() : server(STELLAR_CORE_VERSION)
+HistoryArchiveState::HistoryArchiveState() : server(PAYSHARES_CORE_VERSION)
 {
     uint256 u;
     std::string s = binToHex(u);
@@ -265,7 +265,7 @@ HistoryArchiveState::HistoryArchiveState() : server(STELLAR_CORE_VERSION)
 
 HistoryArchiveState::HistoryArchiveState(uint32_t ledgerSeq,
                                          BucketList& buckets)
-    : server(STELLAR_CORE_VERSION), currentLedger(ledgerSeq)
+    : server(PAYSHARES_CORE_VERSION), currentLedger(ledgerSeq)
 {
     for (uint32_t i = 0; i < BucketList::kNumLevels; ++i)
     {

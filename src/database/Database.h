@@ -5,7 +5,7 @@
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
 #include "medida/timer_context.h"
-#include "overlay/StellarXDR.h"
+#include "overlay/PaysharesXDR.h"
 #include "util/NonCopyable.h"
 #include "util/SociNoWarnings.h"
 #include "util/Timer.h"
@@ -20,7 +20,7 @@ class Timer;
 class Counter;
 }
 
-namespace stellar
+namespace payshares
 {
 class Application;
 class SQLLogContext;
@@ -167,7 +167,7 @@ class Database : NonMovableOrCopyable
     bool canUsePool() const;
 
     // Drop and recreate all tables in the database target. This is called
-    // by the --newdb command-line flag on stellar-core.
+    // by the --newdb command-line flag on payshares-core.
     void initialize();
 
     // Save `vers` as schema version.

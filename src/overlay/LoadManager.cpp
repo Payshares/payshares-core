@@ -13,7 +13,7 @@
 
 #include <chrono>
 
-namespace stellar
+namespace payshares
 {
 using xdr::operator<;
 

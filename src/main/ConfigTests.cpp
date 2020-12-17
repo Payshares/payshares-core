@@ -7,7 +7,7 @@
 #include "main/Config.h"
 #include "test/test.h"
 
-using namespace stellar;
+using namespace payshares;
 
 namespace
 {
@@ -15,7 +15,7 @@ namespace
 bool
 keyMatches(PublicKey& key, const std::vector<std::string>& keys)
 {
-    auto keyStr = KeyUtils::toStrKey<PublicKey>(key);
+    auto keyStr = KeyUtils::toPsrKey<PublicKey>(key);
     return std::any_of(std::begin(keys), std::end(keys),
                        [&](const std::string& x) { return keyStr == x; });
 }
@@ -142,9 +142,9 @@ TEST_CASE("resolve node id", "[config]")
 TEST_CASE("load example configs", "[config]")
 {
     Config c;
-    std::vector<std::string> testFiles = {"stellar-core_example.cfg",
-                                          "stellar-core_standalone.cfg",
-                                          "stellar-core_testnet.cfg"};
+    std::vector<std::string> testFiles = {"payshares-core_example.cfg",
+                                          "payshares-core_standalone.cfg",
+                                          "payshares-core_testnet.cfg"};
     for (auto const& fn : testFiles)
     {
         std::string fnPath = "testdata/";

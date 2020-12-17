@@ -7,10 +7,10 @@
 #include "main/Config.h"
 #include "medida/meter.h"
 #include "medida/metrics_registry.h"
-#include "xdr/Stellar-ledger.h"
+#include "xdr/Payshares-ledger.h"
 #include "xdrpp/printer.h"
 
-namespace stellar
+namespace payshares
 {
 using xdr::operator==;
 

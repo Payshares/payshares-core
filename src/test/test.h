@@ -8,7 +8,7 @@
 #include "main/Config.h"
 #include "util/Logging.h"
 
-namespace stellar
+namespace payshares
 {
 
 class Application;

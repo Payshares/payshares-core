@@ -8,9 +8,9 @@
 #include "crypto/SignerKey.h"
 #include "crypto/SignerKeyUtils.h"
 #include "lib/catch.hpp"
-#include "xdr/Stellar-transaction.h"
+#include "xdr/Payshares-transaction.h"
 
-using namespace stellar;
+using namespace payshares;
 
 TEST_CASE("Pubkey signature", "[signature]")
 {

@@ -4,7 +4,7 @@
 
 #include "FileTransferInfo.h"
 
-namespace stellar
+namespace payshares
 {
 char const* HISTORY_FILE_TYPE_BUCKET = "bucket";
 char const* HISTORY_FILE_TYPE_LEDGER = "ledger";

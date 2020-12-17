@@ -22,13 +22,13 @@
 
 #include "overlay/Peer.h"
 #include "util/Timer.h"
-#include "xdr/Stellar-types.h"
+#include "xdr/Payshares-types.h"
 
 #include <functional>
 #include <utility>
 #include <vector>
 
-namespace stellar
+namespace payshares
 {
 
 class Application;

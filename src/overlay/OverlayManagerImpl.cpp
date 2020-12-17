@@ -43,7 +43,7 @@ If any verify step fails, the peer disconnects immediately.
 
 */
 
-namespace stellar
+namespace payshares
 {
 
 using namespace soci;
@@ -445,13 +445,13 @@ OverlayManagerImpl::isPreferred(Peer* peer)
 
     if (peer->isAuthenticated())
     {
-        std::string kstr = KeyUtils::toStrKey(peer->getPeerID());
+        std::string kstr = KeyUtils::toPsrKey(peer->getPeerID());
         std::vector<std::string> const& pk =
             mApp.getConfig().PREFERRED_PEER_KEYS;
         if (std::find(pk.begin(), pk.end(), kstr) != pk.end())
         {
             CLOG(DEBUG, "Overlay")
-                << "Peer key " << mApp.getConfig().toStrKey(peer->getPeerID())
+                << "Peer key " << mApp.getConfig().toPsrKey(peer->getPeerID())
                 << " is preferred";
             return true;
         }
@@ -475,7 +475,7 @@ OverlayManagerImpl::getRandomAuthenticatedPeers()
 }
 
 void
-OverlayManagerImpl::recvFloodedMsg(StellarMessage const& msg,
+OverlayManagerImpl::recvFloodedMsg(PaysharesMessage const& msg,
                                    Peer::pointer peer)
 {
     mMessagesReceived.Mark();
@@ -483,7 +483,7 @@ OverlayManagerImpl::recvFloodedMsg(StellarMessage const& msg,
 }
 
 void
-OverlayManagerImpl::broadcastMessage(StellarMessage const& msg, bool force)
+OverlayManagerImpl::broadcastMessage(PaysharesMessage const& msg, bool force)
 {
     mMessagesBroadcast.Mark();
     mFloodGate.broadcast(msg, force);

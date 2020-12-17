@@ -5,13 +5,13 @@
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
 #include "crypto/KeyUtils.h"
-#include "xdr/Stellar-types.h"
+#include "xdr/Payshares-types.h"
 
 #include <array>
 #include <functional>
 #include <ostream>
 
-namespace stellar
+namespace payshares
 {
 
 using xdr::operator==;
@@ -43,11 +43,11 @@ class SecretKey
     // Get the public key portion of this secret key.
     PublicKey getPublicKey() const;
 
-    // Get the seed portion of this secret key as a StrKey string.
-    SecretValue getStrKeySeed() const;
+    // Get the seed portion of this secret key as a PsrKey string.
+    SecretValue getPsrKeySeed() const;
 
-    // Get the public key portion of this secret key as a StrKey string.
-    std::string getStrKeyPublic() const;
+    // Get the public key portion of this secret key as a PsrKey string.
+    std::string getPsrKeyPublic() const;
 
     // Return true iff this key is all-zero.
     bool isZero() const;
@@ -58,14 +58,14 @@ class SecretKey
     // Create a new, random secret key.
     static SecretKey random();
 
-    // Decode a secret key from a provided StrKey seed value.
-    static SecretKey fromStrKeySeed(std::string const& strKeySeed);
+    // Decode a secret key from a provided PsrKey seed value.
+    static SecretKey fromPsrKeySeed(std::string const& psrKeySeed);
     static SecretKey
-    fromStrKeySeed(std::string&& strKeySeed)
+    fromPsrKeySeed(std::string&& psrKeySeed)
     {
-        SecretKey ret = fromStrKeySeed(strKeySeed);
-        for (std::size_t i = 0; i < strKeySeed.size(); ++i)
-            strKeySeed[i] = 0;
+        SecretKey ret = fromPsrKeySeed(psrKeySeed);
+        for (std::size_t i = 0; i < psrKeySeed.size(); ++i)
+            psrKeySeed[i] = 0;
         return ret;
     }
 
@@ -87,9 +87,9 @@ template <> struct KeyFunctions<PublicKey>
     };
 
     static std::string getKeyTypeName();
-    static bool getKeyVersionIsSupported(strKey::StrKeyVersionByte keyVersion);
-    static PublicKeyType toKeyType(strKey::StrKeyVersionByte keyVersion);
-    static strKey::StrKeyVersionByte toKeyVersion(PublicKeyType keyType);
+    static bool getKeyVersionIsSupported(psrKey::PsrKeyVersionByte keyVersion);
+    static PublicKeyType toKeyType(psrKey::PsrKeyVersionByte keyVersion);
+    static psrKey::PsrKeyVersionByte toKeyVersion(PublicKeyType keyType);
     static uint256& getKeyValue(PublicKey& key);
     static uint256 const& getKeyValue(PublicKey const& key);
 };
@@ -107,7 +107,7 @@ void flushVerifySigCacheCounts(uint64_t& hits, uint64_t& misses);
 PublicKey random();
 }
 
-namespace StrKeyUtils
+namespace PsrKeyUtils
 {
 // logs a key (can be a public or private key) in all
 // known formats
@@ -122,8 +122,8 @@ Hash random();
 
 namespace std
 {
-template <> struct hash<stellar::PublicKey>
+template <> struct hash<payshares::PublicKey>
 {
-    size_t operator()(stellar::PublicKey const& x) const noexcept;
+    size_t operator()(payshares::PublicKey const& x) const noexcept;
 };
 }

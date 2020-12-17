@@ -8,7 +8,7 @@
 #include <functional>
 #include <sodium.h>
 
-namespace stellar
+namespace payshares
 {
 
 Curve25519Secret
@@ -54,9 +54,9 @@ EcdhDeriveSharedKey(Curve25519Secret const& localSecret,
 namespace std
 {
 size_t
-hash<stellar::Curve25519Public>::
-operator()(stellar::Curve25519Public const& k) const noexcept
+hash<payshares::Curve25519Public>::
+operator()(payshares::Curve25519Public const& k) const noexcept
 {
-    return std::hash<stellar::uint256>()(k.key);
+    return std::hash<payshares::uint256>()(k.key);
 }
 }

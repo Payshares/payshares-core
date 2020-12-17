@@ -9,7 +9,7 @@
 #include "util/Logging.h"
 #include "util/make_unique.h"
 
-namespace stellar
+namespace payshares
 {
 
 WorkParent::WorkParent(Application& app) : mApp(app)

@@ -7,7 +7,7 @@
 #include "util/types.h"
 #include <functional>
 
-using namespace stellar;
+using namespace payshares;
 
 template <typename T> using Verify = std::function<void(T, T, T, T, T)>;
 

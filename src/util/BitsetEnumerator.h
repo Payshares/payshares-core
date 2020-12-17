@@ -8,7 +8,7 @@
 #include <memory>
 #include <vector>
 
-namespace stellar
+namespace payshares
 {
 
 // Abstract enumerator type for sets-of-bitsets.

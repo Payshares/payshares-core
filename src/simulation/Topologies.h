@@ -6,7 +6,7 @@
 
 #include "simulation/Simulation.h"
 
-namespace stellar
+namespace payshares
 {
 
 class Topologies

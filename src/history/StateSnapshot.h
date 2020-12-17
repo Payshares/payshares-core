@@ -12,7 +12,7 @@
 #include <memory>
 #include <vector>
 
-namespace stellar
+namespace payshares
 {
 
 class FileTransferInfo;

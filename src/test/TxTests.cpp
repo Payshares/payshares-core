@@ -29,11 +29,11 @@
 #include "util/make_unique.h"
 #include "util/types.h"
 
-using namespace stellar;
-using namespace stellar::txtest;
+using namespace payshares;
+using namespace payshares::txtest;
 
 typedef std::unique_ptr<Application> appPtr;
-namespace stellar
+namespace payshares
 {
 using xdr::operator==;
 
@@ -141,7 +141,7 @@ closeLedgerOn(Application& app, uint32 ledgerSeq, int day, int month, int year,
     txSet->sortForHash();
     REQUIRE(txSet->checkValid(app));
 
-    StellarValue sv(txSet->getContentsHash(), getTestDate(day, month, year),
+    PaysharesValue sv(txSet->getContentsHash(), getTestDate(day, month, year),
                     emptyUpgradeSteps, 0);
     LedgerCloseData ledgerData(ledgerSeq, txSet, sv);
     app.getLedgerManager().closeLedger(ledgerData);

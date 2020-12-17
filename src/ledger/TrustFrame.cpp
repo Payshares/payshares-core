@@ -14,7 +14,7 @@
 using namespace std;
 using namespace soci;
 
-namespace stellar
+namespace payshares
 {
 using xdr::operator==;
 
@@ -63,24 +63,24 @@ TrustFrame::operator=(TrustFrame const& other)
 }
 
 void
-TrustFrame::getKeyFields(LedgerKey const& key, std::string& actIDStrKey,
-                         std::string& issuerStrKey, std::string& assetCode)
+TrustFrame::getKeyFields(LedgerKey const& key, std::string& actIDPsrKey,
+                         std::string& issuerPsrKey, std::string& assetCode)
 {
-    actIDStrKey = KeyUtils::toStrKey(key.trustLine().accountID);
+    actIDPsrKey = KeyUtils::toPsrKey(key.trustLine().accountID);
     if (key.trustLine().asset.type() == ASSET_TYPE_CREDIT_ALPHANUM4)
     {
-        issuerStrKey =
-            KeyUtils::toStrKey(key.trustLine().asset.alphaNum4().issuer);
+        issuerPsrKey =
+            KeyUtils::toPsrKey(key.trustLine().asset.alphaNum4().issuer);
         assetCodeToStr(key.trustLine().asset.alphaNum4().assetCode, assetCode);
     }
     else if (key.trustLine().asset.type() == ASSET_TYPE_CREDIT_ALPHANUM12)
     {
-        issuerStrKey =
-            KeyUtils::toStrKey(key.trustLine().asset.alphaNum12().issuer);
+        issuerPsrKey =
+            KeyUtils::toPsrKey(key.trustLine().asset.alphaNum12().issuer);
         assetCodeToStr(key.trustLine().asset.alphaNum12().assetCode, assetCode);
     }
 
-    if (actIDStrKey == issuerStrKey)
+    if (actIDPsrKey == issuerPsrKey)
         throw std::runtime_error("Issuer's own trustline should not be used "
                                  "outside of OperationFrame");
 }
@@ -121,7 +121,7 @@ TrustFrame::addBalance(int64_t delta)
     {
         return false;
     }
-    return stellar::addBalance(mTrustLine.balance, delta, mTrustLine.limit);
+    return payshares::addBalance(mTrustLine.balance, delta, mTrustLine.limit);
 }
 
 int64_t
@@ -147,16 +147,16 @@ TrustFrame::exists(Database& db, LedgerKey const& key)
         return true;
     }
 
-    std::string actIDStrKey, issuerStrKey, assetCode;
-    getKeyFields(key, actIDStrKey, issuerStrKey, assetCode);
+    std::string actIDPsrKey, issuerPsrKey, assetCode;
+    getKeyFields(key, actIDPsrKey, issuerPsrKey, assetCode);
     int exists = 0;
     auto timer = db.getSelectTimer("trust-exists");
     auto prep = db.getPreparedStatement(
         "SELECT EXISTS (SELECT NULL FROM trustlines "
         "WHERE accountid=:v1 AND issuer=:v2 AND assetcode=:v3)");
     auto& st = prep.statement();
-    st.exchange(use(actIDStrKey));
-    st.exchange(use(issuerStrKey));
+    st.exchange(use(actIDPsrKey));
+    st.exchange(use(issuerPsrKey));
     st.exchange(use(assetCode));
     st.exchange(into(exists));
     st.define_and_bind();
@@ -213,13 +213,13 @@ TrustFrame::storeDelete(LedgerDelta& delta, Database& db, LedgerKey const& key)
 {
     flushCachedEntry(key, db);
 
-    std::string actIDStrKey, issuerStrKey, assetCode;
-    getKeyFields(key, actIDStrKey, issuerStrKey, assetCode);
+    std::string actIDPsrKey, issuerPsrKey, assetCode;
+    getKeyFields(key, actIDPsrKey, issuerPsrKey, assetCode);
 
     auto timer = db.getDeleteTimer("trust");
     db.getSession() << "DELETE FROM trustlines "
                        "WHERE accountid=:v1 AND issuer=:v2 AND assetcode=:v3",
-        use(actIDStrKey), use(issuerStrKey), use(assetCode);
+        use(actIDPsrKey), use(issuerPsrKey), use(assetCode);
 
     delta.deleteEntry(key);
 }
@@ -235,8 +235,8 @@ TrustFrame::storeChange(LedgerDelta& delta, Database& db)
 
     touch(delta);
 
-    std::string actIDStrKey, issuerStrKey, assetCode;
-    getKeyFields(key, actIDStrKey, issuerStrKey, assetCode);
+    std::string actIDPsrKey, issuerPsrKey, assetCode;
+    getKeyFields(key, actIDPsrKey, issuerPsrKey, assetCode);
 
     auto prep = db.getPreparedStatement(
         "UPDATE trustlines "
@@ -247,8 +247,8 @@ TrustFrame::storeChange(LedgerDelta& delta, Database& db)
     st.exchange(use(mTrustLine.limit));
     st.exchange(use(mTrustLine.flags));
     st.exchange(use(getLastModified()));
-    st.exchange(use(actIDStrKey));
-    st.exchange(use(issuerStrKey));
+    st.exchange(use(actIDPsrKey));
+    st.exchange(use(issuerPsrKey));
     st.exchange(use(assetCode));
     st.define_and_bind();
     {
@@ -274,9 +274,9 @@ TrustFrame::storeAdd(LedgerDelta& delta, Database& db)
 
     touch(delta);
 
-    std::string actIDStrKey, issuerStrKey, assetCode;
+    std::string actIDPsrKey, issuerPsrKey, assetCode;
     unsigned int assetType = getKey().trustLine().asset.type();
-    getKeyFields(getKey(), actIDStrKey, issuerStrKey, assetCode);
+    getKeyFields(getKey(), actIDPsrKey, issuerPsrKey, assetCode);
 
     auto prep = db.getPreparedStatement(
         "INSERT INTO trustlines "
@@ -284,9 +284,9 @@ TrustFrame::storeAdd(LedgerDelta& delta, Database& db)
         "lastmodified) "
         "VALUES (:v1, :v2, :v3, :v4, :v5, :v6, :v7, :v8)");
     auto& st = prep.statement();
-    st.exchange(use(actIDStrKey));
+    st.exchange(use(actIDPsrKey));
     st.exchange(use(assetType));
-    st.exchange(use(issuerStrKey));
+    st.exchange(use(issuerPsrKey));
     st.exchange(use(assetCode));
     st.exchange(use(mTrustLine.balance));
     st.exchange(use(mTrustLine.limit));
@@ -333,7 +333,7 @@ TrustFrame::loadTrustLine(AccountID const& accountID, Asset const& asset,
 {
     if (asset.type() == ASSET_TYPE_NATIVE)
     {
-        throw std::runtime_error("XLM TrustLine?");
+        throw std::runtime_error("XPS TrustLine?");
     }
     else
     {
@@ -363,16 +363,16 @@ TrustFrame::loadTrustLine(AccountID const& accountID, Asset const& asset,
 
     std::string accStr, issuerStr, assetStr;
 
-    accStr = KeyUtils::toStrKey(accountID);
+    accStr = KeyUtils::toPsrKey(accountID);
     if (asset.type() == ASSET_TYPE_CREDIT_ALPHANUM4)
     {
         assetCodeToStr(asset.alphaNum4().assetCode, assetStr);
-        issuerStr = KeyUtils::toStrKey(asset.alphaNum4().issuer);
+        issuerStr = KeyUtils::toPsrKey(asset.alphaNum4().issuer);
     }
     else if (asset.type() == ASSET_TYPE_CREDIT_ALPHANUM12)
     {
         assetCodeToStr(asset.alphaNum12().assetCode, assetStr);
-        issuerStr = KeyUtils::toStrKey(asset.alphaNum12().issuer);
+        issuerStr = KeyUtils::toPsrKey(asset.alphaNum12().issuer);
     }
 
     auto query = std::string(trustLineColumnSelector);
@@ -422,8 +422,8 @@ void
 TrustFrame::loadLines(StatementContext& prep,
                       std::function<void(LedgerEntry const&)> trustProcessor)
 {
-    string actIDStrKey;
-    std::string issuerStrKey, assetCode;
+    string actIDPsrKey;
+    std::string issuerPsrKey, assetCode;
     unsigned int assetType;
 
     LedgerEntry le;
@@ -432,9 +432,9 @@ TrustFrame::loadLines(StatementContext& prep,
     TrustLineEntry& tl = le.data.trustLine();
 
     auto& st = prep.statement();
-    st.exchange(into(actIDStrKey));
+    st.exchange(into(actIDPsrKey));
     st.exchange(into(assetType));
-    st.exchange(into(issuerStrKey));
+    st.exchange(into(issuerPsrKey));
     st.exchange(into(assetCode));
     st.exchange(into(tl.limit));
     st.exchange(into(tl.balance));
@@ -445,18 +445,18 @@ TrustFrame::loadLines(StatementContext& prep,
     st.execute(true);
     while (st.got_data())
     {
-        tl.accountID = KeyUtils::fromStrKey<PublicKey>(actIDStrKey);
+        tl.accountID = KeyUtils::fromPsrKey<PublicKey>(actIDPsrKey);
         tl.asset.type((AssetType)assetType);
         if (assetType == ASSET_TYPE_CREDIT_ALPHANUM4)
         {
             tl.asset.alphaNum4().issuer =
-                KeyUtils::fromStrKey<PublicKey>(issuerStrKey);
+                KeyUtils::fromPsrKey<PublicKey>(issuerPsrKey);
             strToAssetCode(tl.asset.alphaNum4().assetCode, assetCode);
         }
         else if (assetType == ASSET_TYPE_CREDIT_ALPHANUM12)
         {
             tl.asset.alphaNum12().issuer =
-                KeyUtils::fromStrKey<PublicKey>(issuerStrKey);
+                KeyUtils::fromPsrKey<PublicKey>(issuerPsrKey);
             strToAssetCode(tl.asset.alphaNum12().assetCode, assetCode);
         }
 
@@ -470,14 +470,14 @@ void
 TrustFrame::loadLines(AccountID const& accountID,
                       std::vector<TrustFrame::pointer>& retLines, Database& db)
 {
-    std::string actIDStrKey;
-    actIDStrKey = KeyUtils::toStrKey(accountID);
+    std::string actIDPsrKey;
+    actIDPsrKey = KeyUtils::toPsrKey(accountID);
 
     auto query = std::string(trustLineColumnSelector);
     query += (" WHERE accountid = :id ");
     auto prep = db.getPreparedStatement(query);
     auto& st = prep.statement();
-    st.exchange(use(actIDStrKey));
+    st.exchange(use(actIDPsrKey));
 
     auto timer = db.getSelectTimer("trust");
     loadLines(prep, [&retLines](LedgerEntry const& cur) {

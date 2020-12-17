@@ -19,7 +19,7 @@
 using namespace soci;
 using namespace std;
 
-namespace stellar
+namespace payshares
 {
 using xdr::operator<;
 
@@ -122,7 +122,7 @@ AccountFrame::getBalance() const
 bool
 AccountFrame::addBalance(int64_t delta)
 {
-    return stellar::addBalance(mAccountEntry.balance, delta);
+    return payshares::addBalance(mAccountEntry.balance, delta);
 }
 
 int64_t
@@ -219,7 +219,7 @@ AccountFrame::loadAccount(AccountID const& accountID, Database& db)
         return p ? std::make_shared<AccountFrame>(*p) : nullptr;
     }
 
-    std::string actIDStrKey = KeyUtils::toStrKey(accountID);
+    std::string actIDPsrKey = KeyUtils::toPsrKey(accountID);
 
     std::string publicKey, inflationDest, creditAuthKey;
     std::string homeDomain, thresholds;
@@ -242,7 +242,7 @@ AccountFrame::loadAccount(AccountID const& accountID, Database& db)
     st.exchange(into(thresholds));
     st.exchange(into(account.flags));
     st.exchange(into(res->getLastModified()));
-    st.exchange(use(actIDStrKey));
+    st.exchange(use(actIDPsrKey));
     st.define_and_bind();
     {
         auto timer = db.getSelectTimer("account");
@@ -263,14 +263,14 @@ AccountFrame::loadAccount(AccountID const& accountID, Database& db)
     if (inflationDestInd == soci::i_ok)
     {
         account.inflationDest.activate() =
-            KeyUtils::fromStrKey<PublicKey>(inflationDest);
+            KeyUtils::fromPsrKey<PublicKey>(inflationDest);
     }
 
     account.signers.clear();
 
     if (account.numSubEntries != 0)
     {
-        auto signers = loadSigners(db, actIDStrKey);
+        auto signers = loadSigners(db, actIDPsrKey);
         account.signers.insert(account.signers.begin(), signers.begin(),
                                signers.end());
     }
@@ -283,7 +283,7 @@ AccountFrame::loadAccount(AccountID const& accountID, Database& db)
 }
 
 std::vector<Signer>
-AccountFrame::loadSigners(Database& db, std::string const& actIDStrKey)
+AccountFrame::loadSigners(Database& db, std::string const& actIDPsrKey)
 {
     std::vector<Signer> res;
     string pubKey;
@@ -292,7 +292,7 @@ AccountFrame::loadSigners(Database& db, std::string const& actIDStrKey)
     auto prep2 = db.getPreparedStatement("SELECT publickey, weight FROM "
                                          "signers WHERE accountid =:id");
     auto& st2 = prep2.statement();
-    st2.exchange(use(actIDStrKey));
+    st2.exchange(use(actIDPsrKey));
     st2.exchange(into(pubKey));
     st2.exchange(into(signer.weight));
     st2.define_and_bind();
@@ -302,7 +302,7 @@ AccountFrame::loadSigners(Database& db, std::string const& actIDStrKey)
     }
     while (st2.got_data())
     {
-        signer.key = KeyUtils::fromStrKey<SignerKey>(pubKey);
+        signer.key = KeyUtils::fromPsrKey<SignerKey>(pubKey);
         res.push_back(signer);
         st2.fetch();
     }
@@ -320,7 +320,7 @@ AccountFrame::exists(Database& db, LedgerKey const& key)
         return true;
     }
 
-    std::string actIDStrKey = KeyUtils::toStrKey(key.account().accountID);
+    std::string actIDPsrKey = KeyUtils::toPsrKey(key.account().accountID);
     int exists = 0;
     {
         auto timer = db.getSelectTimer("account-exists");
@@ -328,7 +328,7 @@ AccountFrame::exists(Database& db, LedgerKey const& key)
             db.getPreparedStatement("SELECT EXISTS (SELECT NULL FROM accounts "
                                     "WHERE accountid=:v1)");
         auto& st = prep.statement();
-        st.exchange(use(actIDStrKey));
+        st.exchange(use(actIDPsrKey));
         st.exchange(into(exists));
         st.define_and_bind();
         st.execute(true);
@@ -395,13 +395,13 @@ AccountFrame::storeDelete(LedgerDelta& delta, Database& db,
 {
     flushCachedEntry(key, db);
 
-    std::string actIDStrKey = KeyUtils::toStrKey(key.account().accountID);
+    std::string actIDPsrKey = KeyUtils::toPsrKey(key.account().accountID);
     {
         auto timer = db.getDeleteTimer("account");
         auto prep = db.getPreparedStatement(
             "DELETE from accounts where accountid= :v1");
         auto& st = prep.statement();
-        st.exchange(soci::use(actIDStrKey));
+        st.exchange(soci::use(actIDPsrKey));
         st.define_and_bind();
         st.execute(true);
     }
@@ -410,7 +410,7 @@ AccountFrame::storeDelete(LedgerDelta& delta, Database& db,
         auto prep =
             db.getPreparedStatement("DELETE from signers where accountid= :v1");
         auto& st = prep.statement();
-        st.exchange(soci::use(actIDStrKey));
+        st.exchange(soci::use(actIDPsrKey));
         st.define_and_bind();
         st.execute(true);
     }
@@ -424,7 +424,7 @@ AccountFrame::storeUpdate(LedgerDelta& delta, Database& db, bool insert)
 
     flushCachedEntry(db);
 
-    std::string actIDStrKey = KeyUtils::toStrKey(mAccountEntry.accountID);
+    std::string actIDPsrKey = KeyUtils::toPsrKey(mAccountEntry.accountID);
     std::string sql;
 
     if (insert)
@@ -447,11 +447,11 @@ AccountFrame::storeUpdate(LedgerDelta& delta, Database& db, bool insert)
     auto prep = db.getPreparedStatement(sql);
 
     soci::indicator inflation_ind = soci::i_null;
-    string inflationDestStrKey;
+    string inflationDestPsrKey;
 
     if (mAccountEntry.inflationDest)
     {
-        inflationDestStrKey = KeyUtils::toStrKey(*mAccountEntry.inflationDest);
+        inflationDestPsrKey = KeyUtils::toPsrKey(*mAccountEntry.inflationDest);
         inflation_ind = soci::i_ok;
     }
 
@@ -459,11 +459,11 @@ AccountFrame::storeUpdate(LedgerDelta& delta, Database& db, bool insert)
 
     {
         soci::statement& st = prep.statement();
-        st.exchange(use(actIDStrKey, "id"));
+        st.exchange(use(actIDPsrKey, "id"));
         st.exchange(use(mAccountEntry.balance, "v1"));
         st.exchange(use(mAccountEntry.seqNum, "v2"));
         st.exchange(use(mAccountEntry.numSubEntries, "v3"));
-        st.exchange(use(inflationDestStrKey, inflation_ind, "v4"));
+        st.exchange(use(inflationDestPsrKey, inflation_ind, "v4"));
         string homeDomain(mAccountEntry.homeDomain);
         st.exchange(use(homeDomain, "v5"));
         st.exchange(use(thresholds, "v6"));
@@ -499,7 +499,7 @@ AccountFrame::storeUpdate(LedgerDelta& delta, Database& db, bool insert)
 void
 AccountFrame::applySigners(Database& db, bool insert)
 {
-    std::string actIDStrKey = KeyUtils::toStrKey(mAccountEntry.accountID);
+    std::string actIDPsrKey = KeyUtils::toPsrKey(mAccountEntry.accountID);
 
     // generates a diff with the signers stored in the database
 
@@ -507,7 +507,7 @@ AccountFrame::applySigners(Database& db, bool insert)
     std::vector<Signer> signers;
     if (!insert)
     {
-        signers = loadSigners(db, actIDStrKey);
+        signers = loadSigners(db, actIDPsrKey);
     }
 
     auto it_new = mAccountEntry.signers.begin();
@@ -539,15 +539,15 @@ AccountFrame::applySigners(Database& db, bool insert)
         {
             if (it_new->weight != it_old->weight)
             {
-                std::string signerStrKey = KeyUtils::toStrKey(it_new->key);
+                std::string signerPsrKey = KeyUtils::toPsrKey(it_new->key);
                 auto timer = db.getUpdateTimer("signer");
                 auto prep2 = db.getPreparedStatement(
                     "UPDATE signers set weight=:v1 WHERE "
                     "accountid=:v2 AND publickey=:v3");
                 auto& st = prep2.statement();
                 st.exchange(use(it_new->weight));
-                st.exchange(use(actIDStrKey));
-                st.exchange(use(signerStrKey));
+                st.exchange(use(actIDPsrKey));
+                st.exchange(use(signerPsrKey));
                 st.define_and_bind();
                 st.execute(true);
                 if (st.get_affected_rows() != 1)
@@ -562,14 +562,14 @@ AccountFrame::applySigners(Database& db, bool insert)
         else if (added)
         {
             // signer was added
-            std::string signerStrKey = KeyUtils::toStrKey(it_new->key);
+            std::string signerPsrKey = KeyUtils::toPsrKey(it_new->key);
 
             auto prep2 = db.getPreparedStatement("INSERT INTO signers "
                                                  "(accountid,publickey,weight) "
                                                  "VALUES (:v1,:v2,:v3)");
             auto& st = prep2.statement();
-            st.exchange(use(actIDStrKey));
-            st.exchange(use(signerStrKey));
+            st.exchange(use(actIDPsrKey));
+            st.exchange(use(signerPsrKey));
             st.exchange(use(it_new->weight));
             st.define_and_bind();
             st.execute(true);
@@ -584,14 +584,14 @@ AccountFrame::applySigners(Database& db, bool insert)
         else
         {
             // signer was deleted
-            std::string signerStrKey = KeyUtils::toStrKey(it_old->key);
+            std::string signerPsrKey = KeyUtils::toPsrKey(it_old->key);
 
             auto prep2 = db.getPreparedStatement("DELETE from signers WHERE "
                                                  "accountid=:v2 AND "
                                                  "publickey=:v3");
             auto& st = prep2.statement();
-            st.exchange(use(actIDStrKey));
-            st.exchange(use(signerStrKey));
+            st.exchange(use(actIDPsrKey));
+            st.exchange(use(signerPsrKey));
             st.define_and_bind();
             {
                 auto timer = db.getDeleteTimer("signer");
@@ -650,7 +650,7 @@ AccountFrame::processForInflation(
 
     while (st.got_data())
     {
-        v.mInflationDest = KeyUtils::fromStrKey<PublicKey>(inflationDest);
+        v.mInflationDest = KeyUtils::fromPsrKey<PublicKey>(inflationDest);
         if (!inflationProcessor(v))
         {
             break;
@@ -672,7 +672,7 @@ AccountFrame::checkDB(Database& db)
         while (st.got_data())
         {
             state.insert(
-                std::make_pair(KeyUtils::fromStrKey<PublicKey>(id), nullptr));
+                std::make_pair(KeyUtils::fromPsrKey<PublicKey>(id), nullptr));
             st.fetch();
         }
     }
@@ -693,7 +693,7 @@ AccountFrame::checkDB(Database& db)
         st.execute(true);
         while (st.got_data())
         {
-            AccountID aid(KeyUtils::fromStrKey<PublicKey>(id));
+            AccountID aid(KeyUtils::fromPsrKey<PublicKey>(id));
             auto it = state.find(aid);
             if (it == state.end())
             {

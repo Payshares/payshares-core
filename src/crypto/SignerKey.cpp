@@ -4,12 +4,12 @@
 
 #include "crypto/SignerKey.h"
 
-#include "crypto/StrKey.h"
-#include "xdr/Stellar-types.h"
+#include "crypto/PsrKey.h"
+#include "xdr/Payshares-types.h"
 
 #include <sodium/crypto_sign.h>
 
-namespace stellar
+namespace payshares
 {
 
 std::string
@@ -20,15 +20,15 @@ KeyFunctions<SignerKey>::getKeyTypeName()
 
 bool
 KeyFunctions<SignerKey>::getKeyVersionIsSupported(
-    strKey::StrKeyVersionByte keyVersion)
+    psrKey::PsrKeyVersionByte keyVersion)
 {
     switch (keyVersion)
     {
-    case strKey::STRKEY_PUBKEY_ED25519:
+    case psrKey::PSRKEY_PUBKEY_ED25519:
         return true;
-    case strKey::STRKEY_PRE_AUTH_TX:
+    case psrKey::PSRKEY_PRE_AUTH_TX:
         return true;
-    case strKey::STRKEY_HASH_X:
+    case psrKey::PSRKEY_HASH_X:
         return true;
     default:
         return false;
@@ -36,32 +36,32 @@ KeyFunctions<SignerKey>::getKeyVersionIsSupported(
 }
 
 typename KeyFunctions<SignerKey>::getKeyTypeEnum::type
-KeyFunctions<SignerKey>::toKeyType(strKey::StrKeyVersionByte keyVersion)
+KeyFunctions<SignerKey>::toKeyType(psrKey::PsrKeyVersionByte keyVersion)
 {
     switch (keyVersion)
     {
-    case strKey::STRKEY_PUBKEY_ED25519:
+    case psrKey::PSRKEY_PUBKEY_ED25519:
         return SignerKeyType::SIGNER_KEY_TYPE_ED25519;
-    case strKey::STRKEY_PRE_AUTH_TX:
+    case psrKey::PSRKEY_PRE_AUTH_TX:
         return SignerKeyType::SIGNER_KEY_TYPE_PRE_AUTH_TX;
-    case strKey::STRKEY_HASH_X:
+    case psrKey::PSRKEY_HASH_X:
         return SignerKeyType::SIGNER_KEY_TYPE_HASH_X;
     default:
         throw std::invalid_argument("invalid signer key type");
     }
 }
 
-strKey::StrKeyVersionByte
+psrKey::PsrKeyVersionByte
 KeyFunctions<SignerKey>::toKeyVersion(SignerKeyType keyType)
 {
     switch (keyType)
     {
     case SignerKeyType::SIGNER_KEY_TYPE_ED25519:
-        return strKey::STRKEY_PUBKEY_ED25519;
+        return psrKey::PSRKEY_PUBKEY_ED25519;
     case SignerKeyType::SIGNER_KEY_TYPE_PRE_AUTH_TX:
-        return strKey::STRKEY_PRE_AUTH_TX;
+        return psrKey::PSRKEY_PRE_AUTH_TX;
     case SignerKeyType::SIGNER_KEY_TYPE_HASH_X:
-        return strKey::STRKEY_HASH_X;
+        return psrKey::PSRKEY_HASH_X;
     default:
         throw std::invalid_argument("invalid signer key type");
     }

@@ -6,7 +6,7 @@
 
 #include "util/asio.h"
 #include "database/Database.h"
-#include "overlay/StellarXDR.h"
+#include "overlay/PaysharesXDR.h"
 #include "util/NonCopyable.h"
 #include "util/Timer.h"
 #include "xdrpp/message.h"
@@ -17,7 +17,7 @@ class Timer;
 class Meter;
 }
 
-namespace stellar
+namespace payshares
 {
 
 typedef std::shared_ptr<SCPQuorumSet> SCPQuorumSetPtr;
@@ -136,26 +136,26 @@ class Peer : public std::enable_shared_from_this<Peer>,
     medida::Meter& mDropInRecvErrorMeter;
 
     bool shouldAbort() const;
-    void recvMessage(StellarMessage const& msg);
+    void recvMessage(PaysharesMessage const& msg);
     void recvMessage(AuthenticatedMessage const& msg);
     void recvMessage(xdr::msg_ptr const& xdrBytes);
 
-    virtual void recvError(StellarMessage const& msg);
+    virtual void recvError(PaysharesMessage const& msg);
     // returns false if we should drop this peer
     void noteHandshakeSuccessInPeerRecord();
-    void recvAuth(StellarMessage const& msg);
-    void recvDontHave(StellarMessage const& msg);
-    void recvGetPeers(StellarMessage const& msg);
+    void recvAuth(PaysharesMessage const& msg);
+    void recvDontHave(PaysharesMessage const& msg);
+    void recvGetPeers(PaysharesMessage const& msg);
     void recvHello(Hello const& elo);
-    void recvPeers(StellarMessage const& msg);
+    void recvPeers(PaysharesMessage const& msg);
 
-    void recvGetTxSet(StellarMessage const& msg);
-    void recvTxSet(StellarMessage const& msg);
-    void recvTransaction(StellarMessage const& msg);
-    void recvGetSCPQuorumSet(StellarMessage const& msg);
-    void recvSCPQuorumSet(StellarMessage const& msg);
-    void recvSCPMessage(StellarMessage const& msg);
-    void recvGetSCPState(StellarMessage const& msg);
+    void recvGetTxSet(PaysharesMessage const& msg);
+    void recvTxSet(PaysharesMessage const& msg);
+    void recvTransaction(PaysharesMessage const& msg);
+    void recvGetSCPQuorumSet(PaysharesMessage const& msg);
+    void recvSCPQuorumSet(PaysharesMessage const& msg);
+    void recvSCPMessage(PaysharesMessage const& msg);
+    void recvGetSCPState(PaysharesMessage const& msg);
 
     void sendHello();
     void sendAuth();
@@ -199,7 +199,7 @@ class Peer : public std::enable_shared_from_this<Peer>,
     void sendGetPeers();
     void sendGetScpState(uint32 ledgerSeq);
 
-    void sendMessage(StellarMessage const& msg);
+    void sendMessage(PaysharesMessage const& msg);
 
     PeerRole
     getRole() const

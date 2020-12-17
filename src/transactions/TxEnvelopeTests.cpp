@@ -24,8 +24,8 @@
 #include "util/Timer.h"
 #include "util/make_unique.h"
 
-using namespace stellar;
-using namespace stellar::txtest;
+using namespace payshares;
+using namespace payshares::txtest;
 
 typedef std::unique_ptr<Application> appPtr;
 
@@ -481,9 +481,9 @@ TEST_CASE("txenvelope", "[tx][envelope]")
 
                         for_versions_from(3, *app, [&] {
                             applyCheck(tx, *app);
-                            REQUIRE(tx->getResultCode() == stellar::txFAILED);
+                            REQUIRE(tx->getResultCode() == payshares::txFAILED);
                             REQUIRE(PaymentOpFrame::getInnerCode(getFirstResult(
-                                        *tx)) == stellar::PAYMENT_MALFORMED);
+                                        *tx)) == payshares::PAYMENT_MALFORMED);
                             REQUIRE(getAccountSigners(a1, *app).size() == 1);
                         });
                     }
@@ -943,7 +943,7 @@ TEST_CASE("txenvelope", "[tx][envelope]")
         txSet->add(txFrame);
 
         // close this ledger
-        StellarValue sv(txSet->getContentsHash(), 1, emptyUpgradeSteps, 0);
+        PaysharesValue sv(txSet->getContentsHash(), 1, emptyUpgradeSteps, 0);
         LedgerCloseData ledgerData(1, txSet, sv);
         app->getLedgerManager().closeLedger(ledgerData);
 

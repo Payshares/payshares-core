@@ -9,7 +9,7 @@
 #include "main/Application.h"
 #include "xdrpp/printer.h"
 
-namespace stellar
+namespace payshares
 {
 
 std::shared_ptr<Invariant>

@@ -11,7 +11,7 @@
 #include "util/Logging.h"
 #include <memory>
 
-namespace stellar
+namespace payshares
 {
 
 using asio::ip::tcp;

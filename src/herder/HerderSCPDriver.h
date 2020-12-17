@@ -7,7 +7,7 @@
 #include "herder/Herder.h"
 #include "herder/TxSetFrame.h"
 #include "scp/SCPDriver.h"
-#include "xdr/Stellar-ledger.h"
+#include "xdr/Payshares-ledger.h"
 
 namespace medida
 {
@@ -16,7 +16,7 @@ class Meter;
 class Timer;
 }
 
-namespace stellar
+namespace payshares
 {
 class Application;
 class HerderImpl;
@@ -25,7 +25,7 @@ class PendingEnvelopes;
 class SCP;
 class Upgrades;
 class VirtualTimer;
-struct StellarValue;
+struct PaysharesValue;
 struct SCPEnvelope;
 
 class HerderSCPDriver : public SCPDriver
@@ -34,8 +34,8 @@ class HerderSCPDriver : public SCPDriver
     struct ConsensusData
     {
         uint64_t mConsensusIndex;
-        StellarValue mConsensusValue;
-        ConsensusData(uint64_t index, StellarValue const& b)
+        PaysharesValue mConsensusValue;
+        ConsensusData(uint64_t index, PaysharesValue const& b)
             : mConsensusIndex(index), mConsensusValue(b)
         {
         }
@@ -64,7 +64,7 @@ class HerderSCPDriver : public SCPDriver
         return mLastTrackingSCP.get();
     }
 
-    void restoreSCPState(uint64_t index, StellarValue const& value);
+    void restoreSCPState(uint64_t index, PaysharesValue const& value);
 
     // the ledger index that was last externalized
     uint32
@@ -114,8 +114,8 @@ class HerderSCPDriver : public SCPDriver
 
     // Submit a value to consider for slotIndex
     // previousValue is the value from slotIndex-1
-    void nominate(uint64_t slotIndex, StellarValue const& value,
-                  TxSetFramePtr proposedSet, StellarValue const& previousValue);
+    void nominate(uint64_t slotIndex, PaysharesValue const& value,
+                  TxSetFramePtr proposedSet, PaysharesValue const& previousValue);
 
     SCPQuorumSetPtr getQSet(Hash const& qSetHash) override;
 
@@ -192,7 +192,7 @@ class HerderSCPDriver : public SCPDriver
     void stateChanged();
 
     SCPDriver::ValidationLevel
-    validateValueHelper(uint64_t slotIndex, StellarValue const& sv) const;
+    validateValueHelper(uint64_t slotIndex, PaysharesValue const& sv) const;
 
     // returns true if the local instance is in a state compatible with
     // this slot

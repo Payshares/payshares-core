@@ -10,7 +10,7 @@
 #include <string>
 #include <xdrpp/autocheck.h>
 
-namespace stellar
+namespace payshares
 {
 namespace LedgerTestUtils
 {

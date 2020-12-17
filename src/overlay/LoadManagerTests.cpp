@@ -10,7 +10,7 @@
 #include <lib/catch.hpp>
 #include <medida/metrics_registry.h>
 
-using namespace stellar;
+using namespace payshares;
 
 TEST_CASE("disconnect peer when overloaded", "[overlay][LoadManager]")
 {

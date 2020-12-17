@@ -5,7 +5,7 @@
 #include "historywork/MakeRemoteDirWork.h"
 #include "history/HistoryArchive.h"
 
-namespace stellar
+namespace payshares
 {
 
 MakeRemoteDirWork::MakeRemoteDirWork(

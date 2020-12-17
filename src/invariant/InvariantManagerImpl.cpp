@@ -21,7 +21,7 @@
 #include <memory>
 #include <numeric>
 
-namespace stellar
+namespace payshares
 {
 
 std::unique_ptr<InvariantManager>

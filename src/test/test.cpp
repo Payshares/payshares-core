@@ -6,7 +6,7 @@
 
 #include "util/asio.h"
 
-#include "StellarCoreVersion.h"
+#include "PaysharesCoreVersion.h"
 #include "main/Config.h"
 #include "test.h"
 #include "test/TestUtils.h"
@@ -37,7 +37,7 @@ SimpleTestReporter::~SimpleTestReporter()
 }
 }
 
-namespace stellar
+namespace payshares
 {
 
 static std::vector<std::string> gTestMetrics;
@@ -45,7 +45,7 @@ static std::vector<std::unique_ptr<Config>> gTestCfg[Config::TESTDB_MODES];
 static std::vector<TmpDir> gTestRoots;
 static bool gTestAllVersions{false};
 
-bool force_sqlite = (std::getenv("STELLAR_FORCE_SQLITE") != nullptr);
+bool force_sqlite = (std::getenv("PAYSHARES_FORCE_SQLITE") != nullptr);
 
 Config const&
 getTestConfig(int instanceNumber, Config::TestDbMode mode)
@@ -66,24 +66,24 @@ getTestConfig(int instanceNumber, Config::TestDbMode mode)
 
     if (!cfgs[instanceNumber])
     {
-        gTestRoots.emplace_back("stellar-core-test");
+        gTestRoots.emplace_back("payshares-core-test");
 
         std::string rootDir = gTestRoots.back().getName();
         rootDir += "/";
 
-        cfgs[instanceNumber] = stellar::make_unique<Config>();
+        cfgs[instanceNumber] = payshares::make_unique<Config>();
         Config& thisConfig = *cfgs[instanceNumber];
 
         std::ostringstream sstream;
 
-        sstream << "stellar" << instanceNumber << ".log";
+        sstream << "payshares" << instanceNumber << ".log";
         thisConfig.LOG_FILE_PATH = sstream.str();
         thisConfig.BUCKET_DIR_PATH = rootDir + "bucket";
 
         thisConfig.INVARIANT_CHECKS = {"AccountSubEntriesCountIsValid",
                                        "BucketListIsConsistentWithDatabase",
                                        "CacheIsConsistentWithDatabase",
-                                       "ConservationOfLumens",
+                                       "ConservationOfStakks",
                                        "LedgerEntryIsValid",
                                        "MinimumAccountBalance"};
 
@@ -155,7 +155,7 @@ test(int argc, char* const* argv, el::Level ll,
     Logging::setFmt("<test>");
     Logging::setLoggingToFile(cfg.LOG_FILE_PATH);
     Logging::setLogLevel(ll, nullptr);
-    LOG(INFO) << "Testing stellar-core " << STELLAR_CORE_VERSION;
+    LOG(INFO) << "Testing payshares-core " << PAYSHARES_CORE_VERSION;
     LOG(INFO) << "Logging to " << cfg.LOG_FILE_PATH;
 
     using namespace Catch;

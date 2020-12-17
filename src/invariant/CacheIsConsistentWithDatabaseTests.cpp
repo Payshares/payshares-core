@@ -14,7 +14,7 @@
 #include "test/test.h"
 #include <random>
 
-using namespace stellar;
+using namespace payshares;
 
 static LedgerEntry
 generateRandomLedgerEntry(std::map<LedgerKey, LedgerEntry>& liveEntries,

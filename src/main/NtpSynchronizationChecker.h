@@ -7,7 +7,7 @@
 #include "util/Timer.h"
 #include "work/WorkParent.h"
 
-namespace stellar
+namespace payshares
 {
 
 class Application;

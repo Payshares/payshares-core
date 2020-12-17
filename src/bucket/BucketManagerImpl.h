@@ -2,7 +2,7 @@
 
 #include "bucket/BucketList.h"
 #include "bucket/BucketManager.h"
-#include "overlay/StellarXDR.h"
+#include "overlay/PaysharesXDR.h"
 
 #include <map>
 #include <memory>
@@ -20,7 +20,7 @@ class Meter;
 class Counter;
 }
 
-namespace stellar
+namespace payshares
 {
 
 class TmpDir;

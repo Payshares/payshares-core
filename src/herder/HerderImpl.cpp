@@ -35,7 +35,7 @@
 
 using namespace std;
 
-namespace stellar
+namespace payshares
 {
 
 std::unique_ptr<Herder>
@@ -168,7 +168,7 @@ findOrAdd(HerderImpl::AccountTxMap& acc, AccountID const& aid)
 }
 
 void
-HerderImpl::valueExternalized(uint64 slotIndex, StellarValue const& value)
+HerderImpl::valueExternalized(uint64 slotIndex, PaysharesValue const& value)
 {
     updateSCPCounters();
 
@@ -241,7 +241,7 @@ HerderImpl::broadcast(SCPEnvelope const& e)
 {
     if (!mApp.getConfig().MANUAL_CLOSE)
     {
-        StellarMessage m;
+        PaysharesMessage m;
         m.type(SCP_MESSAGE);
         m.envelope() = e;
 
@@ -451,7 +451,7 @@ HerderImpl::sendSCPStateToPeer(uint32 ledgerSeq, PeerPtr peer)
 
             for (auto const& e : envelopes)
             {
-                StellarMessage m;
+                PaysharesMessage m;
                 m.type(SCP_MESSAGE);
                 m.envelope() = e;
                 peer->sendMessage(m);
@@ -760,7 +760,7 @@ HerderImpl::triggerNextLedger(uint32_t ledgerSeqToTrigger)
         nextCloseTime = lcl.header.scpValue.closeTime + 1;
     }
 
-    StellarValue newProposedValue(txSetHash, nextCloseTime, emptyUpgradeSteps,
+    PaysharesValue newProposedValue(txSetHash, nextCloseTime, emptyUpgradeSteps,
                                   0);
 
     // see if we need to include some upgrades
@@ -838,7 +838,7 @@ HerderImpl::resolveNodeID(std::string const& s, PublicKey& retKey)
             auto const& envelopes = getSCP().getCurrentState(seq);
             for (auto const& e : envelopes)
             {
-                std::string curK = KeyUtils::toStrKey(e.statement.nodeID);
+                std::string curK = KeyUtils::toPsrKey(e.statement.nodeID);
                 if (curK.compare(0, arg.size(), arg) == 0)
                 {
                     retKey = e.statement.nodeID;
@@ -855,7 +855,7 @@ void
 HerderImpl::dumpInfo(Json::Value& ret, size_t limit)
 {
     ret["you"] =
-        mApp.getConfig().toStrKey(getSCP().getSecretKey().getPublicKey());
+        mApp.getConfig().toPsrKey(getSCP().getSecretKey().getPublicKey());
 
     getSCP().dumpInfo(ret, limit);
 
@@ -866,7 +866,7 @@ void
 HerderImpl::dumpQuorumInfo(Json::Value& ret, NodeID const& id, bool summary,
                            uint64 index)
 {
-    ret["node"] = mApp.getConfig().toStrKey(id);
+    ret["node"] = mApp.getConfig().toPsrKey(id);
 
     getSCP().dumpQuorumInfo(ret["slots"], id, summary, index);
 }
@@ -1071,7 +1071,7 @@ HerderImpl::updatePendingTransactions(
         }
         for (auto tx : toBroadcast.sortForApply())
         {
-            auto msg = tx->toStellarMessage();
+            auto msg = tx->toPaysharesMessage();
             mApp.getOverlayManager().broadcastMessage(msg);
         }
     }

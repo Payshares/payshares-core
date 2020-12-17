@@ -6,7 +6,7 @@
 
 #include <string>
 
-namespace stellar
+namespace payshares
 {
 namespace fs
 {

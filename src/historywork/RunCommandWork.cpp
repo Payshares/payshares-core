@@ -6,7 +6,7 @@
 #include "main/Application.h"
 #include "process/ProcessManager.h"
 
-namespace stellar
+namespace payshares
 {
 
 RunCommandWork::RunCommandWork(Application& app, WorkParent& parent,

@@ -7,10 +7,10 @@
 #include "crypto/SecretKey.h"
 #include "ledger/OfferFrame.h"
 #include "transactions/TransactionFrame.h"
-#include "xdr/Stellar-ledger-entries.h"
-#include "xdr/Stellar-transaction.h"
+#include "xdr/Payshares-ledger-entries.h"
+#include "xdr/Payshares-transaction.h"
 
-namespace stellar
+namespace payshares
 {
 
 class Application;
@@ -28,7 +28,7 @@ class TestAccount
     explicit TestAccount(Application& app, SecretKey sk, SequenceNumber sn = 0)
         : mApp(app), mSk{std::move(sk)}, mSn{sn}
     {
-        mAccountID = KeyUtils::toStrKey(mSk.getPublicKey());
+        mAccountID = KeyUtils::toPsrKey(mSk.getPublicKey());
     }
 
     TransactionFramePtr tx(std::vector<Operation> const& ops,

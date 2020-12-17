@@ -9,7 +9,7 @@
 #include <functional>
 #include <vector>
 
-namespace stellar
+namespace payshares
 {
 
 enum class ExchangeResultType

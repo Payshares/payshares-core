@@ -5,10 +5,10 @@
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
 #include "TxSetFrame.h"
-#include "overlay/StellarXDR.h"
+#include "overlay/PaysharesXDR.h"
 #include <string>
 
-namespace stellar
+namespace payshares
 {
 
 /**
@@ -22,7 +22,7 @@ class LedgerCloseData
 {
   public:
     LedgerCloseData(uint32_t ledgerSeq, TxSetFramePtr txSet,
-                    StellarValue const& v);
+                    PaysharesValue const& v);
 
     uint32_t
     getLedgerSeq() const
@@ -34,7 +34,7 @@ class LedgerCloseData
     {
         return mTxSet;
     }
-    StellarValue const&
+    PaysharesValue const&
     getValue() const
     {
         return mValue;
@@ -43,10 +43,10 @@ class LedgerCloseData
   private:
     uint32_t mLedgerSeq;
     TxSetFramePtr mTxSet;
-    StellarValue mValue;
+    PaysharesValue mValue;
 };
 
-std::string stellarValueToString(StellarValue const& sv);
+std::string paysharesValueToString(PaysharesValue const& sv);
 
 #define emptyUpgradeSteps (xdr::xvector<UpgradeType, 6>(0))
 }

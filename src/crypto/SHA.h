@@ -5,10 +5,10 @@
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
 #include "crypto/ByteSlice.h"
-#include "xdr/Stellar-types.h"
+#include "xdr/Payshares-types.h"
 #include <memory>
 
-namespace stellar
+namespace payshares
 {
 
 // Plain SHA256

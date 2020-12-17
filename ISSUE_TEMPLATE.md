@@ -1,13 +1,13 @@
 # Before creating an issue
- * check the [documentation](https://www.stellar.org/developers/)
- * ask for help [from the community](https://www.stellar.org/community/)
+ * check the [documentation](https://www.payshares.org/developers/)
+ * ask for help [from the community](https://www.payshares.org/community/)
 
 # Issue type
   bug/feature request/documentation/...
 
 # Version found
   * git hash of the version you're running `git rev-parse HEAD`
-  * version returned by `./stellar-core --version`
+  * version returned by `./payshares-core --version`
 
 # Your environment and setup
   * Operating System name and version (usually `uname -a`)

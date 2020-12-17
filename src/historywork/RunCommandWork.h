@@ -6,7 +6,7 @@
 
 #include "work/Work.h"
 
-namespace stellar
+namespace payshares
 {
 
 // This subclass exists for two reasons: first, to factor out a little code

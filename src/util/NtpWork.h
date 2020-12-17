@@ -10,7 +10,7 @@
 
 #include <chrono>
 
-namespace stellar
+namespace payshares
 {
 
 /**

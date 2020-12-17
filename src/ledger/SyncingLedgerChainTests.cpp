@@ -9,7 +9,7 @@
 
 #include <memory>
 
-using namespace stellar;
+using namespace payshares;
 
 namespace
 {
@@ -18,7 +18,7 @@ LedgerCloseData
 makeLedgerCloseData(uint32_t ledgerSeq)
 {
     auto txSet = std::make_shared<TxSetFrame>(sha256("a"), TransactionSet{});
-    auto sv = StellarValue{};
+    auto sv = PaysharesValue{};
     sv.txSetHash = txSet->getContentsHash();
     return LedgerCloseData{ledgerSeq, txSet, sv};
 }

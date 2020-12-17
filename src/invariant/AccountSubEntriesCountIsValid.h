@@ -9,7 +9,7 @@
 #include <memory>
 #include <unordered_map>
 
-namespace stellar
+namespace payshares
 {
 
 class Application;

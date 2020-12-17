@@ -8,15 +8,15 @@
 #include "ledger/LedgerRange.h"
 #include "util/XDRStream.h"
 #include "work/Work.h"
-#include "xdr/Stellar-SCP.h"
-#include "xdr/Stellar-ledger.h"
+#include "xdr/Payshares-SCP.h"
+#include "xdr/Payshares-ledger.h"
 
 namespace medida
 {
 class Meter;
 }
 
-namespace stellar
+namespace payshares
 {
 
 class TmpDir;

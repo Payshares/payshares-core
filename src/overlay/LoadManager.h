@@ -8,7 +8,7 @@
 #include "overlay/Peer.h"
 #include "util/HashOfHash.h"
 #include "util/lrucache.hpp"
-#include "xdr/Stellar-types.h"
+#include "xdr/Payshares-types.h"
 
 #include "medida/meter.h"
 #include "medida/metrics_registry.h"
@@ -16,7 +16,7 @@
 
 #include "util/Timer.h"
 
-namespace stellar
+namespace payshares
 {
 
 class Application;

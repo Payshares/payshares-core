@@ -14,7 +14,7 @@
 #include "lib/json/json-forwards.h"
 #include "scp/SCPDriver.h"
 
-namespace stellar
+namespace payshares
 {
 class Node;
 class Slot;

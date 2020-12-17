@@ -15,8 +15,8 @@
 #include <random>
 #include <xdrpp/autocheck.h>
 
-using namespace stellar;
-using namespace stellar::InvariantTestUtils;
+using namespace payshares;
+using namespace payshares::InvariantTestUtils;
 
 static LedgerEntry
 generateRandomAccountWithNoSubEntries(uint32_t ledgerSeq)

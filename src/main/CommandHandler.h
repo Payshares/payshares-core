@@ -11,7 +11,7 @@
 handler functions for the http commands this server supports
 */
 
-namespace stellar
+namespace payshares
 {
 class Application;
 

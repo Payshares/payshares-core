@@ -4,14 +4,14 @@
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
-#include "overlay/StellarXDR.h"
+#include "overlay/PaysharesXDR.h"
 #include <cereal/cereal.hpp>
 #include <future>
 #include <memory>
 #include <string>
 #include <vector>
 
-namespace stellar
+namespace payshares
 {
 
 class Bucket;

@@ -10,7 +10,7 @@
 #include "test/TestUtils.h"
 #include "test/test.h"
 
-namespace stellar
+namespace payshares
 {
 
 namespace

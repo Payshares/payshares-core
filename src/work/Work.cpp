@@ -16,7 +16,7 @@
 
 #include <algorithm>
 
-namespace stellar
+namespace payshares
 {
 
 size_t const Work::RETRY_NEVER = 0;

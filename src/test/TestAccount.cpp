@@ -10,7 +10,7 @@
 #include "test/TestExceptions.h"
 #include "test/TxTests.h"
 
-namespace stellar
+namespace payshares
 {
 
 using namespace txtest;

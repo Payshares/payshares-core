@@ -19,14 +19,14 @@
 #include "util/Timer.h"
 #include "util/make_unique.h"
 
-using namespace stellar;
-using namespace stellar::txtest;
+using namespace payshares;
+using namespace payshares::txtest;
 
-// *XLM Payment
+// *XPS Payment
 // *Credit Payment
-// XLM -> Credit Payment
-// Credit -> XLM Payment
-// Credit -> XLM -> Credit Payment
+// XPS -> Credit Payment
+// Credit -> XPS Payment
+// Credit -> XPS -> Credit Payment
 // Credit -> Credit -> Credit -> Credit Payment
 // path payment where there isn't enough in the path
 // path payment with a transfer rate
@@ -41,7 +41,7 @@ TEST_CASE("payment", "[tx][payment]")
     // set up world
     auto root = TestAccount::createRoot(*app);
 
-    Asset xlm;
+    Asset xps;
 
     int64_t txfee = app->getLedgerManager().getTxFee();
 
@@ -207,7 +207,7 @@ TEST_CASE("payment", "[tx][payment]")
         });
     }
 
-    SECTION("send XLM to an existing account")
+    SECTION("send XPS to an existing account")
     {
         for_all_versions(*app, [&] {
             root.pay(a1, morePayment);
@@ -224,7 +224,7 @@ TEST_CASE("payment", "[tx][payment]")
         });
     }
 
-    SECTION("send XLM to a new account (no destination)")
+    SECTION("send XPS to a new account (no destination)")
     {
         for_all_versions(*app, [&] {
             REQUIRE_THROWS_AS(root.pay(getAccount("B").getPublicKey(),
@@ -845,8 +845,8 @@ TEST_CASE("payment", "[tx][payment]")
 
         auto tx = sourceAccount.tx({
             createSource.op(createAccount(createDestination, create1Amount)),
-            createDestination.op(pathPayment(payDestination, xlm, payAmount,
-                                             xlm, payAmount, {})),
+            createDestination.op(pathPayment(payDestination, xps, payAmount,
+                                             xps, payAmount, {})),
             payDestination.op(accountMerge(createSource)),
             createSource.op(createAccount(payDestination, create2Amount)),
         });

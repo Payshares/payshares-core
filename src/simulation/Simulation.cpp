@@ -20,7 +20,7 @@
 
 #include <thread>
 
-namespace stellar
+namespace payshares
 {
 
 using namespace std;

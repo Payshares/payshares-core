@@ -7,12 +7,12 @@
 #include "lib/catch.hpp"
 #include "main/Application.h"
 #include "main/Config.h"
-#include "overlay/StellarXDR.h"
+#include "overlay/PaysharesXDR.h"
 #include "test/TestUtils.h"
 #include "test/test.h"
 #include "util/SociNoWarnings.h"
 
-namespace stellar
+namespace payshares
 {
 
 using namespace std;

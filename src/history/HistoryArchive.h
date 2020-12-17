@@ -5,7 +5,7 @@
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
 #include "bucket/FutureBucket.h"
-#include "xdr/Stellar-types.h"
+#include "xdr/Payshares-types.h"
 #include <cereal/cereal.hpp>
 #include <memory>
 #include <string>
@@ -16,7 +16,7 @@ namespace asio
 typedef std::error_code error_code;
 };
 
-namespace stellar
+namespace payshares
 {
 
 class Application;

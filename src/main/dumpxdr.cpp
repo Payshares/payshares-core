@@ -26,7 +26,7 @@ extern "C" {
 #define isatty _isatty
 #endif // MSVC
 
-namespace stellar
+namespace payshares
 {
 
 const char* signtxn_network_id;
@@ -34,7 +34,7 @@ const char* signtxn_network_id;
 std::string
 xdr_printer(const PublicKey& pk)
 {
-    return KeyUtils::toStrKey<PublicKey>(pk);
+    return KeyUtils::toPsrKey<PublicKey>(pk);
 }
 
 template <typename T>
@@ -225,10 +225,10 @@ signtxn(std::string const& filename, bool base64)
     try
     {
         if (!signtxn_network_id)
-            signtxn_network_id = getenv("STELLAR_NETWORK_ID");
+            signtxn_network_id = getenv("PAYSHARES_NETWORK_ID");
         if (!signtxn_network_id)
             throw std::runtime_error("missing --netid argument or "
-                                     "STELLAR_NETWORK_ID environment variable");
+                                     "PAYSHARES_NETWORK_ID environment variable");
 
         const bool txn_stdin = filename == "-" || filename.empty();
 
@@ -242,7 +242,7 @@ signtxn(std::string const& filename, bool base64)
             throw std::runtime_error(
                 "Evelope already contains maximum number of signatures");
 
-        SecretKey sk(SecretKey::fromStrKeySeed(
+        SecretKey sk(SecretKey::fromPsrKeySeed(
             readSecret("Secret key seed: ", txn_stdin)));
         TransactionSignaturePayload payload;
         payload.networkId = sha256(std::string(signtxn_network_id));
@@ -271,8 +271,8 @@ priv2pub()
     try
     {
         SecretKey sk(
-            SecretKey::fromStrKeySeed(readSecret("Secret key seed: ", false)));
-        cout << sk.getStrKeyPublic() << endl;
+            SecretKey::fromPsrKeySeed(readSecret("Secret key seed: ", false)));
+        cout << sk.getPsrKeyPublic() << endl;
     }
     catch (const std::exception& e)
     {

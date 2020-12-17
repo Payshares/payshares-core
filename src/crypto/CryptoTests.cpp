@@ -7,7 +7,7 @@
 #include "crypto/Random.h"
 #include "crypto/SHA.h"
 #include "crypto/SecretKey.h"
-#include "crypto/StrKey.h"
+#include "crypto/PsrKey.h"
 #include "lib/catch.hpp"
 #include "test/test.h"
 #include "util/Logging.h"
@@ -17,7 +17,7 @@
 #include <regex>
 #include <sodium.h>
 
-using namespace stellar;
+using namespace payshares;
 
 static std::map<std::vector<uint8_t>, std::string> hexTestVectors = {
     {{}, ""},
@@ -31,9 +31,9 @@ TEST_CASE("random", "[crypto]")
 {
     SecretKey k1 = SecretKey::random();
     SecretKey k2 = SecretKey::random();
-    LOG(DEBUG) << "k1: " << k1.getStrKeySeed().value;
-    LOG(DEBUG) << "k2: " << k2.getStrKeySeed().value;
-    CHECK(k1.getStrKeySeed() != k2.getStrKeySeed());
+    LOG(DEBUG) << "k1: " << k1.getPsrKeySeed().value;
+    LOG(DEBUG) << "k2: " << k2.getPsrKeySeed().value;
+    CHECK(k1.getPsrKeySeed() != k2.getPsrKeySeed());
 }
 
 TEST_CASE("hex tests", "[crypto]")
@@ -132,10 +132,10 @@ TEST_CASE("sign tests", "[crypto]")
     auto sk = SecretKey::random();
     auto pk = sk.getPublicKey();
     LOG(DEBUG) << "generated random secret key seed: "
-               << sk.getStrKeySeed().value;
-    LOG(DEBUG) << "corresponding public key: " << KeyUtils::toStrKey(pk);
+               << sk.getPsrKeySeed().value;
+    LOG(DEBUG) << "corresponding public key: " << KeyUtils::toPsrKey(pk);
 
-    CHECK(SecretKey::fromStrKeySeed(sk.getStrKeySeed().value) == sk);
+    CHECK(SecretKey::fromPsrKeySeed(sk.getPsrKeySeed().value) == sk);
 
     std::string msg = "hello";
     auto sig = sk.sign(msg);
@@ -207,7 +207,7 @@ TEST_CASE("sign and verify benchmarking", "[crypto-bench][bench][hide]")
     }
 }
 
-TEST_CASE("StrKey tests", "[crypto]")
+TEST_CASE("PsrKey tests", "[crypto]")
 {
     std::regex b32("^([A-Z2-7])+$");
     std::regex b32Pad("^([A-Z2-7])+(=|===|====|======)?$");
@@ -221,7 +221,7 @@ TEST_CASE("StrKey tests", "[crypto]")
     {
         std::vector<uint8_t> in(input(size));
 
-        std::string encoded = strKey::toStrKey(version, in).value;
+        std::string encoded = psrKey::toPsrKey(version, in).value;
 
         REQUIRE(encoded.size() == ((size + 3 + 4) / 5 * 8));
 
@@ -237,7 +237,7 @@ TEST_CASE("StrKey tests", "[crypto]")
 
         uint8_t decodedVer = 0;
         std::vector<uint8_t> decoded;
-        REQUIRE(strKey::fromStrKey(encoded, decodedVer, decoded));
+        REQUIRE(psrKey::fromPsrKey(encoded, decodedVer, decoded));
 
         REQUIRE(decodedVer == version);
         REQUIRE(decoded == in);
@@ -251,7 +251,7 @@ TEST_CASE("StrKey tests", "[crypto]")
     {
         const int expectedSize = 32;
         std::vector<uint8_t> in(input(expectedSize));
-        std::string encoded = strKey::toStrKey(version, in).value;
+        std::string encoded = psrKey::toPsrKey(version, in).value;
 
         for (size_t p = 0u; p < encoded.size(); p++)
         {
@@ -293,14 +293,14 @@ TEST_CASE("StrKey tests", "[crypto]")
                 if (corrupted != encoded)
                 {
                     n_corrupted++;
-                    bool res = !strKey::fromStrKey(corrupted, ver, dt);
+                    bool res = !psrKey::fromPsrKey(corrupted, ver, dt);
                     if (res)
                     {
                         ++n_detected;
                     }
                     else
                     {
-                        LOG(WARNING) << "Failed to detect strkey corruption";
+                        LOG(WARNING) << "Failed to detect psrkey corruption";
                         LOG(WARNING) << " original: " << encoded;
                         LOG(WARNING) << "  corrupt: " << corrupted;
                     }

@@ -7,7 +7,7 @@
 #include <memory>
 #include <string>
 
-namespace stellar
+namespace payshares
 {
 class TmpDir
 {

@@ -6,7 +6,7 @@
 
 #include <vector>
 
-namespace stellar
+namespace payshares
 {
 
 class LedgerCloseData;

@@ -2,18 +2,18 @@
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
-#include "StrKey.h"
+#include "PsrKey.h"
 #include "util/SecretValue.h"
 #include "util/basen.h"
 #include "util/crc16.h"
 
-namespace stellar
+namespace payshares
 {
-namespace strKey
+namespace psrKey
 {
-// Encode a version byte and ByteSlice into StrKey
+// Encode a version byte and ByteSlice into PsrKey
 SecretValue
-toStrKey(uint8_t ver, ByteSlice const& bin)
+toPsrKey(uint8_t ver, ByteSlice const& bin)
 {
     ver <<= 3; // promote to 8 bits
     std::vector<uint8_t> toEncode;
@@ -32,17 +32,17 @@ toStrKey(uint8_t ver, ByteSlice const& bin)
 }
 
 size_t
-getStrKeySize(size_t dataSize)
+getPsrKeySize(size_t dataSize)
 {
     dataSize += 3; // version and crc
     return bn::encoded_size32(dataSize);
 }
 
 bool
-fromStrKey(std::string const& strKey, uint8_t& outVersion,
+fromPsrKey(std::string const& psrKey, uint8_t& outVersion,
            std::vector<uint8_t>& decoded)
 {
-    bn::decode_b32(strKey, decoded);
+    bn::decode_b32(psrKey, decoded);
     if (decoded.size() < 3)
     {
         return false;

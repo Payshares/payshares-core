@@ -7,7 +7,7 @@
 #include "crypto/SecretKey.h"
 #include "main/Application.h"
 #include "test/TxTests.h"
-#include "xdr/Stellar-types.h"
+#include "xdr/Payshares-types.h"
 #include <vector>
 
 namespace medida
@@ -18,7 +18,7 @@ class Counter;
 class Timer;
 }
 
-namespace stellar
+namespace payshares
 {
 
 class VirtualTimer;

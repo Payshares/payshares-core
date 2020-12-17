@@ -6,7 +6,7 @@
 
 #include <stdexcept>
 
-namespace stellar
+namespace payshares
 {
 
 class InvariantDoesNotHold : public std::runtime_error

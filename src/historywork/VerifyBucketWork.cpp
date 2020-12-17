@@ -14,7 +14,7 @@
 
 #include <fstream>
 
-namespace stellar
+namespace payshares
 {
 
 VerifyBucketWork::VerifyBucketWork(

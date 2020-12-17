@@ -30,14 +30,14 @@
 
 /INSTALL
 
-/src/StellarCoreVersion.h
+/src/PaysharesCoreVersion.h
 /src/xdr/*.h
 /Makefile
 /Makefile.in
 /aclocal.m4
 /autom4te.cache
 /build
-/src/stellar-core
+/src/payshares-core
 /buckets
 /compile
 /config.h
@@ -66,7 +66,7 @@
 /lib/lib.mk
 
 # test output
-/stellar-core-test-*
+/payshares-core-test-*
 /fuzz-findings/
 /my-history/
 

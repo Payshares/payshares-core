@@ -4,16 +4,16 @@
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
-#include "xdr/Stellar-types.h"
+#include "xdr/Payshares-types.h"
 #include <vector>
 
-namespace stellar
+namespace payshares
 {
 
 struct SCPEnvelope;
 struct SCPStatement;
-struct StellarValue;
+struct PaysharesValue;
 
 std::vector<Hash> getTxSetHashes(SCPEnvelope const& envelope);
-std::vector<StellarValue> getStellarValues(SCPStatement const& envelope);
+std::vector<PaysharesValue> getPaysharesValues(SCPStatement const& envelope);
 }

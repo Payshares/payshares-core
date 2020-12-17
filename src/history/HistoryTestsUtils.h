@@ -12,7 +12,7 @@
 
 #include <random>
 
-namespace stellar
+namespace payshares
 {
 
 class CatchupConfiguration;

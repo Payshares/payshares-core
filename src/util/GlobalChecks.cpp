@@ -10,7 +10,7 @@
 #include <cassert>
 #include <thread>
 
-namespace stellar
+namespace payshares
 {
 static std::thread::id mainThread = std::this_thread::get_id();
 

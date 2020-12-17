@@ -15,7 +15,7 @@
 #include <algorithm>
 #include <unordered_set>
 
-namespace stellar
+namespace payshares
 {
 using xdr::operator==;
 using xdr::operator<;

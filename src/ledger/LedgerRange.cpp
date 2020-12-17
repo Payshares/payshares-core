@@ -5,7 +5,7 @@
 #include "ledger/LedgerRange.h"
 #include <cassert>
 
-namespace stellar
+namespace payshares
 {
 
 LedgerRange::LedgerRange(uint32_t first, uint32_t last)

@@ -12,7 +12,7 @@
 #include "main/Application.h"
 #include "util/Logging.h"
 
-namespace stellar
+namespace payshares
 {
 
 PublishWork::PublishWork(Application& app, WorkParent& parent,

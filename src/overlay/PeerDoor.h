@@ -13,7 +13,7 @@ listens for peer connections.
 When found passes them to the OverlayManagerImpl
 */
 
-namespace stellar
+namespace payshares
 {
 class Application;
 class PeerDoorStub;

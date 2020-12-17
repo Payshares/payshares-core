@@ -4,7 +4,7 @@
 
 #pragma once
 
-namespace stellar
+namespace payshares
 {
 
 struct SCPQuorumSet;

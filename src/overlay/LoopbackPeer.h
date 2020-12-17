@@ -12,7 +12,7 @@
 Another peer out there that we are connected to
 */
 
-namespace stellar
+namespace payshares
 {
 // [testing] Peer that communicates via byte-buffer delivery events queued in
 // in-process io_services.

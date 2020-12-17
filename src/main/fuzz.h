@@ -6,7 +6,7 @@
 
 #include "util/Logging.h"
 
-namespace stellar
+namespace payshares
 {
 
 void fuzz(std::string const& filename, el::Level logLevel,

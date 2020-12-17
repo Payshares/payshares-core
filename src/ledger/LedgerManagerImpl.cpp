@@ -61,7 +61,7 @@ using std::placeholders::_2;
 using std::placeholders::_3;
 using namespace std;
 
-namespace stellar
+namespace payshares
 {
 
 const uint32_t LedgerManager::GENESIS_LEDGER_SEQ = 1;
@@ -195,7 +195,7 @@ LedgerManagerImpl::startNewLedger(LedgerHeader genesisLedger)
 
     mCurrentLedger = make_shared<LedgerHeaderFrame>(genesisLedger);
     CLOG(INFO, "Ledger") << "Established genesis ledger, closing";
-    CLOG(INFO, "Ledger") << "Root account seed: " << skey.getStrKeySeed().value;
+    CLOG(INFO, "Ledger") << "Root account seed: " << skey.getPsrKeySeed().value;
     ledgerClosed(delta);
 }
 
@@ -380,7 +380,7 @@ LedgerManagerImpl::valueExternalized(LedgerCloseData const& ledgerData)
         << "[seq=" << ledgerData.getLedgerSeq()
         << ", prev=" << hexAbbrev(ledgerData.getTxSet()->previousLedgerHash())
         << ", tx_count=" << ledgerData.getTxSet()->size()
-        << ", sv: " << stellarValueToString(ledgerData.getValue()) << "]";
+        << ", sv: " << paysharesValueToString(ledgerData.getValue()) << "]";
 
     auto st = getState();
     switch (st)
@@ -606,7 +606,7 @@ LedgerManagerImpl::historyCaughtup(asio::error_code const& ec,
                     << "[seq=" << lcd.getLedgerSeq() << ", prev="
                     << hexAbbrev(lcd.getTxSet()->previousLedgerHash())
                     << ", tx_count=" << lcd.getTxSet()->size()
-                    << ", sv: " << stellarValueToString(lcd.getValue()) << "]";
+                    << ", sv: " << paysharesValueToString(lcd.getValue()) << "]";
                 closeLedger(lcd);
             }
             else
@@ -840,7 +840,7 @@ LedgerManagerImpl::checkDbState()
             throw std::runtime_error(
                 fmt::format("Mismatch in number of subentries for account {}: "
                             "account says {} but found {}",
-                            KeyUtils::toStrKey(i.first), a.numSubEntries,
+                            KeyUtils::toPsrKey(i.first), a.numSubEntries,
                             actualSubEntries));
         }
     }
@@ -850,7 +850,7 @@ LedgerManagerImpl::checkDbState()
         {
             throw std::runtime_error(
                 fmt::format("Unexpected trust line found for account {}",
-                            KeyUtils::toStrKey(tl.first)));
+                            KeyUtils::toPsrKey(tl.first)));
         }
     }
     for (auto& of : offers)
@@ -859,7 +859,7 @@ LedgerManagerImpl::checkDbState()
         {
             throw std::runtime_error(
                 fmt::format("Unexpected offer found for account {}",
-                            KeyUtils::toStrKey(of.first)));
+                            KeyUtils::toPsrKey(of.first)));
         }
     }
 }

@@ -10,12 +10,12 @@
 #include "main/Application.h"
 #include "medida/metrics_registry.h"
 #include "overlay/OverlayManager.h"
-#include "overlay/StellarXDR.h"
+#include "overlay/PaysharesXDR.h"
 #include "overlay/Tracker.h"
 #include "util/Logging.h"
 #include "xdrpp/marshal.h"
 
-namespace stellar
+namespace payshares
 {
 
 ItemFetcher::ItemFetcher(Application& app, AskPeer askPeer)

@@ -7,7 +7,7 @@
 #include "ledger/LedgerManager.h"
 #include "main/Application.h"
 
-namespace stellar
+namespace payshares
 {
 
 ResolveSnapshotWork::ResolveSnapshotWork(

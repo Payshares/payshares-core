@@ -8,7 +8,7 @@
 #include "historywork/PutRemoteFileWork.h"
 #include "util/Logging.h"
 
-namespace stellar
+namespace payshares
 {
 
 PutHistoryArchiveStateWork::PutHistoryArchiveStateWork(
@@ -69,7 +69,7 @@ PutHistoryArchiveStateWork::onSuccess()
             addWork<PutRemoteFileWork>(mLocalFilename, seqName, mArchive);
         mPutRemoteFileWork->addWork<MakeRemoteDirWork>(seqDir, mArchive);
 
-        // Also put it in the .well-known/stellar-history.json file
+        // Also put it in the .well-known/payshares-history.json file
         auto wkName = HistoryArchiveState::wellKnownRemoteName();
         auto wkDir = HistoryArchiveState::wellKnownRemoteDir();
         auto wkWork =

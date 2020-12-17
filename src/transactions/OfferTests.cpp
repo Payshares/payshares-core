@@ -19,12 +19,12 @@
 #include "util/format.h"
 #include "util/make_unique.h"
 
-using namespace stellar;
-using namespace stellar::txtest;
+using namespace payshares;
+using namespace payshares::txtest;
 
 // Offer that takes multiple other offers and remains
-// Offer selling XLM
-// Offer buying XLM
+// Offer selling XPS
+// Offer buying XPS
 // Offer with transfer rate
 // Offer for more than you have
 // Offer for something you can't hold
@@ -52,7 +52,7 @@ TEST_CASE("create offer", "[tx][offers]")
 
     // sets up issuer account
     auto issuer = root.create("issuer", minBalance2 * 10);
-    auto xlm = makeNativeAsset();
+    auto xps = makeNativeAsset();
     auto idr = issuer.asset("IDR");
     auto usd = issuer.asset("USD");
 
@@ -217,7 +217,7 @@ TEST_CASE("create offer", "[tx][offers]")
             });
         }
 
-        SECTION("create offer without XLM to make for reserve")
+        SECTION("create offer without XPS to make for reserve")
         {
             auto a1 = root.create("A", minBalance2);
             a1.changeTrust(idr, trustLineLimit);
@@ -311,7 +311,7 @@ TEST_CASE("create offer", "[tx][offers]")
                         market.requireChangesWithOffer(
                             {},
                             [&] {
-                                return market.addOffer(a, {xlm, idr, p, 150});
+                                return market.addOffer(a, {xps, idr, p, 150});
                             }),
                         ex_MANAGE_OFFER_MALFORMED);
                 }
@@ -451,23 +451,23 @@ TEST_CASE("create offer", "[tx][offers]")
 
         auto market = TestMarket{*app};
 
-        SECTION("idr -> xlm")
+        SECTION("idr -> xps")
         {
             for_all_versions(*app, [&] {
                 market.requireChangesWithOffer({}, [&] {
-                    return market.addOffer(a1, {xlm, idr, Price{3, 2}, 100});
+                    return market.addOffer(a1, {xps, idr, Price{3, 2}, 100});
                 });
             });
         }
 
-        SECTION("xlm -> idr")
+        SECTION("xps -> idr")
         {
             SECTION("create")
             {
                 for_all_versions(*app, [&] {
                     market.requireChangesWithOffer({}, [&] {
                         return market.addOffer(a1,
-                                               {idr, xlm, Price{3, 2}, 100});
+                                               {idr, xps, Price{3, 2}, 100});
                     });
                 });
             }
@@ -477,7 +477,7 @@ TEST_CASE("create offer", "[tx][offers]")
 
                 // a1 is selling a1IDrs idr
                 auto a1Offer = market.requireChangesWithOffer({}, [&] {
-                    return market.addOffer(a1, {idr, xlm, Price{1, 1}, a1IDrs});
+                    return market.addOffer(a1, {idr, xps, Price{1, 1}, a1IDrs});
                 });
 
                 auto checkCrossed = [&](TestAccount& b1, int64 actualPayment,
@@ -485,14 +485,14 @@ TEST_CASE("create offer", "[tx][offers]")
                     auto b1Before = b1.getBalance();
                     auto a1Before = a1.getBalance();
                     auto b1Offer =
-                        market.addOffer(b1, {xlm, idr, oneone, offerAmount},
+                        market.addOffer(b1, {xps, idr, oneone, offerAmount},
                                         OfferState::DELETED);
                     market.requireBalances(
                         {{a1,
-                          {{xlm, a1Before + actualPayment},
+                          {{xps, a1Before + actualPayment},
                            {idr, trustLineBalance - actualPayment}}},
                          {b1,
-                          {{xlm, b1Before - txfee - actualPayment},
+                          {{xps, b1Before - txfee - actualPayment},
                            {idr, actualPayment}}}});
                 };
                 SECTION("small offer amount - cross only")
@@ -521,7 +521,7 @@ TEST_CASE("create offer", "[tx][offers]")
                                 {},
                                 [&] {
                                     return market.addOffer(
-                                        b1, {xlm, idr, oneone, offerAmount});
+                                        b1, {xps, idr, oneone, offerAmount});
                                 }),
                             ex_MANAGE_OFFER_LOW_RESERVE);
                     });
@@ -557,7 +557,7 @@ TEST_CASE("create offer", "[tx][offers]")
                                 {},
                                 [&] {
                                     return market.addOffer(
-                                        b1, {xlm, idr, oneone, offerAmount});
+                                        b1, {xps, idr, oneone, offerAmount});
                                 }),
                             ex_MANAGE_OFFER_LOW_RESERVE);
                     });
@@ -1017,8 +1017,8 @@ TEST_CASE("create offer", "[tx][offers]")
         biddingAccount.changeTrust(idr, 1000000000000);
         issuer.pay(askingAccount, idr, 100000000000);
 
-        auto bidding = OfferState{xlm, idr, bidPrice, bidAmount};
-        auto asking = OfferState{idr, xlm, askPrice, askAmount};
+        auto bidding = OfferState{xps, idr, bidPrice, bidAmount};
+        auto asking = OfferState{idr, xps, askPrice, askAmount};
 
         SECTION("bid before ask uses bid price")
         {
@@ -1035,9 +1035,9 @@ TEST_CASE("create offer", "[tx][offers]")
                 // 8224563625 / 4.1220000 = 1995284722 = 2000000000 -
                 // 4715278
                 // (rounding down)
-                auto updatedAsking = OfferState{idr, xlm, askPrice, 4715278};
+                auto updatedAsking = OfferState{idr, xps, askPrice, 4715278};
                 // rounding error, should be 0
-                auto updatedBidding = OfferState{xlm, idr, bidPrice, 1};
+                auto updatedBidding = OfferState{xps, idr, bidPrice, 1};
 
                 market.requireChangesWithOffer(
                     {{biddingKey, updatedBidding}}, [&] {
@@ -1050,7 +1050,7 @@ TEST_CASE("create offer", "[tx][offers]")
                 // 8224563625 / 4.1220000 = 1995284722 = 2000000000 -
                 // 4715278
                 // (rounding up)
-                auto updatedAsking = OfferState{idr, xlm, askPrice, 4715277};
+                auto updatedAsking = OfferState{idr, xps, askPrice, 4715277};
                 market.requireChangesWithOffer(
                     {{biddingKey, OfferState::DELETED}}, [&] {
                         return market.addOffer(askingAccount, asking,
@@ -1064,7 +1064,7 @@ TEST_CASE("create offer", "[tx][offers]")
             for_all_versions(*app, [&] {
                 // 2000000000 * 4.0816000 = 8163200000 = 8224563625 -
                 // 61363625
-                auto updatedBidding = OfferState{xlm, idr, bidPrice, 61363625};
+                auto updatedBidding = OfferState{xps, idr, bidPrice, 61363625};
 
                 auto askingKey =
                     market

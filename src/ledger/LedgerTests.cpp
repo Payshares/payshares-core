@@ -18,7 +18,7 @@
 #include "util/types.h"
 #include <xdrpp/autocheck.h>
 
-using namespace stellar;
+using namespace payshares;
 
 TEST_CASE("Ledger entry db lifecycle", "[ledger]")
 {

@@ -11,7 +11,7 @@
 #include "util/TmpDir.h"
 #include <string>
 
-namespace stellar
+namespace payshares
 {
 
 extern char const* HISTORY_FILE_TYPE_BUCKET;

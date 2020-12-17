@@ -10,7 +10,7 @@
 #include "util/optional.h"
 #include <string>
 
-namespace stellar
+namespace payshares
 {
 using namespace std;
 

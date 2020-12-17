@@ -18,7 +18,7 @@ class prepare_temp_type;
 }
 }
 
-namespace stellar
+namespace payshares
 {
 
 class LedgerRange;
@@ -31,8 +31,8 @@ class TrustFrame : public EntryFrame
     typedef std::shared_ptr<TrustFrame> pointer;
 
   private:
-    static void getKeyFields(LedgerKey const& key, std::string& actIDStrKey,
-                             std::string& issuerStrKey, std::string& assetCode);
+    static void getKeyFields(LedgerKey const& key, std::string& actIDPsrKey,
+                             std::string& issuerPsrKey, std::string& assetCode);
 
     static void
     loadLines(StatementContext& prep,

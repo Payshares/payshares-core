@@ -10,7 +10,7 @@
 #include "util/Logging.h"
 #include "util/make_unique.h"
 
-namespace stellar
+namespace payshares
 {
 
 using namespace std;
@@ -32,7 +32,7 @@ BanManagerImpl::~BanManagerImpl()
 void
 BanManagerImpl::banNode(NodeID nodeID)
 {
-    auto nodeIDString = KeyUtils::toStrKey(nodeID);
+    auto nodeIDString = KeyUtils::toPsrKey(nodeID);
     auto timer = mApp.getDatabase().getInsertTimer("ban");
     auto prep = mApp.getDatabase().getPreparedStatement(
         "INSERT INTO ban (nodeid) "
@@ -46,7 +46,7 @@ BanManagerImpl::banNode(NodeID nodeID)
 void
 BanManagerImpl::unbanNode(NodeID nodeID)
 {
-    auto nodeIDString = KeyUtils::toStrKey(nodeID);
+    auto nodeIDString = KeyUtils::toPsrKey(nodeID);
     auto timer = mApp.getDatabase().getDeleteTimer("ban");
     auto prep = mApp.getDatabase().getPreparedStatement(
         "DELETE FROM ban WHERE nodeid = :n;");
@@ -59,7 +59,7 @@ BanManagerImpl::unbanNode(NodeID nodeID)
 bool
 BanManagerImpl::isBanned(NodeID nodeID)
 {
-    auto nodeIDString = KeyUtils::toStrKey(nodeID);
+    auto nodeIDString = KeyUtils::toPsrKey(nodeID);
     auto timer = mApp.getDatabase().getSelectTimer("ban");
     auto prep = mApp.getDatabase().getPreparedStatement(
         "SELECT count(*) FROM ban WHERE nodeid = :n");

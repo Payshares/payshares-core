@@ -12,7 +12,7 @@ namespace medida
 class Meter;
 }
 
-namespace stellar
+namespace payshares
 {
 
 class TmpDir;

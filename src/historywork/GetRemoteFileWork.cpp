@@ -7,7 +7,7 @@
 #include "history/HistoryManager.h"
 #include "main/Application.h"
 
-namespace stellar
+namespace payshares
 {
 
 GetRemoteFileWork::GetRemoteFileWork(

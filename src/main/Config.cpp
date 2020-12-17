@@ -4,7 +4,7 @@
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
 #include "main/Config.h"
-#include "StellarCoreVersion.h"
+#include "PaysharesCoreVersion.h"
 #include "crypto/Hex.h"
 #include "crypto/KeyUtils.h"
 #include "history/HistoryArchive.h"
@@ -16,7 +16,7 @@
 #include <functional>
 #include <sstream>
 
-namespace stellar
+namespace payshares
 {
 using xdr::operator<;
 
@@ -33,7 +33,7 @@ Config::Config() : NODE_SEED(SecretKey::random())
     OVERLAY_PROTOCOL_MIN_VERSION = 5;
     OVERLAY_PROTOCOL_VERSION = 5;
 
-    VERSION_STR = STELLAR_CORE_VERSION;
+    VERSION_STR = PAYSHARES_CORE_VERSION;
 
     // configurable
     RUN_STANDALONE = false;
@@ -50,7 +50,7 @@ Config::Config() : NODE_SEED(SecretKey::random())
     FAILURE_SAFETY = -1;
     UNSAFE_QUORUM = false;
 
-    LOG_FILE_PATH = "stellar-core.%datetime{%Y.%M.%d-%H:%m:%s}.log";
+    LOG_FILE_PATH = "payshares-core.%datetime{%Y.%M.%d-%H:%m:%s}.log";
     BUCKET_DIR_PATH = "buckets";
 
     TESTING_UPGRADE_DESIRED_FEE = LedgerManager::GENESIS_LEDGER_BASE_FEE;
@@ -687,7 +687,7 @@ Config::load(std::string const& filename)
                     }
                     PublicKey nodeID;
                     parseNodeID(v->as<std::string>()->value(), nodeID);
-                    PREFERRED_PEER_KEYS.push_back(KeyUtils::toStrKey(nodeID));
+                    PREFERRED_PEER_KEYS.push_back(KeyUtils::toPsrKey(nodeID));
                 }
             }
         }
@@ -832,13 +832,13 @@ Config::parseNodeID(std::string configStr, PublicKey& retKey, SecretKey& sKey,
         iss >> nodestr;
         if (isSeed)
         {
-            sKey = SecretKey::fromStrKeySeed(nodestr);
+            sKey = SecretKey::fromPsrKeySeed(nodestr);
             retKey = sKey.getPublicKey();
-            nodestr = sKey.getStrKeyPublic();
+            nodestr = sKey.getPsrKeyPublic();
         }
         else
         {
-            retKey = KeyUtils::fromStrKey<PublicKey>(nodestr);
+            retKey = KeyUtils::fromPsrKey<PublicKey>(nodestr);
         }
 
         if (iss)
@@ -870,7 +870,7 @@ Config::parseNodeID(std::string configStr, PublicKey& retKey, SecretKey& sKey,
 std::string
 Config::toShortString(PublicKey const& pk) const
 {
-    std::string ret = KeyUtils::toStrKey(pk);
+    std::string ret = KeyUtils::toPsrKey(pk);
     auto it = VALIDATOR_NAMES.find(ret);
     if (it == VALIDATOR_NAMES.end())
         return ret.substr(0, 5);
@@ -879,9 +879,9 @@ Config::toShortString(PublicKey const& pk) const
 }
 
 std::string
-Config::toStrKey(PublicKey const& pk, bool& isAlias) const
+Config::toPsrKey(PublicKey const& pk, bool& isAlias) const
 {
-    std::string ret = KeyUtils::toStrKey(pk);
+    std::string ret = KeyUtils::toPsrKey(pk);
     auto it = VALIDATOR_NAMES.find(ret);
     if (it == VALIDATOR_NAMES.end())
     {
@@ -896,10 +896,10 @@ Config::toStrKey(PublicKey const& pk, bool& isAlias) const
 }
 
 std::string
-Config::toStrKey(PublicKey const& pk) const
+Config::toPsrKey(PublicKey const& pk) const
 {
     bool isAlias;
-    return toStrKey(pk, isAlias);
+    return toPsrKey(pk, isAlias);
 }
 
 bool
@@ -913,7 +913,7 @@ Config::resolveNodeID(std::string const& s, PublicKey& retKey) const
 
     try
     {
-        retKey = KeyUtils::fromStrKey<PublicKey>(expanded);
+        retKey = KeyUtils::fromPsrKey<PublicKey>(expanded);
     }
     catch (std::invalid_argument&)
     {

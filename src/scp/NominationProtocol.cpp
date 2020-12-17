@@ -17,7 +17,7 @@
 #include "xdrpp/marshal.h"
 #include <functional>
 
-namespace stellar
+namespace payshares
 {
 using xdr::operator==;
 using xdr::operator<;
@@ -112,12 +112,12 @@ NominationProtocol::isSane(SCPStatement const& st)
 
     res = res && (std::adjacent_find(
                       nom.votes.begin(), nom.votes.end(),
-                      [](stellar::Value const& l, stellar::Value const& r) {
+                      [](payshares::Value const& l, payshares::Value const& r) {
                           return !(l < r);
                       }) == nom.votes.end());
     res = res && (std::adjacent_find(
                       nom.accepted.begin(), nom.accepted.end(),
-                      [](stellar::Value const& l, stellar::Value const& r) {
+                      [](payshares::Value const& l, payshares::Value const& r) {
                           return !(l < r);
                       }) == nom.accepted.end());
 

@@ -6,7 +6,7 @@
 
 #include "herder/HerderPersistence.h"
 
-namespace stellar
+namespace payshares
 {
 class Application;
 

@@ -20,7 +20,7 @@
 #include "util/Logging.h"
 #include <lib/util/format.h>
 
-namespace stellar
+namespace payshares
 {
 
 CatchupWork::CatchupWork(Application& app, WorkParent& parent,

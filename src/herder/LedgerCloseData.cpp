@@ -9,11 +9,11 @@
 
 using namespace std;
 
-namespace stellar
+namespace payshares
 {
 
 LedgerCloseData::LedgerCloseData(uint32_t ledgerSeq, TxSetFramePtr txSet,
-                                 StellarValue const& v)
+                                 PaysharesValue const& v)
     : mLedgerSeq(ledgerSeq), mTxSet(txSet), mValue(v)
 {
     Value x;
@@ -24,7 +24,7 @@ LedgerCloseData::LedgerCloseData(uint32_t ledgerSeq, TxSetFramePtr txSet,
 }
 
 std::string
-stellarValueToString(StellarValue const& sv)
+paysharesValueToString(PaysharesValue const& sv)
 {
     std::stringstream res;
 

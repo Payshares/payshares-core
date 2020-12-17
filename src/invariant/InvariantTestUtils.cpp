@@ -12,7 +12,7 @@
 #include "lib/catch.hpp"
 #include "main/Application.h"
 
-namespace stellar
+namespace payshares
 {
 namespace InvariantTestUtils
 {

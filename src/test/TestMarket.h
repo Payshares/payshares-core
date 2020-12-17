@@ -5,12 +5,12 @@
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
 #include "test/TxTests.h"
-#include "xdr/Stellar-SCP.h"
-#include "xdr/Stellar-ledger.h"
+#include "xdr/Payshares-SCP.h"
+#include "xdr/Payshares-ledger.h"
 
 #include <map>
 
-namespace stellar
+namespace payshares
 {
 
 class Application;

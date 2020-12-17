@@ -7,7 +7,7 @@
 #include "main/Application.h"
 #include <string>
 
-namespace stellar
+namespace payshares
 {
 
 class PersistentState

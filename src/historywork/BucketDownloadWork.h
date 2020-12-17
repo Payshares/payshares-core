@@ -7,7 +7,7 @@
 #include "history/HistoryArchive.h"
 #include "work/Work.h"
 
-namespace stellar
+namespace payshares
 {
 
 class Bucket;

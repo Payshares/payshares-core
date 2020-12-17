@@ -14,7 +14,7 @@
 #include "xdrpp/marshal.h"
 #include "xdrpp/printer.h"
 
-namespace stellar
+namespace payshares
 {
 using xdr::operator==;
 

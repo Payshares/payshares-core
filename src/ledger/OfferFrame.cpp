@@ -15,7 +15,7 @@
 using namespace std;
 using namespace soci;
 
-namespace stellar
+namespace payshares
 {
 const char* OfferFrame::kSQLCreateStatement1 =
     "CREATE TABLE offers"
@@ -124,13 +124,13 @@ OfferFrame::loadOffer(AccountID const& sellerID, uint64_t offerID, Database& db,
 {
     OfferFrame::pointer retOffer;
 
-    std::string actIDStrKey = KeyUtils::toStrKey(sellerID);
+    std::string actIDPsrKey = KeyUtils::toPsrKey(sellerID);
 
     std::string sql = offerColumnSelector;
     sql += " WHERE sellerid = :id AND offerid = :offerid";
     auto prep = db.getPreparedStatement(sql);
     auto& st = prep.statement();
-    st.exchange(use(actIDStrKey));
+    st.exchange(use(actIDPsrKey));
     st.exchange(use(offerID));
 
     auto timer = db.getSelectTimer("offer");
@@ -150,10 +150,10 @@ void
 OfferFrame::loadOffers(StatementContext& prep,
                        std::function<void(LedgerEntry const&)> offerProcessor)
 {
-    string actIDStrKey;
+    string actIDPsrKey;
     unsigned int sellingAssetType, buyingAssetType;
-    std::string sellingAssetCode, buyingAssetCode, sellingIssuerStrKey,
-        buyingIssuerStrKey;
+    std::string sellingAssetCode, buyingAssetCode, sellingIssuerPsrKey,
+        buyingIssuerPsrKey;
 
     soci::indicator sellingAssetCodeIndicator, buyingAssetCodeIndicator,
         sellingIssuerIndicator, buyingIssuerIndicator;
@@ -163,14 +163,14 @@ OfferFrame::loadOffers(StatementContext& prep,
     OfferEntry& oe = le.data.offer();
 
     statement& st = prep.statement();
-    st.exchange(into(actIDStrKey));
+    st.exchange(into(actIDPsrKey));
     st.exchange(into(oe.offerID));
     st.exchange(into(sellingAssetType));
     st.exchange(into(sellingAssetCode, sellingAssetCodeIndicator));
-    st.exchange(into(sellingIssuerStrKey, sellingIssuerIndicator));
+    st.exchange(into(sellingIssuerPsrKey, sellingIssuerIndicator));
     st.exchange(into(buyingAssetType));
     st.exchange(into(buyingAssetCode, buyingAssetCodeIndicator));
-    st.exchange(into(buyingIssuerStrKey, buyingIssuerIndicator));
+    st.exchange(into(buyingIssuerPsrKey, buyingIssuerIndicator));
     st.exchange(into(oe.amount));
     st.exchange(into(oe.price.n));
     st.exchange(into(oe.price.d));
@@ -180,7 +180,7 @@ OfferFrame::loadOffers(StatementContext& prep,
     st.execute(true);
     while (st.got_data())
     {
-        oe.sellerID = KeyUtils::fromStrKey<PublicKey>(actIDStrKey);
+        oe.sellerID = KeyUtils::fromPsrKey<PublicKey>(actIDPsrKey);
         if ((buyingAssetType > ASSET_TYPE_CREDIT_ALPHANUM12) ||
             (sellingAssetType > ASSET_TYPE_CREDIT_ALPHANUM12))
             throw std::runtime_error("bad database state");
@@ -198,14 +198,14 @@ OfferFrame::loadOffers(StatementContext& prep,
             if (sellingAssetType == ASSET_TYPE_CREDIT_ALPHANUM12)
             {
                 oe.selling.alphaNum12().issuer =
-                    KeyUtils::fromStrKey<PublicKey>(sellingIssuerStrKey);
+                    KeyUtils::fromPsrKey<PublicKey>(sellingIssuerPsrKey);
                 strToAssetCode(oe.selling.alphaNum12().assetCode,
                                sellingAssetCode);
             }
             else if (sellingAssetType == ASSET_TYPE_CREDIT_ALPHANUM4)
             {
                 oe.selling.alphaNum4().issuer =
-                    KeyUtils::fromStrKey<PublicKey>(sellingIssuerStrKey);
+                    KeyUtils::fromPsrKey<PublicKey>(sellingIssuerPsrKey);
                 strToAssetCode(oe.selling.alphaNum4().assetCode,
                                sellingAssetCode);
             }
@@ -222,14 +222,14 @@ OfferFrame::loadOffers(StatementContext& prep,
             if (buyingAssetType == ASSET_TYPE_CREDIT_ALPHANUM12)
             {
                 oe.buying.alphaNum12().issuer =
-                    KeyUtils::fromStrKey<PublicKey>(buyingIssuerStrKey);
+                    KeyUtils::fromPsrKey<PublicKey>(buyingIssuerPsrKey);
                 strToAssetCode(oe.buying.alphaNum12().assetCode,
                                buyingAssetCode);
             }
             else if (buyingAssetType == ASSET_TYPE_CREDIT_ALPHANUM4)
             {
                 oe.buying.alphaNum4().issuer =
-                    KeyUtils::fromStrKey<PublicKey>(buyingIssuerStrKey);
+                    KeyUtils::fromPsrKey<PublicKey>(buyingIssuerPsrKey);
                 strToAssetCode(oe.buying.alphaNum4().assetCode,
                                buyingAssetCode);
             }
@@ -247,8 +247,8 @@ OfferFrame::loadBestOffers(size_t numOffers, size_t offset,
 {
     std::string sql = offerColumnSelector;
 
-    std::string sellingAssetCode, sellingIssuerStrKey;
-    std::string buyingAssetCode, buyingIssuerStrKey;
+    std::string sellingAssetCode, sellingIssuerPsrKey;
+    std::string buyingAssetCode, buyingIssuerPsrKey;
 
     bool useSellingAsset = false;
     bool useBuyingAsset = false;
@@ -262,14 +262,14 @@ OfferFrame::loadBestOffers(size_t numOffers, size_t offset,
         if (selling.type() == ASSET_TYPE_CREDIT_ALPHANUM4)
         {
             assetCodeToStr(selling.alphaNum4().assetCode, sellingAssetCode);
-            sellingIssuerStrKey =
-                KeyUtils::toStrKey(selling.alphaNum4().issuer);
+            sellingIssuerPsrKey =
+                KeyUtils::toPsrKey(selling.alphaNum4().issuer);
         }
         else if (selling.type() == ASSET_TYPE_CREDIT_ALPHANUM12)
         {
             assetCodeToStr(selling.alphaNum12().assetCode, sellingAssetCode);
-            sellingIssuerStrKey =
-                KeyUtils::toStrKey(selling.alphaNum12().issuer);
+            sellingIssuerPsrKey =
+                KeyUtils::toPsrKey(selling.alphaNum12().issuer);
         }
         else
         {
@@ -289,12 +289,12 @@ OfferFrame::loadBestOffers(size_t numOffers, size_t offset,
         if (buying.type() == ASSET_TYPE_CREDIT_ALPHANUM4)
         {
             assetCodeToStr(buying.alphaNum4().assetCode, buyingAssetCode);
-            buyingIssuerStrKey = KeyUtils::toStrKey(buying.alphaNum4().issuer);
+            buyingIssuerPsrKey = KeyUtils::toPsrKey(buying.alphaNum4().issuer);
         }
         else if (buying.type() == ASSET_TYPE_CREDIT_ALPHANUM12)
         {
             assetCodeToStr(buying.alphaNum12().assetCode, buyingAssetCode);
-            buyingIssuerStrKey = KeyUtils::toStrKey(buying.alphaNum12().issuer);
+            buyingIssuerPsrKey = KeyUtils::toPsrKey(buying.alphaNum12().issuer);
         }
         else
         {
@@ -315,13 +315,13 @@ OfferFrame::loadBestOffers(size_t numOffers, size_t offset,
     if (useSellingAsset)
     {
         st.exchange(use(sellingAssetCode));
-        st.exchange(use(sellingIssuerStrKey));
+        st.exchange(use(sellingIssuerPsrKey));
     }
 
     if (useBuyingAsset)
     {
         st.exchange(use(buyingAssetCode));
-        st.exchange(use(buyingIssuerStrKey));
+        st.exchange(use(buyingIssuerPsrKey));
     }
 
     st.exchange(use(numOffers));
@@ -352,14 +352,14 @@ OfferFrame::loadAllOffers(Database& db)
 bool
 OfferFrame::exists(Database& db, LedgerKey const& key)
 {
-    std::string actIDStrKey = KeyUtils::toStrKey(key.offer().sellerID);
+    std::string actIDPsrKey = KeyUtils::toPsrKey(key.offer().sellerID);
     int exists = 0;
     auto timer = db.getSelectTimer("offer-exists");
     auto prep =
         db.getPreparedStatement("SELECT EXISTS (SELECT NULL FROM offers "
                                 "WHERE sellerid=:id AND offerid=:s)");
     auto& st = prep.statement();
-    st.exchange(use(actIDStrKey));
+    st.exchange(use(actIDPsrKey));
     st.exchange(use(key.offer().offerID));
     st.exchange(into(exists));
     st.define_and_bind();
@@ -446,40 +446,40 @@ OfferFrame::storeUpdateHelper(LedgerDelta& delta, Database& db, bool insert)
 {
     touch(delta);
 
-    std::string actIDStrKey = KeyUtils::toStrKey(mOffer.sellerID);
+    std::string actIDPsrKey = KeyUtils::toPsrKey(mOffer.sellerID);
 
     unsigned int sellingType = mOffer.selling.type();
     unsigned int buyingType = mOffer.buying.type();
-    std::string sellingIssuerStrKey, buyingIssuerStrKey;
+    std::string sellingIssuerPsrKey, buyingIssuerPsrKey;
     std::string sellingAssetCode, buyingAssetCode;
     soci::indicator selling_ind = soci::i_null, buying_ind = soci::i_null;
 
     if (sellingType == ASSET_TYPE_CREDIT_ALPHANUM4)
     {
-        sellingIssuerStrKey =
-            KeyUtils::toStrKey(mOffer.selling.alphaNum4().issuer);
+        sellingIssuerPsrKey =
+            KeyUtils::toPsrKey(mOffer.selling.alphaNum4().issuer);
         assetCodeToStr(mOffer.selling.alphaNum4().assetCode, sellingAssetCode);
         selling_ind = soci::i_ok;
     }
     else if (sellingType == ASSET_TYPE_CREDIT_ALPHANUM12)
     {
-        sellingIssuerStrKey =
-            KeyUtils::toStrKey(mOffer.selling.alphaNum12().issuer);
+        sellingIssuerPsrKey =
+            KeyUtils::toPsrKey(mOffer.selling.alphaNum12().issuer);
         assetCodeToStr(mOffer.selling.alphaNum12().assetCode, sellingAssetCode);
         selling_ind = soci::i_ok;
     }
 
     if (buyingType == ASSET_TYPE_CREDIT_ALPHANUM4)
     {
-        buyingIssuerStrKey =
-            KeyUtils::toStrKey(mOffer.buying.alphaNum4().issuer);
+        buyingIssuerPsrKey =
+            KeyUtils::toPsrKey(mOffer.buying.alphaNum4().issuer);
         assetCodeToStr(mOffer.buying.alphaNum4().assetCode, buyingAssetCode);
         buying_ind = soci::i_ok;
     }
     else if (buyingType == ASSET_TYPE_CREDIT_ALPHANUM12)
     {
-        buyingIssuerStrKey =
-            KeyUtils::toStrKey(mOffer.buying.alphaNum12().issuer);
+        buyingIssuerPsrKey =
+            KeyUtils::toPsrKey(mOffer.buying.alphaNum12().issuer);
         assetCodeToStr(mOffer.buying.alphaNum12().assetCode, buyingAssetCode);
         buying_ind = soci::i_ok;
     }
@@ -508,15 +508,15 @@ OfferFrame::storeUpdateHelper(LedgerDelta& delta, Database& db, bool insert)
 
     if (insert)
     {
-        st.exchange(use(actIDStrKey, "sid"));
+        st.exchange(use(actIDPsrKey, "sid"));
     }
     st.exchange(use(mOffer.offerID, "oid"));
     st.exchange(use(sellingType, "sat"));
     st.exchange(use(sellingAssetCode, selling_ind, "sac"));
-    st.exchange(use(sellingIssuerStrKey, selling_ind, "si"));
+    st.exchange(use(sellingIssuerPsrKey, selling_ind, "si"));
     st.exchange(use(buyingType, "bat"));
     st.exchange(use(buyingAssetCode, buying_ind, "bac"));
-    st.exchange(use(buyingIssuerStrKey, buying_ind, "bi"));
+    st.exchange(use(buyingIssuerPsrKey, buying_ind, "bi"));
     st.exchange(use(mOffer.amount, "a"));
     st.exchange(use(mOffer.price.n, "pn"));
     st.exchange(use(mOffer.price.d, "pd"));

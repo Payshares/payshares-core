@@ -14,8 +14,8 @@
 #include "util/make_unique.h"
 #include "xdrpp/marshal.h"
 
-using namespace stellar;
-using namespace stellar::txtest;
+using namespace payshares;
+using namespace payshares::txtest;
 
 // add data
 // change data

@@ -13,7 +13,7 @@
 #include "util/Logging.h"
 #include "xdrpp/marshal.h"
 
-namespace stellar
+namespace payshares
 {
 
 static std::chrono::milliseconds const MS_TO_WAIT_FOR_FETCH_REPLY{1500};
@@ -173,7 +173,7 @@ Tracker::listen(const SCPEnvelope& env)
 {
     mLastSeenSlotIndex = std::max(env.statement.slotIndex, mLastSeenSlotIndex);
 
-    StellarMessage m;
+    PaysharesMessage m;
     m.type(SCP_MESSAGE);
     m.envelope() = env;
     mWaitingEnvelopes.push_back(

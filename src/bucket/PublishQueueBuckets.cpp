@@ -4,7 +4,7 @@
 
 #include "bucket/PublishQueueBuckets.h"
 
-namespace stellar
+namespace payshares
 {
 
 void

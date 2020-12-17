@@ -5,13 +5,13 @@
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
 #include "bucket/Bucket.h"
-#include "overlay/StellarXDR.h"
+#include "overlay/PaysharesXDR.h"
 #include "util/NonCopyable.h"
 #include <memory>
 
 #include "medida/timer_context.h"
 
-namespace stellar
+namespace payshares
 {
 
 class Application;

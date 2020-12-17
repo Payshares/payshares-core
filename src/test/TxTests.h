@@ -9,11 +9,11 @@
 #include "ledger/AccountFrame.h"
 #include "ledger/OfferFrame.h"
 #include "ledger/TrustFrame.h"
-#include "overlay/StellarXDR.h"
+#include "overlay/PaysharesXDR.h"
 #include "test/TestPrinter.h"
 #include "util/optional.h"
 
-namespace stellar
+namespace payshares
 {
 class TransactionFrame;
 class LedgerDelta;

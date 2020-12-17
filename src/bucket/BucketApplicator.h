@@ -9,7 +9,7 @@
 #include "util/XDRStream.h"
 #include <memory>
 
-namespace stellar
+namespace payshares
 {
 
 class Database;

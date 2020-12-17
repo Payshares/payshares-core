@@ -6,7 +6,7 @@
 
 #include "historywork/RunCommandWork.h"
 
-namespace stellar
+namespace payshares
 {
 
 class GzipFileWork : public RunCommandWork

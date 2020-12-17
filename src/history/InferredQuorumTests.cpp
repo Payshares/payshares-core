@@ -12,7 +12,7 @@
 #include "xdrpp/marshal.h"
 #include <xdrpp/autocheck.h>
 
-using namespace stellar;
+using namespace payshares;
 
 TEST_CASE("InferredQuorum intersection", "[history][inferredquorum]")
 {

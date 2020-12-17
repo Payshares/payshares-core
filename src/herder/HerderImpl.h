@@ -21,7 +21,7 @@ class Counter;
 class Timer;
 }
 
-namespace stellar
+namespace payshares
 {
 class Application;
 class LedgerManager;
@@ -56,7 +56,7 @@ class HerderImpl : public Herder
         return mHerderSCPDriver;
     }
 
-    void valueExternalized(uint64 slotIndex, StellarValue const& value);
+    void valueExternalized(uint64 slotIndex, PaysharesValue const& value);
     void emitEnvelope(SCPEnvelope const& envelope);
 
     TransactionSubmitStatus recvTransaction(TransactionFramePtr tx) override;

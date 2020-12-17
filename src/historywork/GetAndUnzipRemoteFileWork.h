@@ -8,7 +8,7 @@
 
 #include "history/FileTransferInfo.h"
 
-namespace stellar
+namespace payshares
 {
 
 class HistoryArchive;

@@ -13,7 +13,7 @@
 #include "util/Logging.h"
 #include "util/types.h"
 
-namespace stellar
+namespace payshares
 {
 
 using namespace std;

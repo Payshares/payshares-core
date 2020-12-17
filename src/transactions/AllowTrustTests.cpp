@@ -11,8 +11,8 @@
 #include "test/test.h"
 #include "util/Timer.h"
 
-using namespace stellar;
-using namespace stellar::txtest;
+using namespace payshares;
+using namespace payshares::txtest;
 
 TEST_CASE("allow trust", "[tx][allowtrust]")
 {

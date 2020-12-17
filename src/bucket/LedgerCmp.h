@@ -5,9 +5,9 @@
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
 #include "ledger/EntryFrame.h"
-#include "overlay/StellarXDR.h"
+#include "overlay/PaysharesXDR.h"
 
-namespace stellar
+namespace payshares
 {
 using xdr::operator<;
 

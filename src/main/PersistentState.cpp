@@ -7,7 +7,7 @@
 #include "database/Database.h"
 #include "util/Logging.h"
 
-namespace stellar
+namespace payshares
 {
 
 using namespace std;

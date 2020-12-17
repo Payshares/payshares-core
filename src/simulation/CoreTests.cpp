@@ -16,7 +16,7 @@
 #include "lib/util/format.h"
 #include "main/Application.h"
 #include "medida/stats/snapshot.h"
-#include "overlay/StellarXDR.h"
+#include "overlay/PaysharesXDR.h"
 #include "simulation/Topologies.h"
 #include "test/test.h"
 #include "transactions/TransactionFrame.h"
@@ -28,7 +28,7 @@
 #include "xdrpp/autocheck.h"
 #include <sstream>
 
-using namespace stellar;
+using namespace payshares;
 
 typedef std::unique_ptr<Application> appPtr;
 

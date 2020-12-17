@@ -5,10 +5,10 @@
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
 #include "main/Application.h"
-#include "xdr/Stellar-types.h"
+#include "xdr/Payshares-types.h"
 #include <string>
 
-namespace stellar
+namespace payshares
 {
 
 class ExternalQueue

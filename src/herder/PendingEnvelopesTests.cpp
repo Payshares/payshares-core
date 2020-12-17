@@ -13,8 +13,8 @@
 #include "test/test.h"
 #include "xdrpp/marshal.h"
 
-using namespace stellar;
-using namespace stellar::txtest;
+using namespace payshares;
+using namespace payshares::txtest;
 
 TEST_CASE("PendingEnvelopes::recvSCPEnvelope", "[herder]")
 {
@@ -29,7 +29,7 @@ TEST_CASE("PendingEnvelopes::recvSCPEnvelope", "[herder]")
     using TxPair = std::pair<Value, TxSetFramePtr>;
     auto makeTxPair = [](TxSetFramePtr txSet, uint64_t closeTime) {
         txSet->sortForHash();
-        auto sv = StellarValue{txSet->getContentsHash(), closeTime,
+        auto sv = PaysharesValue{txSet->getContentsHash(), closeTime,
                                emptyUpgradeSteps, 0};
         auto v = xdr::xdr_to_opaque(sv);
 

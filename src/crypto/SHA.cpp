@@ -8,7 +8,7 @@
 #include "util/make_unique.h"
 #include <sodium.h>
 
-namespace stellar
+namespace payshares
 {
 
 // Plain SHA256

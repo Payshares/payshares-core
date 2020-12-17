@@ -6,7 +6,7 @@
 
 #include "transactions/OperationFrame.h"
 
-namespace stellar
+namespace payshares
 {
 
 class PaymentOpFrame : public OperationFrame

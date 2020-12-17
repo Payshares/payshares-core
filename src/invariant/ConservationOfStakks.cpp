@@ -2,34 +2,34 @@
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
-#include "invariant/ConservationOfLumens.h"
+#include "invariant/ConservationOfStakks.h"
 #include "invariant/InvariantManager.h"
 #include "ledger/LedgerDelta.h"
 #include "lib/util/format.h"
 #include "main/Application.h"
 #include <numeric>
 
-namespace stellar
+namespace payshares
 {
 
-ConservationOfLumens::ConservationOfLumens() : Invariant(false)
+ConservationOfStakks::ConservationOfStakks() : Invariant(false)
 {
 }
 
 std::shared_ptr<Invariant>
-ConservationOfLumens::registerInvariant(Application& app)
+ConservationOfStakks::registerInvariant(Application& app)
 {
-    return app.getInvariantManager().registerInvariant<ConservationOfLumens>();
+    return app.getInvariantManager().registerInvariant<ConservationOfStakks>();
 }
 
 std::string
-ConservationOfLumens::getName() const
+ConservationOfStakks::getName() const
 {
-    return "ConservationOfLumens";
+    return "ConservationOfStakks";
 }
 
 int64_t
-ConservationOfLumens::calculateDeltaBalance(LedgerEntry const* current,
+ConservationOfStakks::calculateDeltaBalance(LedgerEntry const* current,
                                             LedgerEntry const* previous) const
 {
     assert(current || previous);
@@ -43,7 +43,7 @@ ConservationOfLumens::calculateDeltaBalance(LedgerEntry const* current,
 }
 
 std::string
-ConservationOfLumens::checkOnOperationApply(Operation const& operation,
+ConservationOfStakks::checkOnOperationApply(Operation const& operation,
                                             OperationResult const& result,
                                             LedgerDelta const& delta)
 {

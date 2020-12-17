@@ -5,13 +5,13 @@
 #include "lib/catch.hpp"
 #include "util/types.h"
 
-using namespace stellar;
+using namespace payshares;
 
 bool
 addBalance(int64_t balance, int64_t delta, int64_t resultBalance,
            int64_t maxBalance = std::numeric_limits<int64_t>::max())
 {
-    auto r = stellar::addBalance(balance, delta, maxBalance);
+    auto r = payshares::addBalance(balance, delta, maxBalance);
     REQUIRE(balance == resultBalance);
     return r;
 }

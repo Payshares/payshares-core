@@ -7,9 +7,9 @@
 #include "crypto/SHA.h"
 #include "crypto/SecretKey.h"
 #include "crypto/SignerKey.h"
-#include "xdr/Stellar-transaction.h"
+#include "xdr/Payshares-transaction.h"
 
-namespace stellar
+namespace payshares
 {
 
 namespace SignatureUtils

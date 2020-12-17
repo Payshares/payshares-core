@@ -19,12 +19,12 @@
 #include "util/Timer.h"
 #include "util/make_unique.h"
 
-using namespace stellar;
+using namespace payshares;
 using namespace std;
 using namespace soci;
 using namespace txtest;
 
-namespace stellar
+namespace payshares
 {
 
 class PeerStub : public Peer
@@ -157,7 +157,7 @@ class OverlayManagerTests
         auto c = TestAccount{*app, getAccount("c")};
         auto d = TestAccount{*app, getAccount("d")};
 
-        StellarMessage AtoC = a.tx({payment(b, 10)})->toStellarMessage();
+        PaysharesMessage AtoC = a.tx({payment(b, 10)})->toPaysharesMessage();
         auto i = 0;
         for (auto p : pm.mAuthenticatedPeers)
             if (i++ == 2)
@@ -167,7 +167,7 @@ class OverlayManagerTests
         REQUIRE(sentCounts(pm) == expected);
         pm.broadcastMessage(AtoC);
         REQUIRE(sentCounts(pm) == expected);
-        StellarMessage CtoD = c.tx({payment(d, 10)})->toStellarMessage();
+        PaysharesMessage CtoD = c.tx({payment(d, 10)})->toPaysharesMessage();
         pm.broadcastMessage(CtoD);
         vector<int> expectedFinal{2, 2, 1, 2, 2};
         REQUIRE(sentCounts(pm) == expectedFinal);

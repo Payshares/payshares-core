@@ -6,7 +6,7 @@
 
 #include "ledger/AccountFrame.h"
 #include "ledger/LedgerManager.h"
-#include "overlay/StellarXDR.h"
+#include "overlay/PaysharesXDR.h"
 #include "util/types.h"
 #include <memory>
 
@@ -15,7 +15,7 @@ namespace medida
 class MetricsRegistry;
 }
 
-namespace stellar
+namespace payshares
 {
 class Application;
 class LedgerManager;

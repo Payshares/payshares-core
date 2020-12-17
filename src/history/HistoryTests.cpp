@@ -22,7 +22,7 @@
 #include <lib/catch.hpp>
 #include <lib/util/format.h>
 
-using namespace stellar;
+using namespace payshares;
 using namespace historytestutils;
 
 TEST_CASE("next checkpoint ledger", "[history]")
@@ -373,7 +373,7 @@ TEST_CASE("Repair missing buckets fails", "[history][historybucketrepair]")
         }
         catch (...)
         {
-            // see https://github.com/stellar/stellar-core/issues/1250
+            // see https://github.com/payshares/payshares-core/issues/1250
             // we expect to get "Unable to restore last-known ledger state"
             // several more times
         }
@@ -573,7 +573,7 @@ TEST_CASE("Catchup manual", "[history][catchupmanual]")
         catchupSimulation.getApp().getLedgerManager().getLastClosedLedgerNum();
     REQUIRE(initLedger == 383);
 
-    for (auto const& test : stellar::gCatchupRangeCases)
+    for (auto const& test : payshares::gCatchupRangeCases)
     {
         auto lastClosedLedger = test.first;
         auto configuration = test.second;

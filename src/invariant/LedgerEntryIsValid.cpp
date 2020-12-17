@@ -9,7 +9,7 @@
 #include "main/Application.h"
 #include "xdrpp/printer.h"
 
-namespace stellar
+namespace payshares
 {
 
 LedgerEntryIsValid::LedgerEntryIsValid() : Invariant(false)

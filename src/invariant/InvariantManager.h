@@ -8,7 +8,7 @@
 #include "lib/json/json.h"
 #include <memory>
 
-namespace stellar
+namespace payshares
 {
 
 class Application;

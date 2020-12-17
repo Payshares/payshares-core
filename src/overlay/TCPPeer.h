@@ -13,7 +13,7 @@ namespace medida
 class Meter;
 }
 
-namespace stellar
+namespace payshares
 {
 
 static auto const MAX_UNAUTH_MESSAGE_SIZE = 0x1000;

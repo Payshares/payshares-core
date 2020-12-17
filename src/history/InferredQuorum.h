@@ -6,12 +6,12 @@
 
 #include "crypto/SecretKey.h"
 #include "main/Config.h"
-#include "overlay/StellarXDR.h"
+#include "overlay/PaysharesXDR.h"
 #include "util/HashOfHash.h"
 #include <string>
 #include <unordered_map>
 
-namespace stellar
+namespace payshares
 {
 
 struct InferredQuorum

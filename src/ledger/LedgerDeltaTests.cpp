@@ -13,7 +13,7 @@
 #include "test/test.h"
 #include "util/Timer.h"
 
-using namespace stellar;
+using namespace payshares;
 
 TEST_CASE("Ledger delta", "[ledger][ledgerdelta]")
 {

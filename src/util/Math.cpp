@@ -5,7 +5,7 @@
 #include "Math.h"
 #include <cmath>
 
-namespace stellar
+namespace payshares
 {
 
 std::default_random_engine gRandomEngine;

@@ -15,10 +15,10 @@
 
 #include <medida/metrics_registry.h>
 
-using namespace stellar;
+using namespace payshares;
 using namespace txtest;
 
-namespace stellar
+namespace payshares
 {
 using xdr::operator==;
 
@@ -290,7 +290,7 @@ CatchupSimulation::generateRandomLedger()
                            << " with " << txSet->size() << " txs (txhash:"
                            << hexAbbrev(txSet->getContentsHash()) << ")";
 
-    StellarValue sv(txSet->getContentsHash(), closeTime, emptyUpgradeSteps, 0);
+    PaysharesValue sv(txSet->getContentsHash(), closeTime, emptyUpgradeSteps, 0);
     mLedgerCloseDatas.emplace_back(ledgerSeq, txSet, sv);
     lm.closeLedger(mLedgerCloseDatas.back());
 

@@ -26,7 +26,7 @@
 #include "medida/meter.h"
 #include "medida/metrics_registry.h"
 
-namespace stellar
+namespace payshares
 {
 
 using namespace std;

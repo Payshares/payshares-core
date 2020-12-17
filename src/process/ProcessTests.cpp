@@ -16,7 +16,7 @@
 #include "xdrpp/autocheck.h"
 #include <future>
 
-using namespace stellar;
+using namespace payshares;
 
 TEST_CASE("subprocess", "[process]")
 {

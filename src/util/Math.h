@@ -8,7 +8,7 @@
 #include <random>
 #include <stdexcept>
 
-namespace stellar
+namespace payshares
 {
 double rand_fraction();
 

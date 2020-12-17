@@ -6,7 +6,7 @@
 
 #include <memory>
 
-namespace stellar
+namespace payshares
 {
 
 #if __cplusplus >= 201402L || (defined(_MSC_VER) && _MSC_VER >= 1900)

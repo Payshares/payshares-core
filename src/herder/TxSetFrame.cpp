@@ -15,7 +15,7 @@
 
 #include "xdrpp/printer.h"
 
-namespace stellar
+namespace payshares
 {
 
 using namespace std;

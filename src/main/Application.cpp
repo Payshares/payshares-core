@@ -6,7 +6,7 @@
 #include "ApplicationImpl.h"
 #include "util/format.h"
 
-namespace stellar
+namespace payshares
 {
 using namespace std;
 

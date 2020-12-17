@@ -12,10 +12,10 @@
 #include <lib/catch.hpp>
 #include <lib/util/format.h>
 
-using namespace stellar;
+using namespace payshares;
 
 auto max = std::numeric_limits<uint32_t>::max();
-namespace stellar
+namespace payshares
 {
 std::vector<std::pair<uint32_t, CatchupConfiguration>> gCatchupRangeCases{
     // fresh database

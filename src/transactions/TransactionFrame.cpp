@@ -28,7 +28,7 @@
 #include <algorithm>
 #include <numeric>
 
-namespace stellar
+namespace payshares
 {
 
 using namespace std;
@@ -555,10 +555,10 @@ TransactionFrame::apply(LedgerDelta& delta, TransactionMeta& meta,
     return !errorEncountered;
 }
 
-StellarMessage
-TransactionFrame::toStellarMessage() const
+PaysharesMessage
+TransactionFrame::toPaysharesMessage() const
 {
-    StellarMessage msg;
+    PaysharesMessage msg;
     msg.type(TRANSACTION);
     msg.transaction() = mEnvelope;
     return msg;

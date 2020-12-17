@@ -6,7 +6,7 @@
 #include <fstream>
 #include <sstream>
 
-namespace stellar
+namespace payshares
 {
 
 void
@@ -268,7 +268,7 @@ InferredQuorum::checkQuorumIntersection(Config const& cfg) const
     for (auto n : nodesWithQsets)
     {
         auto isAlias = false;
-        auto name = cfg.toStrKey(revNodeNumbers.at(n), isAlias);
+        auto name = cfg.toPsrKey(revNodeNumbers.at(n), isAlias);
         if (allOk)
         {
             CLOG(INFO, "History")
@@ -301,7 +301,7 @@ InferredQuorum::toString(Config const& cfg) const
     for (auto const& pair : mPubKeys)
     {
         auto isAlias = false;
-        auto name = cfg.toStrKey(pair.first, isAlias);
+        auto name = cfg.toPsrKey(pair.first, isAlias);
         if (pair.second < thresh)
         {
             out << "# skipping unreliable "
@@ -320,7 +320,7 @@ InferredQuorum::toString(Config const& cfg) const
             continue;
         }
         auto isAlias = false;
-        auto name = cfg.toStrKey(pair.first, isAlias);
+        auto name = cfg.toPsrKey(pair.first, isAlias);
         if (first)
         {
             first = false;

@@ -6,7 +6,7 @@
 
 #include "ledger/AccountFrame.h"
 #include "ledger/LedgerManager.h"
-#include "overlay/StellarXDR.h"
+#include "overlay/PaysharesXDR.h"
 #include "util/types.h"
 
 #include <memory>
@@ -21,7 +21,7 @@ class session;
 A transaction in its exploded form.
 We can get it in from the DB or from the wire
 */
-namespace stellar
+namespace payshares
 {
 class Application;
 class OperationFrame;
@@ -152,7 +152,7 @@ class TransactionFrame
     // version without meta
     bool apply(LedgerDelta& delta, Application& app);
 
-    StellarMessage toStellarMessage() const;
+    PaysharesMessage toPaysharesMessage() const;
 
     AccountFrame::pointer loadAccount(int ledgerProtocolVersion,
                                       LedgerDelta* delta, Database& app,

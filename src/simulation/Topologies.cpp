@@ -5,7 +5,7 @@
 #include "simulation/Topologies.h"
 #include "crypto/SHA.h"
 
-namespace stellar
+namespace payshares
 {
 using namespace std;
 

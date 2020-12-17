@@ -5,7 +5,7 @@
 #include "historywork/PutRemoteFileWork.h"
 #include "history/HistoryArchive.h"
 
-namespace stellar
+namespace payshares
 {
 
 PutRemoteFileWork::PutRemoteFileWork(

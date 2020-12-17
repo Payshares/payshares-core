@@ -6,7 +6,7 @@
 #include "lib/util/uint128_t.h"
 #include "transactions/OfferExchange.h"
 
-using namespace stellar;
+using namespace payshares;
 
 TEST_CASE("Exchange", "[exchange]")
 {

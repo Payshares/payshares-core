@@ -27,7 +27,7 @@
 #include <random>
 #include <util/basen.h>
 
-using namespace stellar;
+using namespace payshares;
 using namespace std::placeholders;
 
 namespace BucketListIsConsistentWithDatabaseTests

@@ -8,7 +8,7 @@
 #include "ledger/TrustFrame.h"
 #include "transactions/OperationFrame.h"
 
-namespace stellar
+namespace payshares
 {
 class ManageOfferOpFrame : public OperationFrame
 {

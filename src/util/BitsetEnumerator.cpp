@@ -5,7 +5,7 @@
 #include "util/BitsetEnumerator.h"
 #include <cassert>
 
-namespace stellar
+namespace payshares
 {
 
 ///////////////////////////////////////////////////////////////////////////

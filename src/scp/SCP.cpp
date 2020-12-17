@@ -14,7 +14,7 @@
 #include "util/Logging.h"
 #include "xdrpp/marshal.h"
 
-namespace stellar
+namespace payshares
 {
 using xdr::operator==;
 

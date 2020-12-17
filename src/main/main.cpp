@@ -2,7 +2,7 @@
 // under the Apache License, Version 2.0. See the COPYING file at the root
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 #include "util/asio.h"
-#include "StellarCoreVersion.h"
+#include "PaysharesCoreVersion.h"
 #include "bucket/Bucket.h"
 #include "bucket/BucketManager.h"
 #include "catchup/CatchupConfiguration.h"
@@ -36,7 +36,7 @@
 
 INITIALIZE_EASYLOGGINGPP
 
-namespace stellar
+namespace payshares
 {
 
 using namespace std;
@@ -76,7 +76,7 @@ enum opttag
     OPT_VERSION
 };
 
-static const struct option stellar_core_options[] = {
+static const struct option payshares_core_options[] = {
     {"catchup-at", required_argument, nullptr, OPT_CATCHUP_AT},
     {"catchup-complete", no_argument, nullptr, OPT_CATCHUP_COMPLETE},
     {"catchup-recent", required_argument, nullptr, OPT_CATCHUP_RECENT},
@@ -115,7 +115,7 @@ static void
 usage(int err = 1)
 {
     std::ostream& os = err ? std::cerr : std::cout;
-    os << "usage: stellar-core [OPTIONS]\n"
+    os << "usage: payshares-core [OPTIONS]\n"
           "where OPTIONS can be any of:\n"
           "      --base64             Use base64 for --printtxn and --signtxn\n"
           "      --catchup-at SEQ     Do a catchup at ledger SEQ, then quit\n"
@@ -129,15 +129,15 @@ usage(int err = 1)
           "                           Use current as SEQ to catchup to "
           "'current'"
           "history checkpoint\n"
-          "      --c                  Send a command to local stellar-core. "
+          "      --c                  Send a command to local payshares-core. "
           "try "
           "'--c help' for more information\n"
           "      --conf FILE          Specify a config file ('-' for STDIN, "
-          "default 'stellar-core.cfg')\n"
+          "default 'payshares-core.cfg')\n"
           "      --convertid ID       Displays ID in all known forms\n"
           "      --dumpxdr FILE       Dump an XDR file, for debugging\n"
           "      --loadxdr FILE       Load an XDR bucket file, for testing\n"
-          "      --forcescp           Next time stellar-core is run, SCP will "
+          "      --forcescp           Next time payshares-core is run, SCP will "
           "start "
           "with the local ledger rather than waiting to hear from the "
           "network.\n"
@@ -178,7 +178,7 @@ usage(int err = 1)
           "secret key\n"
           "      --netid STRING       Specify network ID for subsequent "
           "signtxn\n"
-          "                           (Default is STELLAR_NETWORK_ID "
+          "                           (Default is PAYSHARES_NETWORK_ID "
           "environment\n"
           "variable)\n"
           "      --test               Run self-tests\n"
@@ -298,7 +298,7 @@ catchup(Config const& cfg, uint32_t to, uint32_t count,
                   << " is not newer than last closed ledger"
                   << " - nothing to do";
         LOG(INFO) << "* If you really want to catchup to " << to
-                  << " run stellar-core with --newdb parameter.";
+                  << " run payshares-core with --newdb parameter.";
         LOG(INFO) << "*";
         return 2;
     }
@@ -618,7 +618,7 @@ initializeHistories(Config& cfg, vector<string> newHistories)
 static int
 startApp(string cfgFile, Config& cfg)
 {
-    LOG(INFO) << "Starting stellar-core " << STELLAR_CORE_VERSION;
+    LOG(INFO) << "Starting payshares-core " << PAYSHARES_CORE_VERSION;
     LOG(INFO) << "Config from " << cfgFile;
     VirtualClock clock(VirtualClock::REAL_TIME);
     Application::pointer app;
@@ -665,7 +665,7 @@ startApp(string cfgFile, Config& cfg)
 int
 main(int argc, char* const* argv)
 {
-    using namespace stellar;
+    using namespace payshares;
 
     Logging::init();
     if (sodium_init() != 0)
@@ -675,7 +675,7 @@ main(int argc, char* const* argv)
     }
     xdr::marshaling_stack_limit = 1000;
 
-    std::string cfgFile("stellar-core.cfg");
+    std::string cfgFile("payshares-core.cfg");
     std::string command;
     el::Level logLevel = el::Level::Info;
     std::vector<char*> rest;
@@ -701,7 +701,7 @@ main(int argc, char* const* argv)
     std::vector<std::string> metrics;
 
     int opt;
-    while ((opt = getopt_long_only(argc, argv, "c:", stellar_core_options,
+    while ((opt = getopt_long_only(argc, argv, "c:", payshares_core_options,
                                    nullptr)) != -1)
     {
         switch (opt)
@@ -734,7 +734,7 @@ main(int argc, char* const* argv)
             cfgFile = std::string(optarg);
             break;
         case OPT_CONVERTID:
-            StrKeyUtils::logKey(std::cout, std::string(optarg));
+            PsrKeyUtils::logKey(std::cout, std::string(optarg));
             return 0;
         case OPT_DUMPXDR:
             dumpxdr(std::string(optarg));
@@ -767,9 +767,9 @@ main(int argc, char* const* argv)
         case OPT_GENSEED:
         {
             SecretKey key = SecretKey::random();
-            std::cout << "Secret seed: " << key.getStrKeySeed().value
+            std::cout << "Secret seed: " << key.getPsrKeySeed().value
                       << std::endl;
-            std::cout << "Public: " << key.getStrKeyPublic() << std::endl;
+            std::cout << "Public: " << key.getPsrKeyPublic() << std::endl;
             return 0;
         }
         case OPT_INFERQUORUM:
@@ -810,7 +810,7 @@ main(int argc, char* const* argv)
                         metrics);
         }
         case OPT_VERSION:
-            std::cout << STELLAR_CORE_VERSION << std::endl;
+            std::cout << PAYSHARES_CORE_VERSION << std::endl;
             return 0;
         case OPT_HELP:
         default:

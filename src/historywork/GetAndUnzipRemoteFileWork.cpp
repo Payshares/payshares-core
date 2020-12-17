@@ -8,7 +8,7 @@
 #include "historywork/GunzipFileWork.h"
 #include "util/Logging.h"
 
-namespace stellar
+namespace payshares
 {
 
 GetAndUnzipRemoteFileWork::GetAndUnzipRemoteFileWork(

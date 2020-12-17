@@ -11,10 +11,10 @@
 #include "scp/SCP.h"
 #include "util/HashOfHash.h"
 
-namespace stellar
+namespace payshares
 {
 /**
- * This is one Node in the stellar network
+ * This is one Node in the payshares network
  */
 class LocalNode
 {

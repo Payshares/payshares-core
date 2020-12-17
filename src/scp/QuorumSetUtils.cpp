@@ -4,12 +4,12 @@
 
 #include "QuorumSetUtils.h"
 
-#include "xdr/Stellar-SCP.h"
-#include "xdr/Stellar-types.h"
+#include "xdr/Payshares-SCP.h"
+#include "xdr/Payshares-types.h"
 
 #include <set>
 
-namespace stellar
+namespace payshares
 {
 
 using xdr::operator<;

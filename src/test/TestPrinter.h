@@ -7,10 +7,10 @@
 #include "catchup/CatchupWork.h"
 #include "history/HistoryTestsUtils.h"
 #include "lib/catch.hpp"
-#include "xdr/Stellar-transaction.h"
+#include "xdr/Payshares-transaction.h"
 #include "xdrpp/printer.h"
 
-namespace stellar
+namespace payshares
 {
 
 struct OfferState;
@@ -19,18 +19,18 @@ struct OfferState;
 namespace Catch
 {
 
-template <> std::string toString(stellar::ClaimOfferAtom const& coa);
+template <> std::string toString(payshares::ClaimOfferAtom const& coa);
 
-template <> std::string toString(stellar::Hash const& tr);
+template <> std::string toString(payshares::Hash const& tr);
 
-template <> std::string toString(stellar::OfferEntry const& oe);
+template <> std::string toString(payshares::OfferEntry const& oe);
 
-template <> std::string toString(stellar::OfferState const& os);
+template <> std::string toString(payshares::OfferState const& os);
 
-template <> std::string toString(stellar::TransactionResult const& tr);
+template <> std::string toString(payshares::TransactionResult const& tr);
 
-template <> std::string toString(stellar::CatchupRange const& cr);
+template <> std::string toString(payshares::CatchupRange const& cr);
 
 template <>
-std::string toString(stellar::historytestutils::CatchupPerformedWork const& cm);
+std::string toString(payshares::historytestutils::CatchupPerformedWork const& cm);
 }

@@ -11,46 +11,46 @@ namespace Catch
 
 template <>
 std::string
-toString(stellar::ClaimOfferAtom const& coa)
+toString(payshares::ClaimOfferAtom const& coa)
 {
     return xdr::xdr_to_string(coa);
 }
 
 template <>
 std::string
-toString(stellar::Hash const& tr)
+toString(payshares::Hash const& tr)
 {
     return xdr::xdr_to_string(tr);
 }
 
 template <>
 std::string
-toString(stellar::OfferEntry const& oe)
+toString(payshares::OfferEntry const& oe)
 {
     return xdr::xdr_to_string(oe);
 }
 
 template <>
 std::string
-toString(stellar::OfferState const& os)
+toString(payshares::OfferState const& os)
 {
     return fmt::format(
         "selling: {}, buying: {}, price: {}, amount: {}, type: {}",
         xdr::xdr_to_string(os.selling), xdr::xdr_to_string(os.buying),
         xdr::xdr_to_string(os.price), os.amount,
-        os.type == stellar::OfferType::PASSIVE ? "passive" : "active");
+        os.type == payshares::OfferType::PASSIVE ? "passive" : "active");
 }
 
 template <>
 std::string
-toString(stellar::TransactionResult const& tr)
+toString(payshares::TransactionResult const& tr)
 {
     return xdr::xdr_to_string(tr);
 }
 
 template <>
 std::string
-toString(stellar::CatchupRange const& cr)
+toString(payshares::CatchupRange const& cr)
 {
     return fmt::format("[{}..{}], applyBuckets: {}", cr.first.first(),
                        cr.first.last(), cr.second);
@@ -58,7 +58,7 @@ toString(stellar::CatchupRange const& cr)
 
 template <>
 std::string
-toString(stellar::historytestutils::CatchupPerformedWork const& cm)
+toString(payshares::historytestutils::CatchupPerformedWork const& cm)
 {
     return fmt::format("{}, {}, {}, {}, {}, {}, {}, {}",
                        cm.mHistoryArchiveStatesDownloaded,

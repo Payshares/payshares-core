@@ -6,7 +6,7 @@
 
 #include "historywork/BucketDownloadWork.h"
 
-namespace stellar
+namespace payshares
 {
 
 struct HistoryArchiveState;

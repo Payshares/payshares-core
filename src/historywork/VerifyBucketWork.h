@@ -5,14 +5,14 @@
 #pragma once
 
 #include "work/Work.h"
-#include "xdr/Stellar-types.h"
+#include "xdr/Payshares-types.h"
 
 namespace medida
 {
 class Meter;
 }
 
-namespace stellar
+namespace payshares
 {
 
 class Bucket;

@@ -6,7 +6,7 @@
 
 #include <stdexcept>
 
-namespace stellar
+namespace payshares
 {
 
 namespace

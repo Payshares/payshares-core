@@ -7,7 +7,7 @@
 #include "ledger/LedgerRange.h"
 #include <cassert>
 
-namespace stellar
+namespace payshares
 {
 
 CheckpointRange::CheckpointRange(uint32_t first, uint32_t last,

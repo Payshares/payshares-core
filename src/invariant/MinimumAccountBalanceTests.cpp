@@ -13,8 +13,8 @@
 #include "test/test.h"
 #include <random>
 
-using namespace stellar;
-using namespace stellar::InvariantTestUtils;
+using namespace payshares;
+using namespace payshares::InvariantTestUtils;
 
 LedgerEntry
 updateAccountWithRandomBalance(LedgerEntry le, Application& app,

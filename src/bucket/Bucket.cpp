@@ -33,7 +33,7 @@
 #include <cassert>
 #include <future>
 
-namespace stellar
+namespace payshares
 {
 
 static std::string

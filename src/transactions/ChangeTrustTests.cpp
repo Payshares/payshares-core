@@ -13,8 +13,8 @@
 #include "util/Logging.h"
 #include "util/make_unique.h"
 
-using namespace stellar;
-using namespace stellar::txtest;
+using namespace payshares;
+using namespace payshares::txtest;
 
 TEST_CASE("change trust", "[tx][changetrust]")
 {

@@ -2,7 +2,7 @@
 title: DB Schema
 ---
 
-stellar-core maintains the current state of the ledger in a SQL DB. Currently
+payshares-core maintains the current state of the ledger in a SQL DB. Currently
 it can be configured to use either sqlite or postgres.
 
 This database is the main way a dependent service such as Horizon can gather information on the current ledger state or transaction history.
@@ -16,7 +16,7 @@ Type Name | Description
 HEX | Hex encoded binary blob
 BASE64 | Base 64 encoded binary blob
 XDR | Base 64 encoded object serialized in XDR form
-STRKEY | Custom encoding for public/private keys. See [`src/crypto/readme.md`](/src/crypto/readme.md)
+PSRKEY | Custom encoding for public/private keys. See [`src/crypto/readme.md`](/src/crypto/readme.md)
 
 ## ledgerheaders
 
@@ -42,11 +42,11 @@ Equivalent to _AccountEntry_
 
 Field | Type | Description
 ------|------|---------------
-accountid | VARCHAR(56)  PRIMARY KEY | (STRKEY)
+accountid | VARCHAR(56)  PRIMARY KEY | (PSRKEY)
 balance | BIGINT NOT NULL CHECK (balance >= 0) |
 seqnum | BIGINT NOT NULL |
 numsubentries | INT NOT NULL CHECK (numsubentries >= 0) |
-inflationdest | VARCHAR(56) | (STRKEY)
+inflationdest | VARCHAR(56) | (PSRKEY)
 homedomain | VARCHAR(32) |
 thresholds | TEXT | (BASE64)
 flags | INT NOT NULL |
@@ -60,7 +60,7 @@ Equivalent to _OfferEntry_
 
 Field | Type | Description
 ------|------|---------------
-sellerid | VARCHAR(56) NOT NULL | (STRKEY)
+sellerid | VARCHAR(56) NOT NULL | (PSRKEY)
 offerid | BIGINT NOT NULL CHECK (offerid >= 0) |
 sellingassettype | INT | selling.type
 sellingassetcode | VARCHAR(12) | selling.*.assetCode
@@ -84,7 +84,7 @@ Equivalent to _TrustLineEntry_
 
 Field | Type | Description
 ------|------|---------------
-accountid | VARCHAR(56) NOT NULL | (STRKEY)
+accountid | VARCHAR(56) NOT NULL | (PSRKEY)
 assettype | INT NOT NULL | asset.type
 issuer | VARCHAR(56) NOT NULL | asset.*.issuer
 assetcode | VARCHAR(12) NOT NULL | asset.*.assetCode
@@ -121,7 +121,7 @@ txchanges | TEXT NOT NULL | LedgerEntryChanges (XDR)
 ## scphistory
 Field | Type | Description
 ------|------|---------------
-nodeid | CHARACTER(56) NOT NULL | (STRKEY)
+nodeid | CHARACTER(56) NOT NULL | (PSRKEY)
 ledgerseq | INT NOT NULL CHECK (ledgerseq >= 0) | Ledger this transaction got applied
 envelope | TEXT NOT NULL | (XDR)
 

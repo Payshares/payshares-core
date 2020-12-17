@@ -9,7 +9,7 @@
 #include <xdrpp/message.h>
 #include <xdrpp/types.h>
 
-namespace stellar
+namespace payshares
 {
 
 /**

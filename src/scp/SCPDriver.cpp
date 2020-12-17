@@ -12,7 +12,7 @@
 #include "crypto/SecretKey.h"
 #include "xdrpp/marshal.h"
 
-namespace stellar
+namespace payshares
 {
 
 std::string

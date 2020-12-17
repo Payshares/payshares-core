@@ -14,9 +14,9 @@
 #include "test/TestUtils.h"
 #include "test/test.h"
 #include "util/make_unique.h"
-#include "xdr/Stellar-types.h"
+#include "xdr/Payshares-types.h"
 
-namespace stellar
+namespace payshares
 {
 
 namespace

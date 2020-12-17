@@ -5,11 +5,11 @@
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
 #include "bucket/FutureBucket.h"
-#include "overlay/StellarXDR.h"
+#include "overlay/PaysharesXDR.h"
 #include "xdrpp/message.h"
 #include <future>
 
-namespace stellar
+namespace payshares
 {
 // This is the "bucket list", a set sets-of-hashed-objects, organized into
 // temporal "levels", with older levels being larger and changing less

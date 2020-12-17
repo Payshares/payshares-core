@@ -21,14 +21,14 @@
 #include "util/make_unique.h"
 #include "util/optional.h"
 
-using namespace stellar;
+using namespace payshares;
 using namespace std;
 using namespace soci;
 using namespace medida;
 
 typedef std::unique_ptr<Application> appPtr;
 
-namespace stellar
+namespace payshares
 {
 class LedgerPerformanceTests : public Simulation
 {
@@ -135,7 +135,7 @@ class LedgerPerformanceTests : public Simulation
             tx.recordExecution(baseFee);
         }
 
-        StellarValue sv(txSet->getContentsHash(),
+        PaysharesValue sv(txSet->getContentsHash(),
                         VirtualClock::to_time_t(mApp->getClock().now()),
                         emptyUpgradeSteps, 0);
         LedgerCloseData ledgerData(mApp->getLedgerManager().getLedgerNum(),

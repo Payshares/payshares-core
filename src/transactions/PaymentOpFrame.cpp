@@ -16,7 +16,7 @@
 #include "util/Logging.h"
 #include <algorithm>
 
-namespace stellar
+namespace payshares
 {
 
 using namespace std;
@@ -32,7 +32,7 @@ bool
 PaymentOpFrame::doApply(Application& app, LedgerDelta& delta,
                         LedgerManager& ledgerManager)
 {
-    // if sending to self XLM directly, just mark as success, else we need at
+    // if sending to self XPS directly, just mark as success, else we need at
     // least to check trustlines
     // in ledger version 2 it would work for any asset type
     auto instantSuccess = app.getLedgerManager().getCurrentLedgerVersion() > 2

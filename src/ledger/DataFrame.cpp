@@ -16,7 +16,7 @@
 using namespace std;
 using namespace soci;
 
-namespace stellar
+namespace payshares
 {
 const char* DataFrame::kSQLCreateStatement1 =
     "CREATE TABLE accountdata"
@@ -61,7 +61,7 @@ DataFrame::getName() const
     return mData.dataName;
 }
 
-stellar::DataValue const&
+payshares::DataValue const&
 DataFrame::getValue() const
 {
     return mData.dataValue;
@@ -79,13 +79,13 @@ DataFrame::loadData(AccountID const& accountID, std::string dataName,
 {
     DataFrame::pointer retData;
 
-    std::string actIDStrKey = KeyUtils::toStrKey(accountID);
+    std::string actIDPsrKey = KeyUtils::toPsrKey(accountID);
 
     std::string sql = dataColumnSelector;
     sql += " WHERE accountid = :id AND dataname = :dataname";
     auto prep = db.getPreparedStatement(sql);
     auto& st = prep.statement();
-    st.exchange(use(actIDStrKey));
+    st.exchange(use(actIDPsrKey));
     st.exchange(use(dataName));
 
     auto timer = db.getSelectTimer("data");
@@ -100,7 +100,7 @@ void
 DataFrame::loadData(StatementContext& prep,
                     std::function<void(LedgerEntry const&)> dataProcessor)
 {
-    string actIDStrKey;
+    string actIDPsrKey;
 
     std::string dataName, dataValue;
 
@@ -111,7 +111,7 @@ DataFrame::loadData(StatementContext& prep,
     DataEntry& oe = le.data.data();
 
     statement& st = prep.statement();
-    st.exchange(into(actIDStrKey));
+    st.exchange(into(actIDPsrKey));
     st.exchange(into(dataName, dataNameIndicator));
     st.exchange(into(dataValue, dataValueIndicator));
     st.exchange(into(le.lastModifiedLedgerSeq));
@@ -119,7 +119,7 @@ DataFrame::loadData(StatementContext& prep,
     st.execute(true);
     while (st.got_data())
     {
-        oe.accountID = KeyUtils::fromStrKey<PublicKey>(actIDStrKey);
+        oe.accountID = KeyUtils::fromPsrKey<PublicKey>(actIDPsrKey);
 
         if ((dataNameIndicator != soci::i_ok) ||
             (dataValueIndicator != soci::i_ok))
@@ -153,7 +153,7 @@ DataFrame::loadAllData(Database& db)
 bool
 DataFrame::exists(Database& db, LedgerKey const& key)
 {
-    std::string actIDStrKey = KeyUtils::toStrKey(key.data().accountID);
+    std::string actIDPsrKey = KeyUtils::toPsrKey(key.data().accountID);
     std::string dataName = key.data().dataName;
     int exists = 0;
     auto timer = db.getSelectTimer("data-exists");
@@ -161,7 +161,7 @@ DataFrame::exists(Database& db, LedgerKey const& key)
         db.getPreparedStatement("SELECT EXISTS (SELECT NULL FROM accountdata "
                                 "WHERE accountid=:id AND dataname=:s)");
     auto& st = prep.statement();
-    st.exchange(use(actIDStrKey));
+    st.exchange(use(actIDPsrKey));
     st.exchange(use(dataName));
     st.exchange(into(exists));
     st.define_and_bind();
@@ -216,13 +216,13 @@ DataFrame::storeDelete(LedgerDelta& delta, Database& db) const
 void
 DataFrame::storeDelete(LedgerDelta& delta, Database& db, LedgerKey const& key)
 {
-    std::string actIDStrKey = KeyUtils::toStrKey(key.data().accountID);
+    std::string actIDPsrKey = KeyUtils::toPsrKey(key.data().accountID);
     std::string dataName = key.data().dataName;
     auto timer = db.getDeleteTimer("data");
     auto prep = db.getPreparedStatement(
         "DELETE FROM accountdata WHERE accountid=:id AND dataname=:s");
     auto& st = prep.statement();
-    st.exchange(use(actIDStrKey));
+    st.exchange(use(actIDPsrKey));
     st.exchange(use(dataName));
     st.define_and_bind();
     st.execute(true);
@@ -246,7 +246,7 @@ DataFrame::storeUpdateHelper(LedgerDelta& delta, Database& db, bool insert)
 {
     touch(delta);
 
-    std::string actIDStrKey = KeyUtils::toStrKey(mData.accountID);
+    std::string actIDPsrKey = KeyUtils::toPsrKey(mData.accountID);
     std::string dataName = mData.dataName;
     std::string dataValue = bn::encode_b64(mData.dataValue);
 
@@ -267,7 +267,7 @@ DataFrame::storeUpdateHelper(LedgerDelta& delta, Database& db, bool insert)
     auto prep = db.getPreparedStatement(sql);
     auto& st = prep.statement();
 
-    st.exchange(use(actIDStrKey, "aid"));
+    st.exchange(use(actIDPsrKey, "aid"));
     st.exchange(use(dataName, "dn"));
     st.exchange(use(dataValue, "dv"));
     st.exchange(use(getLastModified(), "lm"));

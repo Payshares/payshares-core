@@ -5,7 +5,7 @@
 #include "util/StatusManager.h"
 #include "lib/catch.hpp"
 
-using namespace stellar;
+using namespace payshares;
 
 TEST_CASE("status empty on start", "[status-manager]")
 {

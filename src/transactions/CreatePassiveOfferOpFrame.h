@@ -6,7 +6,7 @@
 
 #include "transactions/ManageOfferOpFrame.h"
 
-namespace stellar
+namespace payshares
 {
 class ManageOfferOpHolder
 {

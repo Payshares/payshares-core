@@ -13,7 +13,7 @@ namespace soci
 class session;
 }
 
-namespace stellar
+namespace payshares
 {
 class LedgerRange;
 class ManageDataOpFrame;
@@ -44,7 +44,7 @@ class DataFrame : public EntryFrame
     }
 
     std::string const& getName() const;
-    stellar::DataValue const& getValue() const;
+    payshares::DataValue const& getValue() const;
     AccountID const& getAccountID() const;
 
     DataEntry const&

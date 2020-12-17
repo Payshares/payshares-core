@@ -8,7 +8,7 @@
 #include "historywork/BucketDownloadWork.h"
 #include "ledger/LedgerRange.h"
 
-namespace stellar
+namespace payshares
 {
 
 class LedgerRange;

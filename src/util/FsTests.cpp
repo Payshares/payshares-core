@@ -6,7 +6,7 @@
 #include "util/Fs.h"
 #include <tuple>
 
-using namespace stellar::fs;
+using namespace payshares::fs;
 
 TEST_CASE("path splitter", "[fs]")
 {

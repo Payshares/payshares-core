@@ -4,7 +4,7 @@
 
 #include "util/SecretValue.h"
 
-namespace stellar
+namespace payshares
 {
 
 bool

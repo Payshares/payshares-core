@@ -7,7 +7,7 @@
 #include "ledger/EntryFrame.h"
 #include <vector>
 
-namespace stellar
+namespace payshares
 {
 
 class Application;

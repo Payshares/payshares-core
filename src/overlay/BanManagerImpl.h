@@ -9,7 +9,7 @@
 /*
  * Maintain banned set of nodes
  */
-namespace stellar
+namespace payshares
 {
 
 class BanManagerImpl : public BanManager

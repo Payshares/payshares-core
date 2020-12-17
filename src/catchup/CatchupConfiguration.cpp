@@ -5,7 +5,7 @@
 #include "catchup/CatchupConfiguration.h"
 #include <cassert>
 
-namespace stellar
+namespace payshares
 {
 
 CatchupConfiguration::CatchupConfiguration(uint32_t toLedger, uint32_t count)

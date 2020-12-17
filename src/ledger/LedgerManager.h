@@ -8,7 +8,7 @@
 #include "history/HistoryManager.h"
 #include <memory>
 
-namespace stellar
+namespace payshares
 {
 
 class LedgerHeaderFrame;
@@ -167,7 +167,7 @@ class LedgerManager
     // is returned otherwise.
     //
     // If first member of consensus buffer has different sequnce than candidate
-    // then we have error in code and stellar-core is aborted.
+    // then we have error in code and payshares-core is aborted.
     virtual HistoryManager::VerifyHashStatus
     verifyCatchupCandidate(LedgerHeaderHistoryEntry const& candidate,
                            bool manualCatchup) const = 0;

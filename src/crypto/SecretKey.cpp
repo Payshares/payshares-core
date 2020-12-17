@@ -6,7 +6,7 @@
 #include "crypto/Hex.h"
 #include "crypto/KeyUtils.h"
 #include "crypto/SHA.h"
-#include "crypto/StrKey.h"
+#include "crypto/PsrKey.h"
 #include "main/Config.h"
 #include "transactions/SignatureUtils.h"
 #include "util/HashOfHash.h"
@@ -17,7 +17,7 @@
 #include <sodium.h>
 #include <type_traits>
 
-namespace stellar
+namespace payshares
 {
 
 // Process-wide global Ed25519 signature-verification cache.
@@ -99,17 +99,17 @@ SecretKey::getSeed() const
 }
 
 SecretValue
-SecretKey::getStrKeySeed() const
+SecretKey::getPsrKeySeed() const
 {
     assert(mKeyType == PUBLIC_KEY_TYPE_ED25519);
 
-    return strKey::toStrKey(strKey::STRKEY_SEED_ED25519, getSeed().mSeed);
+    return psrKey::toPsrKey(psrKey::PSRKEY_SEED_ED25519, getSeed().mSeed);
 }
 
 std::string
-SecretKey::getStrKeyPublic() const
+SecretKey::getPsrKeyPublic() const
 {
-    return KeyUtils::toStrKey(getPublicKey());
+    return KeyUtils::toPsrKey(getPublicKey());
 }
 
 bool
@@ -172,14 +172,14 @@ SecretKey::fromSeed(ByteSlice const& seed)
 }
 
 SecretKey
-SecretKey::fromStrKeySeed(std::string const& strKeySeed)
+SecretKey::fromPsrKeySeed(std::string const& psrKeySeed)
 {
     uint8_t ver;
     std::vector<uint8_t> seed;
-    if (!strKey::fromStrKey(strKeySeed, ver, seed) ||
-        (ver != strKey::STRKEY_SEED_ED25519) ||
+    if (!psrKey::fromPsrKey(psrKeySeed, ver, seed) ||
+        (ver != psrKey::PSRKEY_SEED_ED25519) ||
         (seed.size() != crypto_sign_SEEDBYTES) ||
-        (strKeySeed.size() != strKey::getStrKeySize(crypto_sign_SEEDBYTES)))
+        (psrKeySeed.size() != psrKey::getPsrKeySize(crypto_sign_SEEDBYTES)))
     {
         throw std::runtime_error("invalid seed");
     }
@@ -220,11 +220,11 @@ KeyFunctions<PublicKey>::getKeyTypeName()
 
 bool
 KeyFunctions<PublicKey>::getKeyVersionIsSupported(
-    strKey::StrKeyVersionByte keyVersion)
+    psrKey::PsrKeyVersionByte keyVersion)
 {
     switch (keyVersion)
     {
-    case strKey::STRKEY_PUBKEY_ED25519:
+    case psrKey::PSRKEY_PUBKEY_ED25519:
         return true;
     default:
         return false;
@@ -232,24 +232,24 @@ KeyFunctions<PublicKey>::getKeyVersionIsSupported(
 }
 
 PublicKeyType
-KeyFunctions<PublicKey>::toKeyType(strKey::StrKeyVersionByte keyVersion)
+KeyFunctions<PublicKey>::toKeyType(psrKey::PsrKeyVersionByte keyVersion)
 {
     switch (keyVersion)
     {
-    case strKey::STRKEY_PUBKEY_ED25519:
+    case psrKey::PSRKEY_PUBKEY_ED25519:
         return PublicKeyType::PUBLIC_KEY_TYPE_ED25519;
     default:
         throw std::invalid_argument("invalid public key type");
     }
 }
 
-strKey::StrKeyVersionByte
+psrKey::PsrKeyVersionByte
 KeyFunctions<PublicKey>::toKeyVersion(PublicKeyType keyType)
 {
     switch (keyType)
     {
     case PublicKeyType::PUBLIC_KEY_TYPE_ED25519:
-        return strKey::STRKEY_PUBKEY_ED25519;
+        return psrKey::PSRKEY_PUBKEY_ED25519;
     default:
         throw std::invalid_argument("invalid public key type");
     }
@@ -323,7 +323,7 @@ static void
 logPublicKey(std::ostream& s, PublicKey const& pk)
 {
     s << "PublicKey:" << std::endl
-      << "  strKey: " << KeyUtils::toStrKey(pk) << std::endl
+      << "  psrKey: " << KeyUtils::toPsrKey(pk) << std::endl
       << "  hex: " << binToHex(pk.ed25519()) << std::endl;
 }
 
@@ -331,12 +331,12 @@ static void
 logSecretKey(std::ostream& s, SecretKey const& sk)
 {
     s << "Seed:" << std::endl
-      << "  strKey: " << sk.getStrKeySeed().value << std::endl;
+      << "  psrKey: " << sk.getPsrKeySeed().value << std::endl;
     logPublicKey(s, sk.getPublicKey());
 }
 
 void
-StrKeyUtils::logKey(std::ostream& s, std::string const& key)
+PsrKeyUtils::logKey(std::ostream& s, std::string const& key)
 {
     // if it's a hex string, display it in all forms
     try
@@ -358,7 +358,7 @@ StrKeyUtils::logKey(std::ostream& s, std::string const& key)
     // see if it's a public key
     try
     {
-        PublicKey pk = KeyUtils::fromStrKey<PublicKey>(key);
+        PublicKey pk = KeyUtils::fromPsrKey<PublicKey>(key);
         logPublicKey(s, pk);
         return;
     }
@@ -369,7 +369,7 @@ StrKeyUtils::logKey(std::ostream& s, std::string const& key)
     // see if it's a seed
     try
     {
-        SecretKey sk = SecretKey::fromStrKeySeed(key);
+        SecretKey sk = SecretKey::fromPsrKeySeed(key);
         logSecretKey(s, sk);
         return;
     }
@@ -391,10 +391,10 @@ HashUtils::random()
 namespace std
 {
 size_t
-hash<stellar::PublicKey>::operator()(stellar::PublicKey const& k) const noexcept
+hash<payshares::PublicKey>::operator()(payshares::PublicKey const& k) const noexcept
 {
-    assert(k.type() == stellar::PUBLIC_KEY_TYPE_ED25519);
+    assert(k.type() == payshares::PUBLIC_KEY_TYPE_ED25519);
 
-    return std::hash<stellar::uint256>()(k.ed25519());
+    return std::hash<payshares::uint256>()(k.ed25519());
 }
 }

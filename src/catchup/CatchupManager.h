@@ -15,7 +15,7 @@ namespace asio
 typedef std::error_code error_code;
 };
 
-namespace stellar
+namespace payshares
 {
 
 class Application;

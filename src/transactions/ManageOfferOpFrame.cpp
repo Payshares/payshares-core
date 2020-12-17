@@ -18,7 +18,7 @@
 // selling sheep
 // buying wheat
 
-namespace stellar
+namespace payshares
 {
 
 using namespace std;

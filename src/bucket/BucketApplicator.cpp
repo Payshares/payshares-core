@@ -8,7 +8,7 @@
 #include "ledger/LedgerDelta.h"
 #include "util/Logging.h"
 
-namespace stellar
+namespace payshares
 {
 
 BucketApplicator::BucketApplicator(Database& db,

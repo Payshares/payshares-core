@@ -10,7 +10,7 @@
 #include "work/WorkParent.h"
 #include <string>
 
-namespace stellar
+namespace payshares
 {
 
 /**

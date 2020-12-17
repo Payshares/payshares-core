@@ -4,21 +4,21 @@
 
 #include "KeyUtils.h"
 
-#include "crypto/StrKey.h"
+#include "crypto/PsrKey.h"
 
-namespace stellar
+namespace payshares
 {
 
 size_t
-KeyUtils::getKeyVersionSize(strKey::StrKeyVersionByte keyVersion)
+KeyUtils::getKeyVersionSize(psrKey::PsrKeyVersionByte keyVersion)
 {
     switch (keyVersion)
     {
-    case strKey::STRKEY_PUBKEY_ED25519:
-    case strKey::STRKEY_SEED_ED25519:
+    case psrKey::PSRKEY_PUBKEY_ED25519:
+    case psrKey::PSRKEY_SEED_ED25519:
         return crypto_sign_PUBLICKEYBYTES;
-    case strKey::STRKEY_PRE_AUTH_TX:
-    case strKey::STRKEY_HASH_X:
+    case psrKey::PSRKEY_PRE_AUTH_TX:
+    case psrKey::PSRKEY_HASH_X:
         return 32U;
     default:
         throw std::invalid_argument("invalid key version: " +

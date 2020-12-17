@@ -13,7 +13,7 @@ namespace medida
 class Counter;
 }
 
-namespace stellar
+namespace payshares
 {
 
 class ProcessManagerImpl : public ProcessManager

@@ -5,7 +5,7 @@
 // of this distribution or at http://www.apache.org/licenses/LICENSE-2.0
 
 #include "overlay/Peer.h"
-#include "overlay/StellarXDR.h"
+#include "overlay/PaysharesXDR.h"
 #include <map>
 
 /**
@@ -26,7 +26,7 @@ namespace medida
 class Counter;
 }
 
-namespace stellar
+namespace payshares
 {
 
 class Floodgate
@@ -37,10 +37,10 @@ class Floodgate
         typedef std::shared_ptr<FloodRecord> pointer;
 
         uint32_t mLedgerSeq;
-        StellarMessage mMessage;
+        PaysharesMessage mMessage;
         std::set<Peer::pointer> mPeersTold;
 
-        FloodRecord(StellarMessage const& msg, uint32_t ledger,
+        FloodRecord(PaysharesMessage const& msg, uint32_t ledger,
                     Peer::pointer peer);
     };
 
@@ -55,9 +55,9 @@ class Floodgate
     // Floodgate will be cleared after every ledger close
     void clearBelow(uint32_t currentLedger);
     // returns true if this is a new record
-    bool addRecord(StellarMessage const& msg, Peer::pointer fromPeer);
+    bool addRecord(PaysharesMessage const& msg, Peer::pointer fromPeer);
 
-    void broadcast(StellarMessage const& msg, bool force);
+    void broadcast(PaysharesMessage const& msg, bool force);
 
     // returns the list of peers that sent us the item with hash `h`
     std::set<Peer::pointer> getPeersKnows(Hash const& h);

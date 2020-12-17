@@ -12,7 +12,7 @@
 
 using namespace soci;
 
-namespace stellar
+namespace payshares
 {
 using xdr::operator==;
 
@@ -32,7 +32,7 @@ MergeOpFrame::getThresholdLevel() const
 // make sure we aren't holding any credit
 // make sure the we delete all the offers
 // make sure the we delete all the trustlines
-// move the XLM to the new account
+// move the XPS to the new account
 bool
 MergeOpFrame::doApply(Application& app, LedgerDelta& delta,
                       LedgerManager& ledgerManager)

@@ -11,7 +11,7 @@
 
 #include <iostream>
 
-namespace stellar
+namespace payshares
 {
 
 std::chrono::hours const NtpSynchronizationChecker::CHECK_FREQUENCY(24);

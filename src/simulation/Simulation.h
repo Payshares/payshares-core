@@ -10,18 +10,18 @@
 #include "main/Config.h"
 #include "medida/medida.h"
 #include "overlay/LoopbackPeer.h"
-#include "overlay/StellarXDR.h"
+#include "overlay/PaysharesXDR.h"
 #include "simulation/LoadGenerator.h"
 #include "test/TxTests.h"
 #include "util/Timer.h"
-#include "xdr/Stellar-types.h"
+#include "xdr/Payshares-types.h"
 
 #define SIMULATION_CREATE_NODE(N) \
     const Hash v##N##VSeed = sha256("NODE_SEED_" #N); \
     const SecretKey v##N##SecretKey = SecretKey::fromSeed(v##N##VSeed); \
     const PublicKey v##N##NodeID = v##N##SecretKey.getPublicKey();
 
-namespace stellar
+namespace payshares
 {
 using xdr::operator<;
 using xdr::operator==;

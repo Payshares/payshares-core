@@ -6,7 +6,7 @@
 
 #include "invariant/Invariant.h"
 
-namespace stellar
+namespace payshares
 {
 
 class Application;

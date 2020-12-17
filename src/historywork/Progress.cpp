@@ -7,7 +7,7 @@
 #include "lib/util/format.h"
 #include "main/Application.h"
 
-namespace stellar
+namespace payshares
 {
 
 std::string

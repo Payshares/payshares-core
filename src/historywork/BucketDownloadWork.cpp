@@ -7,7 +7,7 @@
 #include "util/TmpDir.h"
 #include "util/make_unique.h"
 
-namespace stellar
+namespace payshares
 {
 
 BucketDownloadWork::BucketDownloadWork(Application& app, WorkParent& parent,

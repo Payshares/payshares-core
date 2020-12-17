@@ -7,9 +7,9 @@
 #include "crypto/SecretKey.h"
 #include "lib/catch.hpp"
 #include "scp/QuorumSetUtils.h"
-#include "xdr/Stellar-SCP.h"
+#include "xdr/Payshares-SCP.h"
 
-namespace stellar
+namespace payshares
 {
 
 TEST_CASE("sane quorum set", "[scp][quorumset]")

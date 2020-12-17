@@ -18,8 +18,8 @@
 #include "util/Timer.h"
 #include <functional>
 
-using namespace stellar;
-using namespace stellar::txtest;
+using namespace payshares;
+using namespace payshares::txtest;
 
 static const unsigned maxWinners = 2000u;
 

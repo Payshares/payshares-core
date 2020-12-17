@@ -16,8 +16,8 @@
 #include "util/Timer.h"
 #include "util/make_unique.h"
 
-using namespace stellar;
-using namespace stellar::txtest;
+using namespace payshares;
+using namespace payshares::txtest;
 
 typedef std::unique_ptr<Application> appPtr;
 

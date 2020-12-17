@@ -14,8 +14,8 @@
 #include "xdrpp/printer.h"
 #include <algorithm>
 
-using namespace stellar;
-using namespace stellar::txtest;
+using namespace payshares;
+using namespace payshares::txtest;
 
 /*
   Test how TxResults are created from valid and malformed transactions,

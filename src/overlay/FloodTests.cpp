@@ -19,7 +19,7 @@
 #include "util/Logging.h"
 #include "util/Timer.h"
 
-namespace stellar
+namespace payshares
 {
 using namespace txtest;
 
@@ -141,7 +141,7 @@ TEST_CASE("Flooding", "[flood][overlay]")
                 {createAccount(dest.getPublicKey(), txAmount)}, expectedSeq);
 
             // this is basically a modified version of Peer::recvTransaction
-            auto msg = tx1->toStellarMessage();
+            auto msg = tx1->toPaysharesMessage();
             auto res = inApp->getHerder().recvTransaction(tx1);
             REQUIRE(res == Herder::TX_STATUS_PENDING);
             inApp->getOverlayManager().broadcastMessage(msg);
@@ -235,7 +235,7 @@ TEST_CASE("Flooding", "[flood][overlay]")
 
             // build an SCP nomination message for the next ledger
 
-            StellarValue sv(txSet.getContentsHash(),
+            PaysharesValue sv(txSet.getContentsHash(),
                             lcl.header.scpValue.closeTime + 1,
                             emptyUpgradeSteps, 0);
 

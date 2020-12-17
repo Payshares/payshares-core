@@ -7,7 +7,7 @@
 #include "crypto/SHA.h"
 #include "transactions/TransactionFrame.h"
 
-namespace stellar
+namespace payshares
 {
 
 namespace SignerKeyUtils

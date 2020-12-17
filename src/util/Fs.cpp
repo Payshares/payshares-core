@@ -18,7 +18,7 @@
 
 #include <cstdio>
 
-namespace stellar
+namespace payshares
 {
 
 namespace fs

@@ -7,7 +7,7 @@
 #include "util/Logging.h"
 #include <ostream>
 
-using namespace stellar;
+using namespace payshares;
 
 static void
 expect_bitsets(BitsetEnumerator& be, std::vector<std::bitset<64>> const& expect)

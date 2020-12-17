@@ -12,7 +12,7 @@
 #include "main/PersistentState.h"
 #include "transactions/TransactionFrame.h"
 #include "util/Timer.h"
-#include "xdr/Stellar-ledger.h"
+#include "xdr/Payshares-ledger.h"
 #include <string>
 
 /*
@@ -27,7 +27,7 @@ class Timer;
 class Counter;
 }
 
-namespace stellar
+namespace payshares
 {
 class Application;
 class Database;

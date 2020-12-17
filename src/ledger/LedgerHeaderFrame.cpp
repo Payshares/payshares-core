@@ -15,7 +15,7 @@
 #include "xdrpp/marshal.h"
 #include <util/basen.h>
 
-namespace stellar
+namespace payshares
 {
 
 using namespace soci;

@@ -13,7 +13,7 @@
 #include "util/Logging.h"
 #include "util/Timer.h"
 
-namespace stellar
+namespace payshares
 {
 
 TEST_CASE("TCPPeer can communicate", "[overlay]")

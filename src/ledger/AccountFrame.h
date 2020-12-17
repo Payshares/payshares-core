@@ -18,7 +18,7 @@ class prepare_temp_type;
 }
 }
 
-namespace stellar
+namespace payshares
 {
 class LedgerManager;
 class LedgerRange;
@@ -33,7 +33,7 @@ class AccountFrame : public EntryFrame
     void normalize();
 
     static std::vector<Signer> loadSigners(Database& db,
-                                           std::string const& actIDStrKey);
+                                           std::string const& actIDPsrKey);
     void applySigners(Database& db, bool insert);
 
   public:

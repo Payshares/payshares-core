@@ -11,7 +11,7 @@
 #include "main/ApplicationImpl.h"
 #include <type_traits>
 
-namespace stellar
+namespace payshares
 {
 
 class LoopbackPeerConnection;
