@@ -9,4 +9,4 @@
 	url = https://github.com/payshares/medida.git
 [submodule "lib/cereal"]
 	path = lib/cereal
-	url = https://github.com/payshares/cereal
+	url = https://github.com/payshares/cereal.git
