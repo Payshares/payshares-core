@@ -3,10 +3,10 @@
 	url = https://github.com/payshares/libsodium.git
 [submodule "lib/xdrpp"]
 	path = lib/xdrpp
-	url = https://github.com/xdrpp/xdrpp.git
+	url = https://github.com/payshares/xdrpp.git
 [submodule "lib/libmedida"]
 	path = lib/libmedida
 	url = https://github.com/payshares/medida.git
 [submodule "lib/cereal"]
 	path = lib/cereal
-	url = https://github.com/USCiLab/cereal
+	url = https://github.com/payshares/cereal
