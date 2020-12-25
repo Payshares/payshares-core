@@ -125,7 +125,8 @@ printtxn(const std::string& filename, bool base64)
     {
         using xdr::operator<<;
         TransactionEnvelope txenv;
-        xdr::xdr_from_opaque(readFile(filename, base64), txenv);
+        // kedia: the following line causes an error 
+        // xdr::xdr_from_opaque(readFile(filename, base64), txenv);
         std::cout << txenv;
     }
     catch (const std::exception& e)
@@ -237,7 +238,8 @@ signtxn(std::string const& filename, bool base64)
                 "Refusing to write binary transaction to terminal");
 
         TransactionEnvelope txenv;
-        xdr::xdr_from_opaque(readFile(filename, base64), txenv);
+        // kedia:  the following line causes an error 
+        // xdr::xdr_from_opaque(readFile(filename, base64), txenv);
         if (txenv.signatures.size() == txenv.signatures.max_size())
             throw std::runtime_error(
                 "Evelope already contains maximum number of signatures");
