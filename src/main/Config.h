@@ -13,7 +13,7 @@
 #include <memory>
 #include <string>
 
-#define DEFAULT_PEER_PORT 11625
+#define DEFAULT_PEER_PORT 11756
 
 namespace payshares
 {

@@ -56,14 +56,14 @@ forcescp doesn't change the requirements for quorum so although this node will e
   base-32 ASCII format.
 * **--netid STRING**:  The --signtxn option requires a particular
   network to sign for.  For example, the production payshares network is
-  "`Public Global Payshares Network ; September 2015`" while the test
+  "`Payshares Public Global Network ; September 2017`" while the test
   network is "`Test SDF Network ; September 2015`".
 * **--test**: Run all the unit tests. For [further info](https://github.com/philsquared/Catch/blob/master/docs/command-line.md) on possible options for test. For example this will run just the "Herder" tests and stop after the first failure: `payshares-core --test -a [Herder]` 
 * **--version**: Print version info and then exit.
 
 
 ## HTTP Commands
-By default payshares-core listens for connections from localhost on port 11626. 
+By default payshares-core listens for connections from localhost on port 11757. 
 You can send commands to payshares-core via a web browser, curl, or using the --c 
 command line option (see above). Most commands return their results in JSON format.
 
